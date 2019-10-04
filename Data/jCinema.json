@@ -1,0 +1,8 @@
+[
+    {
+        "name":"cinemark",
+        "adress":"Alvarado 2481",
+        "capacity":250,
+        "ticket_value":20
+    }
+]

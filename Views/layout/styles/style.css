@@ -1,0 +1,195 @@
+
+*{
+    font-family: 'Quicksand', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    cursor: default;
+}
+
+.title{
+    visibility: hidden;
+}
+
+body{
+    background-color:#170420;
+}
+
+.logo{
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    height: 80%;
+    width: 80%;
+    display: block;
+}
+
+.container{
+    margin-left: 5%;
+    height: 250px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.137);
+    border-radius: 3px;
+}
+
+h1{
+    padding-top: 5%;
+    text-align: center;
+    margin-bottom: 0%;
+    color: rgba(0, 0, 0, 0.603);
+}
+
+.container input[type="text"], input[type="password"]{
+    margin-top: 3%;
+    padding-left: 5%;
+    height: 40px;
+    width: 95%;
+    background-color: rgba(255, 255, 255, 0.103);
+    border: 0px;
+    cursor: text;
+    display: block;
+}
+
+.container ::placeholder{
+    font-size:15px;
+    padding-left: 1px;
+    color: rgba(0, 0, 0, 0.267);
+}
+
+.submit{
+    margin-top: 5%;
+    margin-left:-5%; 
+    width: 110%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.89);
+    border: 0px;
+    color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.562);
+}
+
+@media screen and (min-width: 768px){
+
+    header{
+        height: 100px;
+        width: 100%;
+        background-color: black;
+
+    }
+
+    footer{
+        height: 100px;
+        width: 100%;
+        background-color: black;
+        margin-top:4.9%;
+        position: fixed;
+        bottom: 0;
+    }
+
+    .logo{
+        margin-top: 3%;
+        margin-left: 1%;
+        margin-bottom: 5.3%;
+        height: 28%;
+        width: 28%;
+        transition: 2s;
+    }
+
+    .logo:hover {
+        filter: brightness(1000%) drop-shadow(32px 32px 20px rgb(0, 0, 0));
+        transition: 2s;
+    }
+
+    .container{
+        background-color: rgba(255, 255, 255, 0.137);
+        border-radius: 3px;
+        margin-left: 59%;
+        width: 35%;
+        height: 275px;
+        margin-top: -29%;
+    }
+
+    .container input[type="text"]:hover, input[type="password"]:hover{
+        background-color: rgba(255, 255, 255, 0.055);
+        transition: background-color linear .5s;
+        
+        outline: none;
+    }
+
+    .container ::placeholder{
+        font-size:17px;
+        padding-left: 1px;
+        
+        color: rgba(0, 0, 0, 0.712);
+    }
+
+    h1{
+        padding-top: 2%;
+        text-align: center;
+        margin-bottom: 0%;
+        color: rgb(0, 0, 0);
+        font-size: 35px;
+    }
+    
+    .container input[type="text"], input[type="password"]{
+        margin-top: 3%;
+        padding-left: 5%;
+        height: 35px;
+        width: 95%;
+        background-color: rgba(207, 14, 14, 0);
+        border-bottom: solid 1px rgba(0, 0, 0, 0.342);
+        cursor: text;
+        display: block;
+        transition: background-color .5s;
+        outline: none;
+    }
+
+    .submit{
+        margin-top: 5%;
+        margin-left:-5%; 
+        width: 110%;
+        height: 45px;
+        background-color: rgba(0, 0, 0, 0.89);
+        border: 8px;
+        color: rgb(255, 255, 255);
+        border-radius: 6px;
+        cursor: pointer;
+        
+    }
+
+    .submit:hover{
+        border: 1px solid rgba(255, 255, 255, 0.74);
+        transition: 0.3s;
+    }
+
+
+    .title{
+        visibility: visible;
+        margin-left: 30%;
+        position: absolute;
+        margin-top: -21%;
+        font-size: 30px;
+        color: #ea164773;
+        cursor: default;
+    }
+
+    .register{
+        margin-left:40%; 
+        width: 20%;
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.89);
+        border: 0px;
+        color: rgb(255, 255, 255);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .register:hover{
+        border:1px solid rgba(255, 255, 255, 0.74);
+        transition: 0.3s;
+    }
+
+    .or{
+        margin-bottom: 0.5%;
+        text-align: center;
+    }
+
+}
