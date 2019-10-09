@@ -1,27 +1,15 @@
 <?php
     
-    require_once('Config\Autoload.php');
-    include('Process/checkUserLogged.php');
-    include('api/nowPlaying.php');
-?>
+    
+    //include('Process/checkUserLogged.php');
+    include("homeHeader.php");
 
-<!doctype html>
-<html lang="en">
-<head>
-     <!-- Required meta tags -->
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <!-- Style -->
-     <link rel="stylesheet" href="css/styleHome.css">
-     <link href="https://fonts.googleapis.com/css?family=Quicksand|Work+Sans&display=swap" rel="stylesheet">
-     <link href="https://api.themoviedb.org/3/movie/76341?api_key=bf47253392bc9b0762556be7b49ab033">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-     <script src="js/script.js"></script>
-     <title>MoviePass - [TP FINAL]</title>
-</head>
-<body>
-    <?php
-        $allMovies = $movieList->GetAll();
+    use DAO\MovieRepository as MovieRepository;
+
+    $movieList = new MovieRepository();
+    $movieList->retrieveDataApi();
+    $allMovies = $movieList->GetAll();
+
     ?>
     <header>
         <nav>
@@ -37,7 +25,7 @@
                 xmlns="http://www.w3.org/2000/svg">
                 <circle cx="239.5" cy="239.5" r="229.5" stroke="#ea164773" stroke-width="10"/>
             </svg>
-            <img id="logo" src="img/logo.png" alt="">
+            <img id="logo" src="<?php echo "\\".IMG_PATH."Logo.png" ?>" alt="">
             <p class="title">MoviePass</p>
             <ul>
                 <li>Carrito</li>
@@ -61,18 +49,16 @@
                     }
                 ?>
                 </tr>
-                <button class="slider" id="slideRight" type="button"> <img src="img/flecha.png" alt="MoviePass" class="logo"></button>
-                <button class="slider" id="slideLeft" type="button"> <img src="img/flecha.png" alt="MoviePass" class="logo"></button>
+                <button class="slider" id="slideRight" type="button"> <img src="<?php echo "\\".IMG_PATH."flecha.png" ?>" alt="MoviePass" class="logo"></button>
+                <button class="slider" id="slideLeft" type="button"> <img src=<?php echo "\\".IMG_PATH."flecha.png" ?> alt="MoviePass" class="logo"></button>
             </table>
         </div>
     </section>
     
     <section id="body">
 
-    </section>
-
-
-    
+    </section>        
+    </body>
 
 
 

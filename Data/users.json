@@ -5,5 +5,12 @@
         "dni" : "41923121",
         "email" : "agus_lopeza@live.com",
         "pass" : "asd123"
+    },
+    {
+        "name" : "admin",
+        "surname" : "adm",
+        "dni" : "1111111",
+        "email" : "a@a",
+        "pass" : "123123"
     }
 ]

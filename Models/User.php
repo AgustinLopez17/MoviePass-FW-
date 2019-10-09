@@ -20,7 +20,6 @@
                 return $this->firstName;
         }
 
-
         public function setFirstName($firstName)
         {
                 $this->firstName = $firstName;

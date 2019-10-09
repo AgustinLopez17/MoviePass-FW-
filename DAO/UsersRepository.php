@@ -65,7 +65,7 @@
             foreach($arrayToDecode as $valuesArray)
             {
 
-                $user = new User($valuesArray["name"], $valuesArray["dni"], $valuesArray["birthdate"], $valuesArray["email"], $valuesArray["pass"]);
+                $user = new User($valuesArray["name"], $valuesArray["surname"], $valuesArray["dni"], $valuesArray["email"], $valuesArray["pass"]);
 
                 array_push($this->usersList, $user);
 

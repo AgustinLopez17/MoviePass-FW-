@@ -1,7 +1,4 @@
 <?php namespace Controllers;
-     require_once('..\Config\Autoload.php');
-     use Config\Autoload as Autoload;
-     Autoload::Start();
 
     use Models\User as User;
     use DAO\UsersRepository as UserRepository;
@@ -18,7 +15,7 @@
                 $loggedUser = new User($user->getFirstName(),$user->getSurName(),$user->getDni(),$user->getEmail(),$user->getPass());
                 $_SESSION["loggedUser"] = $loggedUser;
                 
-                header("location: ../Views/home.php");
+                header("location: ./Views/home.php");
                 
             }else{
                 echo "<script> if(confirm('Datos incorrectos, vuelva a intentarlo !'));";  
