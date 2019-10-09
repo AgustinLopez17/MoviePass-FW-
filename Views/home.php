@@ -18,15 +18,9 @@
                 <li>Buscar</li>
                 <li>Categorias</li>
             </ul>
-            <svg 
-                id="stroke"
-                viewBox="0 0 479 479" 
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="239.5" cy="239.5" r="229.5" stroke="#ea164773" stroke-width="10"/>
-            </svg>
-            <img id="logo" src="<?php echo "\\".IMG_PATH."Logo.png" ?>" alt="">
-            <p class="title">MoviePass</p>
+            <?php echo file_get_contents(__DIR__."\image.svg") ?>
+
+            <!-- <p class="title">MoviePass</p> -->
             <ul>
                 <li>Carrito</li>
                 <li>Favoritos</li>

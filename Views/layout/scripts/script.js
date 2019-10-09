@@ -1,24 +1,29 @@
+$("html,body").animate({
+    scrollTop: 840
+}, 3300);
+
 $(document).ready(function(){
     
 
     var flag=false;
     var scroll;
     $(window).scroll(function(){
+        
         scroll=$(window).scrollTop();
         if(scroll > 450){
             if(!flag){
                 $("#logo").css({"margin-top":"-5px","width":"92px","height":"92px","filter":"brightness(1000%) drop-shadow(15px 15px 15px rgb(0, 0, 0))"});
-                $(".title").css({"margin-top": "5%","margin-left": "-25.2%","font-size":"10px","color":"white"}); 
-                $("#stroke").css({"top":"8%","width":"100px","height":"100px"});               
+                
+                        
                 $("header").css({"background-color":"black"});
                 flag = true;
             }
         }else{
             if(flag){
                 $("#logo").css({"margin-top":"160px","width":"350px","height":"350px","filter":"none"});
-                $(".title").css({"margin-top": "7%","margin-left": "-37.5%","font-size":"25px","color":"#850339"}); 
+                
                 $("header").css({"background-color":"rgba(255, 255, 255, 0.103)"});
-                $("#stroke").css({"top":"228%","width":"380px","height":"380px"});   
+                
                 flag = false;
             }
         }
