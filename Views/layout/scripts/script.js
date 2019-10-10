@@ -1,5 +1,5 @@
 $("html,body").animate({
-    scrollTop: 840
+    scrollTop: 860
 }, 3300);
 
 $(document).ready(function(){

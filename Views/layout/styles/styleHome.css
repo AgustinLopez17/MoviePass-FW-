@@ -2,8 +2,11 @@
     font-family: 'Quicksand', sans-serif;
     margin: 0px;
     padding: 0px;
-    
 }   
+
+body{
+    overflow: hidden;
+}
 
 section#banner{
     width: 100%;
