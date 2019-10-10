@@ -5,7 +5,7 @@
 }   
 
 body{
-    overflow: hidden;
+    overflow: hidden; /*cambiarluegoporhidden*/
 }
 
 section#banner{
@@ -100,7 +100,7 @@ ul li{
     border: none;
     -webkit-transition: filter 1s;
     opacity: 0.4;
-
+    visibility: hidden;
 }
 #slideLeft{
     position: fixed;
@@ -111,6 +111,7 @@ ul li{
     -webkit-transition: filter 1s;
     transform: rotate(180deg);
     opacity: 0.4;
+    visibility: hidden;
 }
 
 #slideRight:hover, #slideLeft:hover{
@@ -129,3 +130,44 @@ button[type="button"]{
     height: 60px;
 
 }
+
+
+.inner {
+    background: rgba(255, 255, 255, 0.678);
+    padding: 1em;
+    border-radius: 3px;
+    width: 268px;
+    height: 420px;
+    clip-path: circle(5% at 90% 93%);
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+    
+    
+    margin-top: -149%;
+    
+}
+    .inner:hover {
+        clip-path: circle(75%);
+        background: rgba(0, 0, 0, 0.849);
+    }
+
+    .inner h1 {
+        color: white;
+        margin: 0;
+    }
+
+    .inner p {
+        color: white;
+        font-size: .8rem;
+    }
+    .inner span {
+        float: right;
+        color: rgb(0, 0, 0);
+        transition: color .5s;
+        position: relative;
+        margin-right: 4.5%;
+        margin-top: 147%;
+    }
+    .inner:hover span {
+        color: rgba(255,255,255,0)
+    }

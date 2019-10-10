@@ -8,7 +8,7 @@
     {
         public function login()
         {
-            session_destroy();
+            session_destroy(); //sacar esto en un futuro, hay que hacer el check loggin
             if($_POST){
                 if(isset($_POST["email"]) && isset($_POST["password"])){
                     $email = $_POST["email"];
@@ -23,7 +23,9 @@
                         require_once("./Views/home.php");
                         
                     }else{
-                        echo "<script> if(confirm('Datos incorrectos, vuelva a intentarlo !'));";  
+                        echo "<script> if(confirm('Datos incorrectos, vuelva a intentarlo !')); ";  
+                        //include(VIEWS_PATH."header.php");
+                        //include("Views/viewLogin.php");
                         echo "window.location = '../index.php'; </script>";
                     }
                 }else{

@@ -18,7 +18,6 @@ class RegisterController{
                         $userExist = true;
                     }
                 }
-                
                 if(!$userExist) {
                     $usersRepository->Add($user);
                     echo "<script> if(confirm('Usuario agregado con éxito!'));";

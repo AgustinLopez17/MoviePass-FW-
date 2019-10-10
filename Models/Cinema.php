@@ -4,14 +4,14 @@
 
     class Cinema{
         private $name;
-        private $adress;
+        private $address;
         private $capacity;
         private $ticket_value;
 
-        public function __construct($name, $adress, $capacity, $ticket_value)
+        public function __construct($name, $address, $capacity, $ticket_value)
         {
             $this->name = $name;
-            $this->adress = $adress;
+            $this->address = $address;
             $this->capacity = $capacity;
             $this->ticket_value = $ticket_value;
         }
@@ -28,14 +28,14 @@
                 return $this;
         }
 
-        public function getAdress()
+        public function getAddress()
         {
-                return $this->adress;
+                return $this->address;
         }
  
-        public function setAdress($adress)
+        public function setAddress($address)
         {
-                $this->adress = $adress;
+                $this->address = $address;
 
                 return $this;
         }

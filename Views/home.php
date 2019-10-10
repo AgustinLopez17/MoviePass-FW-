@@ -38,6 +38,15 @@
                 ?>
                     <td> 
                         <img class="movies" src="<?php echo "https://image.tmdb.org/t/p/w300/".$values->getImage() ?>" alt="">
+                        <div class="container">
+                            <div class="inner">
+                                <span class="&">i</span>
+                                <h1><?php echo $values->getTitle(); ?></h1> <br><br>
+                                <p><?php echo $values->getOverview(); ?></p><br><br><br><br>
+                                <p><?php echo "Lenght: ".$values->getLenght()."m"; ?></p>
+                                <p><?php echo "Language: ".$values->getLanguage(); ?></p>
+                            </div>
+                        </div>
                     </td>
                 <?php
                     }

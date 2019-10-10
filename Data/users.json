@@ -14,24 +14,10 @@
         "pass": "123123"
     },
     {
-        "name": "Agustin",
-        "surname": "Lopez",
-        "email": "agus.99.neco@gmail.com",
-        "dni": "12345678",
-        "pass": "asdasd"
-    },
-    {
-        "name": "Agustin",
-        "surname": "Lopez",
-        "email": "agus_neco99@hotmail.com",
-        "dni": "21412",
-        "pass": "asdasd"
-    },
-    {
-        "name": "dsd",
-        "surname": "aaa",
-        "email": "tincccasdw@ttt.com",
-        "dni": "1122333",
-        "pass": "asdasd"
+        "name": "Sacha",
+        "surname": "Martinez",
+        "email": "s@s",
+        "dni": "123123",
+        "pass": "123123"
     }
 ]
