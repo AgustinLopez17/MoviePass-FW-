@@ -5,20 +5,20 @@
 <style>
     @import "/MoviePass/Views/layout/styles/styleHome.css";
 </style>
-<script src="<?php echo "\\".JS_PATH ?>"></script>
+<script src="<?php echo JS_PATH ?>"></script>
 
 <header >
     
     <nav>
         <ul>
-            <li>Inicio</li>
+            <li><?php echo $_SESSION["loggedUser"]->getFirstName(); ?></li>
             <li>Buscar</li>
             <li>Categorias</li>
         </ul>
         
         <?php
             if($_SESSION["loggedUser"]->getGroup() == 1){
-               ?> <a id="admin" href="adminCines"> <?php echo file_get_contents(__DIR__."\image.svg"); ?> </a> <?php
+               ?> <a id="admin" href="<?php echo FRONT_ROOT ?>Cinema/adminCines"> <?php echo file_get_contents(__DIR__."\image.svg"); ?> </a> <?php
             }else{
                 echo file_get_contents(__DIR__."\image.svg");
             }
@@ -27,7 +27,7 @@
         <ul>
             <li>Carrito</li>
             <li>Perfil</li>
-            <li> <a href="exit"> Salir  </a></li>
+            <li> <a href="<?php echo FRONT_ROOT ?>HomePage/exit"> Salir  </a></li>
         </ul>
     </nav>
 </header>

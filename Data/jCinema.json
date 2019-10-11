@@ -2,17 +2,17 @@
     {
         "id": 1,
         "name": "cinemark",
-        "address": "Alvarado 2481",
-        "capacity": 250,
-        "ticket_value": 20,
-        "available": 1
+        "address": "conchatumadre2481",
+        "capacity": "250",
+        "ticket_value": "20",
+        "available": "1"
     },
     {
         "id": 2,
         "name": "chotita",
-        "address": "Alvarado 2481",
-        "capacity": "250",
-        "ticket_value": "20",
+        "address": "dad2481",
+        "capacity": "900",
+        "ticket_value": "2000",
         "available": "0"
     },
     {
@@ -62,5 +62,21 @@
         "capacity": "2",
         "ticket_value": "3",
         "available": "1"
+    },
+    {
+        "id": 9,
+        "name": "tata",
+        "address": "22",
+        "capacity": "33",
+        "ticket_value": "44",
+        "available": "1"
+    },
+    {
+        "id": 10,
+        "name": "tartaa",
+        "address": "2",
+        "capacity": "2",
+        "ticket_value": "3",
+        "available": "0 "
     }
 ]

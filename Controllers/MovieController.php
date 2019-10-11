@@ -8,8 +8,7 @@
             $movieList = new MovieRepository();
             $movieList->retrieveDataApi();
             $allMovies = $movieList->GetAll();
-
-            include("./Views/home.php");
+            include("Views/home.php");
         }
 
     }

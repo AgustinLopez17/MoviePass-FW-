@@ -14,5 +14,13 @@
         "dni": "12345678",
         "pass": "asd123",
         "group": 1
+    },
+    {
+        "name": "German",
+        "surname": "Lopez",
+        "email": "a@a",
+        "dni": "12345678",
+        "pass": "asd123",
+        "group": 0
     }
 ]
