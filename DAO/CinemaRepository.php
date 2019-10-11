@@ -1,4 +1,4 @@
-<?php
+<?php namespace DAO;
     use DAO\IRepository as IRepository;
     use Models\Cinema as Cinema;
 

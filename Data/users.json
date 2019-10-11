@@ -1,23 +1,18 @@
 [
     {
         "name": "Agustin",
-        "surname": "Lopez Aguillon",
+        "surname": "Lopez",
         "email": "agus_lopeza@live.com",
         "dni": "41923121",
-        "pass": "asd123"
+        "pass": "asd123",
+        "group": 0
     },
     {
-        "name": "admin",
-        "surname": "adm",
-        "email": "a@a",
-        "dni": "1111111",
-        "pass": "123123"
-    },
-    {
-        "name": "Sacha",
-        "surname": "Martinez",
-        "email": "s@s",
-        "dni": "123123",
-        "pass": "123123"
+        "name": "Agustin",
+        "surname": "Lopez",
+        "email": "lab4@utn.com",
+        "dni": "12345678",
+        "pass": "asd123",
+        "group": 1
     }
 ]

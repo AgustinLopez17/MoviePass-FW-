@@ -1,0 +1,119 @@
+*{
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body{
+    background-color: #050011;
+}
+
+svg{
+    margin-top: 10%;
+    width: 70%;
+    height: auto;
+    margin-left: 15%;
+    transition: filter 2s;
+}
+
+svg:hover{
+    filter: drop-shadow(10px 10px 10px rgb(0, 0, 0));
+}
+
+nav{
+    display: table;
+    margin: 0;
+    height: 40px;
+    width: 100%;
+}
+
+ul{
+    margin-top: 10%;
+    display: block;
+    float: left;
+    list-style: none;
+    width: 100%;
+}
+
+ul li{
+    float: top;
+    margin: 0;
+    padding: 2px;
+    color: white;
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+header{
+    top: 0%;
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: rgb(46, 2, 27);
+    -webkit-transition: background-color .5s;
+}
+
+button{
+    width: 100%;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.068);
+    color: white;
+    border: none;
+    border-bottom: solid 1px black;
+    transition: background-color 0.5s;
+    cursor: pointer;
+    outline: none;
+
+}
+
+button:hover{
+    background-color: rgba(255, 255, 255, 0.336);
+
+}
+
+.alta,.mod,.baja{
+    margin-top: 5.5%;
+    margin-left: 29%;
+    width: 65%;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.212);
+    
+}
+
+
+
+.alta input[type="text"]:hover, input[type="text"]:hover,input[type="number"]:hover, input[type="number"]:hover{
+    background-color: rgba(255, 255, 255, 0.055);
+    transition: background-color linear .5s;
+    
+}
+
+.alta ::placeholder{
+    font-size:17px;
+    padding-left: 1px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.712);
+}
+
+.alta input[type="text"], input[type="text"], input[type="number"], input[type="number"]{
+    margin-top: 3%;
+    padding-left: 5%;
+    height: 35px;
+    width: 95%;
+    background-color: rgba(207, 14, 14, 0);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.342);
+    cursor: text;
+    display: block;
+    transition: background-color .5s;
+    outline: none;
+    
+}
+
+input{
+    border: none;
+}
+
+.submit{
+    margin-top: 5%;
+}

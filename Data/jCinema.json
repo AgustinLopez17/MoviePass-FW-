@@ -1,8 +1,26 @@
 [
     {
-        "name":"cinemark",
-        "adress":"Alvarado 2481",
-        "capacity":250,
-        "ticket_value":20
+        "name": "cinemark",
+        "address": "Alvarado 2481",
+        "capacity": 250,
+        "ticket_value": 20
+    },
+    {
+        "name": "ocean",
+        "address": "Alvarado 2481",
+        "capacity": 250,
+        "ticket_value": 20
+    },
+    {
+        "name": "aldrey",
+        "address": "Alvarado 2481",
+        "capacity": 250,
+        "ticket_value": 20
+    },
+    {
+        "name": "gallegos",
+        "address": "Alvarado 2481",
+        "capacity": 250,
+        "ticket_value": 20
     }
 ]

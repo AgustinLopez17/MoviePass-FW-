@@ -6,13 +6,15 @@
         private $dni;
         private $email;
         private $pass;
+        private $group;
 
-        public function __construct($firstName,$surName,$dni,$email,$pass){
+        public function __construct($firstName,$surName,$dni,$email,$pass,$group){
             $this->firstName = $firstName;
             $this->surName = $surName;
             $this->dni = $dni;
             $this->email = $email;
             $this->pass = $pass;
+            $this->group = $group;
         }
 
         public function getFirstName()
@@ -72,14 +74,20 @@
         {
                 return $this->pass;
         }
-
-
         public function setPass($pass)
         {
                 $this->pass = $pass;
 
                 return $this;
         }
+
+        public function getGroup(){
+                return $this->group;
+        }
+        public function setGroup($group){
+                $this->group = $group;
+        }
+
     }
 
 ?>

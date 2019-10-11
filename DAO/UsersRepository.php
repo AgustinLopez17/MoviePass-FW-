@@ -42,6 +42,7 @@
                 $valuesArray["email"] = $user->getEmail();
                 $valuesArray["dni"] = $user->getDni();
                 $valuesArray["pass"] = $user->getPass();
+                $valuesArray["group"] = $user->getGroup();
 
                 array_push($arrayToEncode, $valuesArray);
             }
@@ -65,7 +66,7 @@
             foreach($arrayToDecode as $valuesArray)
             {
 
-                $user = new User($valuesArray["name"], $valuesArray["surname"], $valuesArray["dni"], $valuesArray["email"], $valuesArray["pass"]);
+                $user = new User($valuesArray["name"], $valuesArray["surname"], $valuesArray["dni"], $valuesArray["email"], $valuesArray["pass"], $valuesArray["group"]);
 
                 array_push($this->usersList, $user);
 

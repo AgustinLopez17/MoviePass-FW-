@@ -15,6 +15,7 @@
 
 	session_start();
 
+	$first= true;
 	include_once(VIEWS_PATH."header.php");
 
 	Router::Route(new Request());

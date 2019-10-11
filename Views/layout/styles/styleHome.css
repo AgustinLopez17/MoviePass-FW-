@@ -5,7 +5,7 @@
 }   
 
 body{
-    overflow: hidden; /*cambiarluegoporhidden*/
+    overflow: hidden; 
 }
 
 section#banner{
@@ -65,6 +65,8 @@ ul{
     stroke-dashoffset: 1442px;
     animation: line-anim 1.5s ease forwards;
 }
+
+
 
 @keyframes line-anim{
     to{
@@ -131,7 +133,6 @@ button[type="button"]{
 
 }
 
-
 .inner {
     background: rgba(255, 255, 255, 0.678);
     padding: 1em;
@@ -139,7 +140,7 @@ button[type="button"]{
     width: 268px;
     height: 420px;
     clip-path: circle(5% at 90% 93%);
-    transition: all .5s ease-in-out;
+    transition: all .5s ease-out;
     cursor: pointer;
     
     
@@ -171,3 +172,5 @@ button[type="button"]{
     .inner:hover span {
         color: rgba(255,255,255,0)
     }
+
+ 

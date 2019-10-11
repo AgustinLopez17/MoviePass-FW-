@@ -1,5 +1,10 @@
+
+<style>
+    @import "/MoviePass/Views/layout/styles/style.css";
+</style>
+<script src="<?php echo "\\".JS_PATH2 ?>"></script>
 <header></header>
-    <img src="views/img/logo.png" alt="MoviePass" class="logo">
+    <img src="<?php echo "\\".IMG_PATH."logo.png" ?>" alt="MoviePass" class="logo">
     <p class="title">MoviePass</p>
     <div id="scroller">
         <div class="container">
