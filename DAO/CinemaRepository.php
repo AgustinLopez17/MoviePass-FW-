@@ -1,4 +1,5 @@
 <?php namespace DAO;
+
     use DAO\IRepository as IRepository;
     use Models\Cinema as Cinema;
 
@@ -8,6 +9,11 @@
 
         public function DeleteAll(){
             $this->cinemaList = null;
+            $this->SaveData();
+        }
+
+        public function modifyList($cinemaList){
+            $this->cinemaList = $cinemaList;
             $this->SaveData();
         }
 
@@ -40,11 +46,12 @@
             
             foreach($this->cinemaList as $cinema)
             {
+                $valuesArray['id'] = $cinema->getId();
                 $valuesArray["name"] = $cinema->getName();
                 $valuesArray["address"] = $cinema->getAddress();
                 $valuesArray["capacity"] = $cinema->getCapacity();
                 $valuesArray["ticket_value"] = $cinema->getTicket_value();
- 
+                $valuesArray["available"] = $cinema->getAvailable();
                 array_push($arrayToEncode, $valuesArray);
             }
 
@@ -68,7 +75,7 @@
                 foreach($arrayToDecode as $valuesArray)
                 {
     
-                    $cinema = new Cinema($valuesArray["name"], $valuesArray["address"], $valuesArray["capacity"], $valuesArray["ticket_value"]);
+                    $cinema = new Cinema($valuesArray["id"],$valuesArray["name"], $valuesArray["address"], $valuesArray["capacity"], $valuesArray["ticket_value"],$valuesArray["available"]);
     
                     array_push($this->cinemaList, $cinema);
     

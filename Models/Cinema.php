@@ -3,17 +3,21 @@
     namespace Models;
 
     class Cinema{
+        private $id;
         private $name;
         private $address;
         private $capacity;
         private $ticket_value;
+        private $available;
 
-        public function __construct($name, $address, $capacity, $ticket_value)
+        public function __construct($id,$name, $address, $capacity, $ticket_value,$available)
         {
+            $this->id = $id;
             $this->name = $name;
             $this->address = $address;
             $this->capacity = $capacity;
             $this->ticket_value = $ticket_value;
+            $this->available = $available;
         }
     
         public function getName()
@@ -63,6 +67,21 @@
 
                 return $this;
         }
+
+        public function getId(){
+                return $this->id;
+        }
+        public function setId($id){
+                $this->id = $id;
+        }
+
+        public function getAvailable(){
+                return $this->available;
+        }
+        public function setAvailable($available){
+                $this->available = $available;
+        }
+
     }
 
 ?>

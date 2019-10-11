@@ -8,13 +8,12 @@
     use Models\Cinema as Cinema;
 
     use Controllers\MovieController as MovieController;
-
+    use Controllers\CinemaController as CinemaController;
 
     class HomePageController
     {
         public function login()
         {
-             //sacar esto en un futuro, hay que hacer el check loggin
             if($_POST){
                 if(isset($_POST["email"]) && isset($_POST["password"])){
                     $email = $_POST["email"];
@@ -46,18 +45,28 @@
         public function adminCines(){
             $cinemaRepository = new CinemaRepository();
             $cinemaList = $cinemaRepository->getAll();
-            
             require_once("./Views/adminCines.php");
         }
 
         public function addCine(){
             if($_POST){
-                $cinema = new Cinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value']);
+                $cinemaController = new CinemaController();
+                $cinemaController->newCinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
                 $cRepo = new CinemaRepository();
-                $cRepo->add($cinema);
+                $cinemaList = $cRepo->getAll();
                 require_once("./Views/adminCines.php");
             }
-            require_once("./Views/adminCines.php");
+        }
+
+        public function modCine(){
+            if($_POST){
+                $cRepo = new CinemaRepository();
+                $cinemaList = $cRepo->getAll();
+                $cinemaController = new CinemaController();
+                $newList = $cinemaController->modifyCinema($cinemaList,$_POST['id'],$_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
+                $cRepo->modifyList($newList);
+                require_once("./Views/adminCines.php");
+            }
         }
         
         public function back(){
@@ -70,6 +79,8 @@
             unset($_SESSION["loggedUser"]);
             include_once("./Views/viewLogin.php");
         }
+
+
 
 
     }

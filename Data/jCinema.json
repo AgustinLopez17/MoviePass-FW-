@@ -1,26 +1,66 @@
 [
     {
+        "id": 1,
         "name": "cinemark",
         "address": "Alvarado 2481",
         "capacity": 250,
-        "ticket_value": 20
+        "ticket_value": 20,
+        "available": 1
     },
     {
-        "name": "ocean",
+        "id": 2,
+        "name": "chotita",
         "address": "Alvarado 2481",
-        "capacity": 250,
-        "ticket_value": 20
+        "capacity": "250",
+        "ticket_value": "20",
+        "available": "0"
     },
     {
+        "id": 3,
         "name": "aldrey",
-        "address": "Alvarado 2481",
-        "capacity": 250,
-        "ticket_value": 20
+        "address": "Belgrano 2020",
+        "capacity": "250",
+        "ticket_value": "20",
+        "available": "1"
     },
     {
+        "id": 4,
         "name": "gallegos",
         "address": "Alvarado 2481",
         "capacity": 250,
-        "ticket_value": 20
+        "ticket_value": 20,
+        "available": 1
+    },
+    {
+        "id": 5,
+        "name": "fasf",
+        "address": "12312",
+        "capacity": "312312",
+        "ticket_value": "3123",
+        "available": "0 "
+    },
+    {
+        "id": 6,
+        "name": "rtrtr",
+        "address": "2",
+        "capacity": "2",
+        "ticket_value": "2",
+        "available": "0 "
+    },
+    {
+        "id": 7,
+        "name": "joaquin",
+        "address": "3",
+        "capacity": "3",
+        "ticket_value": "3",
+        "available": "1"
+    },
+    {
+        "id": 8,
+        "name": "fafafa",
+        "address": "323",
+        "capacity": "2",
+        "ticket_value": "3",
+        "available": "1"
     }
 ]
