@@ -11,9 +11,9 @@
     
     <nav>
         <ul>
+            <li>Cart</li>
+            <li>Search</li>
             <li><?php echo $_SESSION["loggedUser"]->getFirstName(); ?></li>
-            <li>Buscar</li>
-            <li>Categorias</li>
         </ul>
         
         <?php
@@ -25,9 +25,9 @@
         ?>
 
         <ul>
-            <li>Carrito</li>
-            <li>Perfil</li>
-            <li> <a href="<?php echo FRONT_ROOT ?>HomePage/exit"> Salir  </a></li>
+            <li>Categories</li>
+            <li>Profile</li>
+            <li> <a href="<?php echo FRONT_ROOT ?>HomePage/exit"> Exit  </a></li>
         </ul>
     </nav>
 </header>

@@ -31,13 +31,35 @@ class CinemaController{
         }
     }
 
+    public function bajaCine($id){
+        $cRepo = new CinemaRepository();
+        $cinemaList = $cRepo->getAll();
+        if(is_array($id)){
+            foreach($id as $aux){
+                foreach($cinemaList as $value){
+                    if($value->getId() == $aux){
+                        if($value->getAvailable() == 0){
+                            $value->setAvailable(1);
+                            $newList = $this->modifyCinema($cinemaList,$value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
+                            $cRepo->modifyList($newList);
+                        }else{
+                            $value->setAvailable(0);
+                            $newList = $this->modifyCinema($cinemaList,$value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
+                            $cRepo->modifyList($newList);
+                        }
+                    }
+                }
+            }
+        }
+        require_once("Views/adminCines.php");
+    }
+
 
     public function newCinema($name,$address,$capacity,$ticket_value,$available){
         $cRepo = new CinemaRepository();
         $listCinema = $cRepo->getAll();
-        if($this->exist($listCinema,$name)){
-            $id;
-            
+        if(!$this->exist($listCinema,$name)){
+            $id = 0;
             foreach($listCinema as $values){
                 $id=$values->getId();
             }

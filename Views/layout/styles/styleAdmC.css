@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: #050011;
+    background-color: #d142007e;
     overflow: hidden;
 }
 
@@ -43,16 +43,42 @@ nav{
     padding: 2px;
     color: white;
     width: 100%;
-    margin-bottom: 5%;
+    margin-bottom: 2.5%;
+}
+
+#bajaCinema #cinemas2{
+    float: top;
+    margin: 0;
+    padding: 2px;
+    color: white;
+    width: 100%;
+    margin-bottom: 2.5%;
 }
 
 header{
+    padding-top:8% ;
     top: 0%;
     position: fixed;
-    width: 300px;
+    width: 25%;
     height: 100%;
     background-color: rgb(46, 2, 27);
     -webkit-transition: background-color .5s;
+
+}
+
+.barra{
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    position: absolute;
+}
+.barraAbajo{
+    margin-top: 40.6%;
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    bottom: 0;
 }
 
 button{
@@ -73,22 +99,68 @@ button:hover{
 
 }
 
-.alta,.mod,.baja{
-    margin-top: 5.5%;
-    margin-left: 29%;
+.baja{
+    margin-top: 13%;
+    margin-left: 30%;
+    margin-bottom: 100%;
+    border-radius: 4px;
     width: 65%;
-    height: 500px;
-    background-color: rgba(255, 255, 255, 0.212);
-    
+    height: 300px;
+    background-color: rgba(46, 2, 27, 0.952);
+    filter: drop-shadow(10px 0px 10px rgba(0, 0, 0, 0.623));
+}
+
+.mod{
+    border-radius: 4px;
+    margin-left: 30%;
+    margin-top: 13%;
+    width:65%;
+    height: 300px;
+    background-color: rgba(46, 2, 27, 0.952);
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    transition: 10s;
+    float: left;
 }
 
 
 
-.alta input[type="text"]:hover, input[type="text"]:hover,input[type="number"]:hover, input[type="number"]:hover{
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    background: rgba(0, 0, 0, 0.308);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+.alta{
+    border-radius: 4px;
+    margin-top: 11%;
+    width: 30%;
+    background-color: rgba(46, 2, 27, 0.952);
+    height: 320px;
+    margin-left: 48%;
+    margin-bottom: 100%;
+    padding-top: 2%;
+    filter: drop-shadow(10px 0px 10px rgba(0, 0, 0, 0.623));
+}
+
+
+
+input[placeholder="Alta cine"]:hover, input[placeholder="Modificar cine"]:hover,input[placeholder="Baja cine"]:hover{
     background-color: rgba(255, 255, 255, 0.055);
     transition: background-color linear .5s;
     
 }
+
 
 .alta ::placeholder{
     font-size:17px;
@@ -97,22 +169,9 @@ button:hover{
     color: rgba(0, 0, 0, 0.712);
 }
 
-.mdAlt input[type="text"], input[type="text"], input[type="number"], input[type="number"]{
-    margin-top: 3%;
-    padding-left: 5%;
-    height: 35px;
-    width: 95%;
-    background-color: rgba(207, 14, 14, 0);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.342);
-    cursor: text;
-    display: block;
-    transition: background-color .5s;
-    outline: none;
-}
-
 
 .submit{
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 #cinemas{
@@ -126,37 +185,118 @@ button:hover{
     transition: background-color .2s;
 }
 
+#cinemas2{
+    padding-top: .5%;
+    text-align: center;
+    width: 90%;
+    border-radius: 2px;
+    height: 25px;
+    margin-left: 5%;
+    background-color: rgba(255, 0, 0, 0.253);
+    transition: background-color .2s;
+}
+
 #cinemas:hover{
     background-color: rgba(255, 255, 255, 0.459);
 }
 
-
-
-
-
-.mod{
-    width: 90%;
-    overflow-x: scroll;
-
-    scroll-behavior: smooth;
-    transition: 10s;
-    float: left;
+#cinemas2:hover{
+    background-color: rgba(255, 0, 0, 0.459);
 }
+
+img{
+    display: inline;
+    float: right;
+    width: 25px;
+    height: auto;
+}
+
 
 #modC{
-    margin-top: 70%;
+    margin-top: 20%;
+    margin-right: 20px;
 }
 
-.modInp input[type="text"], input[type="text"], input[type="number"], input[type="number"]{
-    margin-top: 3%;
-    padding-left: 5%;
+input{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 1px rgb(0, 0, 0);
+}
+
+
+input[name="name"], input[name="address"],input[name="capacity"],input[name="ticket_value"]{
+    margin-top: 1%;
+    
+    
     height: 35px;
-    width: 50%;
-    background-color: rgba(207, 14, 14, 0);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.342);
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.267);
+    
     cursor: text;
     display: block;
     transition: background-color .5s;
     outline: none;
+}
+
+input[name="name"]:hover, input[name="address"]:hover,input[name="capacity"]:hover,input[name="ticket_value"]:hover{
+    background-color: rgba(255, 255, 255, 0.295);
+}
+
+input[placeholder="Type name of cinema"],input[placeholder="Type address"],input[placeholder="Type capacity"],input[placeholder="Type ticket value"]{
+    margin-top: 2%;
     
+    padding-left: 5%;
+    height: 35px;
+    width: 100%;
+    background-color: rgba(197, 197, 197, 0.171);
+    cursor: text;
+    display: block;
+    transition: background-color .5s;
+    outline: none;
+}
+
+input[type="radio"]{
+    
+    margin-left: 25%;
+}
+
+p{
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#titleAdd{
+    color: rgba(255, 255, 255, 0.418);
+    margin-left: 28%;
+    margin-bottom: 6%;
+}
+
+#titleModify{
+    color: rgba(255, 255, 255, 0.418);
+    margin-left: 24%;
+    margin-top: 1%;
+    margin-bottom: 6%;
+    position: fixed;
+}
+
+
+#titleBaja{
+    color: rgba(255, 255, 255, 0.418);
+    margin-left: 37.5%;
+    margin-bottom: 3%;
+    margin-top: 2%;
+
+}
+
+input[placeholder="Type name of cinema"]:hover,input[placeholder="Type address"]:hover,input[placeholder="Type capacity"]:hover,input[placeholder="Type ticket value"]:hover{
+
+    background-color: rgba(197, 197, 197, 0.295);
+
+}
+
+
+.baja{
+    overflow-y: scroll;
 }
