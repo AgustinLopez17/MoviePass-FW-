@@ -6,5 +6,37 @@
         "capacity": "500",
         "ticket_value": "220",
         "available": "1"
+    },
+    {
+        "id": 2,
+        "name": "aldrey",
+        "address": "asd 123",
+        "capacity": "444",
+        "ticket_value": "222",
+        "available": 1
+    },
+    {
+        "id": 3,
+        "name": "Gallegos",
+        "address": "gtr 453",
+        "capacity": "213",
+        "ticket_value": "552",
+        "available": 1
+    },
+    {
+        "id": 4,
+        "name": "CinePepito",
+        "address": "bbvd 132",
+        "capacity": "531",
+        "ticket_value": "11442",
+        "available": "1"
+    },
+    {
+        "id": 5,
+        "name": "Cine Carilito",
+        "address": "ced 1234",
+        "capacity": "5512",
+        "ticket_value": "31",
+        "available": "1"
     }
 ]

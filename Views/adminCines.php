@@ -63,7 +63,7 @@
             </ul>    
         </div>
         <div class="baja"> 
-        <h1 id="titleBaja">Unset cinema</h1>
+        <h1 id="titleBaja">Unset/set cinema</h1>
         <form action="<?php echo FRONT_ROOT ?>Cinema/bajaCine">
             <ul id="bajaCinema">
             <?php
