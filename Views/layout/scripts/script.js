@@ -29,17 +29,6 @@ $(document).ready(function(){
         }
     });
 
-
-    const buttonRight = document.getElementById('slideRight');
-    const buttonLeft = document.getElementById('slideLeft');
-    buttonRight.onclick = function () {
-        
-    document.getElementById('container').scrollLeft += 600;
-    };
-    buttonLeft.onclick = function () {
-    document.getElementById('container').scrollLeft -= 600;   
-    };
-
     const slider = document.querySelector('#container');
     let isDown = false;
     let startX;
@@ -67,4 +56,6 @@ $(document).ready(function(){
         slider.scrollLeft = scrollLeft - walk;
         console.log(walk);
     });
+
+
 });

@@ -120,6 +120,7 @@ button:hover{
     overflow-x: scroll;
     scroll-behavior: smooth;
     transition: 10s;
+
     float: left;
 }
 

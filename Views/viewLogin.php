@@ -2,6 +2,13 @@
 <style>
     @import "/MoviePass/Views/layout/styles/style.css";
 </style>
+<script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+
+
+<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+
+
 <script src="<?php echo JS_PATH2 ?>"></script>
 <header></header>
     <img src="<?php echo IMG_PATH."logo.png" ?>" alt="MoviePass" class="logo">
@@ -25,6 +32,9 @@
                 <input type="email" name="email" placeholder="Type your email" required>
                 <input type="password" name="pass" placeholder="Type your password" required>
                 <button type="submit" class="submit">Sign Up</button> <p class="or">or</p>
+
+                <a href="#" login="login">Iniciar sesion</a>
+
                 <button type="button" id="back">Back</button>
             </form>
         </div>

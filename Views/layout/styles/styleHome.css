@@ -173,4 +173,15 @@ button[type="button"]{
         color: rgba(255,255,255,0)
     }
 
- 
+ #buyTicket{
+    background-color: rgba(255, 255, 255, 0.171);
+    width: 98.5%;
+    height: 20px;
+    border: none;
+    margin-top: 0;
+ }
+
+ #buyTicket:hover{
+    background-color: rgba(255, 255, 255, 0.541);
+    cursor: pointer;
+ }

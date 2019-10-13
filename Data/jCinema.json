@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "name": "Cines Ocean",
+        "name": "Cine Ocean",
         "address": "83 801",
         "capacity": "500",
         "ticket_value": "220",
@@ -29,7 +29,7 @@
         "address": "bbvd 132",
         "capacity": "531",
         "ticket_value": "11442",
-        "available": "1"
+        "available": 1
     },
     {
         "id": 5,
@@ -37,6 +37,30 @@
         "address": "ced 1234",
         "capacity": "5512",
         "ticket_value": "31",
+        "available": 1
+    },
+    {
+        "id": 6,
+        "name": "Cine Toto",
+        "address": "222",
+        "capacity": "33",
+        "ticket_value": "444",
         "available": "1"
+    },
+    {
+        "id": 7,
+        "name": "tataaaa",
+        "address": "22",
+        "capacity": "111",
+        "ticket_value": "555",
+        "available": 1
+    },
+    {
+        "id": 8,
+        "name": "cines chinos",
+        "address": "44",
+        "capacity": "11",
+        "ticket_value": "241",
+        "available": 1
     }
 ]

@@ -254,5 +254,21 @@
         "original_language": "hi",
         "backdrop_path": "\/7JeHrXR1FU57Y6b90YDpFJMhmVO.jpg",
         "overview": "Khalid, is entrusted with the task of eliminating Kabir, a former soldier turned rogue, as he engages in an epic battle with his mentor who had taught him everything."
+    },
+    {
+        "id": 549859,
+        "title": "The Dead Center",
+        "runtime": 93,
+        "original_language": "en",
+        "backdrop_path": "\/fBVHOrbm7OsQ9xRDi8MCeqdA7D.jpg",
+        "overview": "When a mysterious \"John Doe\" wakes up in a morgue and wanders into a psychiatric ward, a devoted doctor and curious medical examiner must slowly uncover dark and sinister secrets about the man that reveal a more horrifying truth than they could have ever imagined."
+    },
+    {
+        "id": 420809,
+        "title": "Maleficent: Mistress of Evil",
+        "runtime": null,
+        "original_language": "en",
+        "backdrop_path": "\/tBuabjEqxzoUBHfbyNbd8ulgy5j.jpg",
+        "overview": "Maleficent and her goddaughter Aurora begin to question the complex family ties that bind them as they are pulled in different directions by impending nuptials, unexpected allies, and dark new forces at play."
     }
 ]
