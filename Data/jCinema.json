@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "name": "Cine Ocean",
+        "name": "Cine Ocean2",
         "address": "83 801",
         "capacity": "500",
         "ticket_value": "220",
-        "available": "1"
+        "available": 0
     },
     {
         "id": 2,
@@ -21,7 +21,7 @@
         "address": "gtr 453",
         "capacity": "213",
         "ticket_value": "552",
-        "available": 1
+        "available": 0
     },
     {
         "id": 4,
@@ -29,7 +29,7 @@
         "address": "bbvd 132",
         "capacity": "531",
         "ticket_value": "11442",
-        "available": 1
+        "available": 0
     },
     {
         "id": 5,
@@ -62,5 +62,29 @@
         "capacity": "11",
         "ticket_value": "241",
         "available": 1
+    },
+    {
+        "id": 9,
+        "name": "sacha's",
+        "address": "dada",
+        "capacity": "34",
+        "ticket_value": "11",
+        "available": 1
+    },
+    {
+        "id": 10,
+        "name": "Tincho's",
+        "address": "83 801",
+        "capacity": "123",
+        "ticket_value": "22",
+        "available": "1"
+    },
+    {
+        "id": 11,
+        "name": "asdasd",
+        "address": "312312",
+        "capacity": "123",
+        "ticket_value": "32",
+        "available": "1"
     }
 ]

@@ -133,6 +133,24 @@ button[type="button"]{
 
 }
 
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    background: rgba(0, 0, 0, 0.308);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+
 .inner {
     background: rgba(255, 255, 255, 0.678);
     padding: 1em;
@@ -142,7 +160,7 @@ button[type="button"]{
     clip-path: circle(5% at 90% 93%);
     transition: all .5s ease-out;
     cursor: pointer;
-    
+    overflow-y: scroll;
     
     margin-top: -149%;
     
@@ -166,8 +184,8 @@ button[type="button"]{
         color: rgb(0, 0, 0);
         transition: color .5s;
         position: relative;
-        margin-right: 4.5%;
-        margin-top: 147%;
+        margin-right: 1%;
+        margin-top: 153%;
     }
     .inner:hover span {
         color: rgba(255,255,255,0)

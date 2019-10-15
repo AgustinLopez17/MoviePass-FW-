@@ -27,6 +27,7 @@
 <div class="barraAbajo"></div>
         
 
+        <p class="msg"> <?php if(isset($msg)){ echo $msg;} ?> </p>
         <div class="alta">
             <form id="formAlta" action="<?php echo FRONT_ROOT ?>Cinema/addCine" method="POST"> 
                 <h1 id="titleAdd">Add cinema</h1>
@@ -40,6 +41,8 @@
                 <button type="submit" class="submit">New cinema</button>
             </form>
         </div>
+
+
         <div class="mod"> 
                 <h1 id="titleModify">Modify cinema</h1>
             <table>
@@ -47,7 +50,6 @@
                     <?php foreach($cinemaList as $value){?>
                     <td>
                         <form id="modC" action="<?php echo FRONT_ROOT ?>Cinema/modCine" method="POST"> 
-                            
                             <input type="hidden" name="id" value="<?php echo $value->getId(); ?>">
                             <input type="text" name="name" value="<?php echo $value->getName(); ?>">
                             <input type="text" name="address" value="<?php echo $value->getAddress(); ?>">

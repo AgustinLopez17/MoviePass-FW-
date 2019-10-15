@@ -154,6 +154,19 @@ button:hover{
     filter: drop-shadow(10px 0px 10px rgba(0, 0, 0, 0.623));
 }
 
+.msg{
+    color: red;
+    position: absolute;
+    top: 5%;
+    left: 48%
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
 
 input[placeholder="Alta cine"]:hover, input[placeholder="Modificar cine"]:hover,input[placeholder="Baja cine"]:hover{

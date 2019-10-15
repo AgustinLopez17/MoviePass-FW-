@@ -39,7 +39,7 @@ class UserDao extends Singleton //implements \interfaces\Crud
         catch(PDOException $e)
         {
 			echo $e;
-		}
+		} //USAR FINALLY
         if(!empty($resultSet))
             return $this->mapear($resultSet);
         else

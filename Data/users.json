@@ -8,10 +8,10 @@
         "group": 0
     },
     {
-        "name": "Agustin",
-        "surname": "Lopez",
+        "name": "Admin",
+        "surname": "rhePiola",
         "email": "lab4@utn.com",
-        "dni": "12345678",
+        "dni": "1",
         "pass": "asd123",
         "group": 1
     },
@@ -24,20 +24,20 @@
         "group": 0
     },
     {
-        "name": "aaa",
-        "surname": "vvv",
-        "email": "tincccasdw@ttt.com",
-        "dni": "22111",
+        "name": "Luis Sacha",
+        "surname": "Martinez",
+        "email": "luissach.mc@gmail.com",
+        "dni": "38684582",
         "pass": "asd123",
-        "group": 0
+        "group": 1
     },
     {
-        "name": "ff",
-        "surname": "eee",
-        "email": "d@d",
-        "dni": "1313",
-        "pass": "asd123",
-        "group": 0
+        "name": "Tincho",
+        "surname": "Fernandez",
+        "email": "tinchoo.fernandezz@gmail.com",
+        "dni": "40017811",
+        "pass": "mora",
+        "group": 1
     },
     {
         "name": "gg",

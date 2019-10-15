@@ -3,20 +3,41 @@
 use DAO\CinemaRepository as CinemaRepository;
 use Models\Cinema as Cinema;
 
+use DAO\MovieRepository as MovieRepository;
+
 class CinemaController{
 
     public function adminCines(){
         $cinemaRepository = new CinemaRepository();
         $cinemaList = $cinemaRepository->getAll();
-        require_once("Views/adminCines.php");
+        if($_SESSION["loggedUser"]->getGroup() == 1){
+            $movieList = new MovieRepository();
+            $movieList->retrieveDataApi();
+            $allMovies = $movieList->GetAll();
+            require_once("Views/adminCines.php");    //hay que hacer un userController para hacer esta verificacion
+        }else{
+            $movieList = new MovieRepository();
+            $movieList->retrieveDataApi();
+            $allMovies = $movieList->GetAll();
+            require_once("Views/home.php");
+        }
     }
 
     public function addCine(){
         if($_POST){
-            $this->newCinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
-            $cRepo = new CinemaRepository();
-            $cinemaList = $cRepo->getAll();
-            require_once("Views/adminCines.php");
+
+            if($_POST['capacity']>0 && $_POST['ticket_value']>=0){
+                $this->newCinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
+                $msg = "Cine cargado con éxito";
+                $cRepo = new CinemaRepository();
+                $cinemaList = $cRepo->getAll();
+                require_once("Views/adminCines.php");
+            }else{
+                $cRepo = new CinemaRepository();
+                $cinemaList = $cRepo->getAll();
+                $msg = "La capacidad y el valor del ticket debe ser mayor a 0";
+                require_once("Views/adminCines.php");
+            }
         }
     }
 
@@ -29,6 +50,10 @@ class CinemaController{
             $cRepo->modifyList($newList);
             require_once("Views/adminCines.php");
         }
+    }
+
+    public function valueConfirm($value){
+
     }
 
     public function bajaCine($id){
