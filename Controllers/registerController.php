@@ -4,7 +4,18 @@
     use DAO\UsersRepository as UserRepository;
     use Models\User as User;
 
+    use DAO\DAODB\UserDao as UserDao;
+
+
 class RegisterController{
+
+    protected $dao;
+
+    function __construct(){
+        $this->dao = UserDao::getInstance();
+    }
+
+
     public function register(){
         if($_POST){
             if(isset($_POST["firstName"]) && isset($_POST["surName"]) && isset($_POST["dni"]) 
@@ -15,8 +26,12 @@ class RegisterController{
                 }else{
                     $group = 0;
                 }
-                
                 $user = new User($_POST["firstName"],$_POST["surName"],$_POST["dni"],$_POST["email"],$_POST["pass"],$group);
+                
+
+                $this->dao->create($user);
+                
+                
                 $usersRepository = new UserRepository();
                 $userList = $usersRepository->getAll();
                 $userExist = false;

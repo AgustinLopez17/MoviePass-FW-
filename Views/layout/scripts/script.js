@@ -13,17 +13,13 @@ $(document).ready(function(){
         if(scroll > 450){
             if(!flag){
                 $("#logo").css({"margin-top":"-5px","width":"92px","height":"92px","filter":"brightness(1000%) drop-shadow(15px 15px 15px rgb(0, 0, 0))"});
-                //$("#admin").css({"color":"white"});
-
                 $("header").css({"background-color":"black"});
                 flag = true;
             }
         }else{
             if(flag){
                 $("#logo").css({"margin-top":"160px","width":"350px","height":"350px","filter":"none"});
-                
                 $("header").css({"background-color":"rgba(255, 255, 255, 0.103)"});
-                //$("#admin").css({"color":"transparent"});
                 flag = false;
             }
         }

@@ -10,6 +10,13 @@ define("JS_PATH2", FRONT_ROOT.VIEWS_PATH . "layout/scripts/script2.js");
 define("JS_PATH3", FRONT_ROOT.VIEWS_PATH . "layout/scripts/script3.js");
 define("SVG_PATH", FRONT_ROOT.VIEWS_PATH . "layout/styles/image.svg");
 define("IMG_PATH", FRONT_ROOT.VIEWS_PATH . "img/");
+
+define('DB_HOST',"localhost");
+define('DB_USER',"root");
+define('DB_PASS',"");
+define('DB_NAME',"MoviePass");
+
+
 ?>
 
 

@@ -22,5 +22,37 @@
         "dni": "12345678",
         "pass": "asd123",
         "group": 0
+    },
+    {
+        "name": "aaa",
+        "surname": "vvv",
+        "email": "tincccasdw@ttt.com",
+        "dni": "22111",
+        "pass": "asd123",
+        "group": 0
+    },
+    {
+        "name": "ff",
+        "surname": "eee",
+        "email": "d@d",
+        "dni": "1313",
+        "pass": "asd123",
+        "group": 0
+    },
+    {
+        "name": "gg",
+        "surname": "aa",
+        "email": "l@l",
+        "dni": "999",
+        "pass": "414",
+        "group": 0
+    },
+    {
+        "name": "kk",
+        "surname": "jj",
+        "email": "f@f",
+        "dni": "777",
+        "pass": "123",
+        "group": 0
     }
 ]

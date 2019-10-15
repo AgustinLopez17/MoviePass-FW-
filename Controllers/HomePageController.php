@@ -7,7 +7,7 @@
     use DAO\CinemaRepository as CinemaRepository;
     use Models\Cinema as Cinema;
 
-    use Controllers\MovieController as MovieController;
+    use DAO\MovieRepository as MovieRepository;
     use Controllers\CinemaController as CinemaController;
 
     class HomePageController
@@ -23,15 +23,7 @@
                     if($user != null && ($password == $user->getPass())){
                         $loggedUser = new User($user->getFirstName(),$user->getSurName(),$user->getDni(),$user->getEmail(),$user->getPass(),$user->getGroup());
                         $_SESSION["loggedUser"] = $loggedUser;
-
-                        $movieController = new MovieController();
-                        $movieController->ShowListView();
-
-                        // $movieList = new MovieRepository();
-                        // $movieList->retrieveDataApi();
-                        // $allMovies = $movieList->GetAll();
-                        //require_once("Views/home.php");
-                        
+                        $this->ShowListView();
                     }else{
                         echo "<script> if(confirm('Datos incorrectos, vuelva a intentarlo !')); ";  
                         echo "window.location = '../index.php'; </script>";
@@ -42,9 +34,15 @@
                     echo "window.location = '../index.php'; </script>";
                 }
             }else if(isset($_SESSION['loggedUser'])){
-                $movieController = new MovieController();
-                $movieController->ShowListView();
+                $this->ShowListView();
             }
+        }
+
+        public function showListView(){
+            $movieList = new MovieRepository();
+            $movieList->retrieveDataApi();
+            $allMovies = $movieList->GetAll();
+            include("Views/home.php");
         }
 
         public function exit(){
