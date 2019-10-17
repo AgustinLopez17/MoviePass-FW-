@@ -1,40 +1,64 @@
 <?php namespace Controllers;
 
-use DAO\CinemaRepository as CinemaRepository;
+use DAO\DAODB\CinemaDao as CinemaDao;
 use Models\Cinema as Cinema;
-
-use DAO\MovieRepository as MovieRepository;
+use DAO\DAODB\MovieDao as MovieDao;
 
 class CinemaController{
 
+    private $cinemaDao;
+
+    function __construct(){
+        $this->cinemaDao = new CinemaDao();
+    }
+
+    public function allMovies(){
+        $movieList = new MovieDao();
+        $movieList->retrieveDataApi();
+        $allMovies = $movieList->readAll();
+        if(!is_array($allMovies)){
+            $movies = array($allMovies);
+        }else{
+            $movies = $allMovies;
+        }
+        return $movies;
+    }
+
+    public function allCines(){
+        $cinemaDao = new CinemaDao();
+        $cinemaList = $cinemaDao -> readAll();
+        if(empty($cinemaList))
+        {
+            $cinemas = array();
+        }else{
+            if(!is_array($cinemaList)){
+                $cinemas = array($cinemaList);
+            }else{
+                $cinemas = $cinemaList;
+            }
+
+        }
+        return $cinemas;
+    }
+
     public function adminCines(){
-        $cinemaRepository = new CinemaRepository();
-        $cinemaList = $cinemaRepository->getAll();
+        $cinemaList = $this->allCines();
+        $allMovies = $this->allMovies();
         if($_SESSION["loggedUser"]->getGroup() == 1){
-            $movieList = new MovieRepository();
-            $movieList->retrieveDataApi();
-            $allMovies = $movieList->GetAll();
             require_once("Views/adminCines.php");    //hay que hacer un userController para hacer esta verificacion
         }else{
-            $movieList = new MovieRepository();
-            $movieList->retrieveDataApi();
-            $allMovies = $movieList->GetAll();
             require_once("Views/home.php");
         }
     }
 
     public function addCine(){
         if($_POST){
-
+            $cinemaList = $this->allCines();
             if($_POST['capacity']>0 && $_POST['ticket_value']>=0){
                 $this->newCinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
                 $msg = "Cine cargado con éxito";
-                $cRepo = new CinemaRepository();
-                $cinemaList = $cRepo->getAll();
                 require_once("Views/adminCines.php");
             }else{
-                $cRepo = new CinemaRepository();
-                $cinemaList = $cRepo->getAll();
                 $msg = "La capacidad y el valor del ticket debe ser mayor a 0";
                 require_once("Views/adminCines.php");
             }
@@ -43,34 +67,33 @@ class CinemaController{
 
     public function modCine(){
         if($_POST){
-            
-            $cRepo = new CinemaRepository();
-            $cinemaList = $cRepo->getAll();
-            $newList = $this->modifyCinema($cinemaList,$_POST['id'],$_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
-            $cRepo->modifyList($newList);
+            $cinemaList = $this->allCines();
+            if($this->cinemaDao->read($_POST['id'])->getName() != $_POST['name']){
+                if(!$this->exist($cinemaList,$_POST['name'])){
+                    $this->cinemaDao->update($_POST['id'],$_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
+                }
+            }else{
+                $this->cinemaDao->update($_POST['id'],$_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
+            }
+            $cinemaList = $this->allCines();
             require_once("Views/adminCines.php");
         }
     }
 
-    public function valueConfirm($value){
-
-    }
-
     public function bajaCine($id){
-        $cRepo = new CinemaRepository();
-        $cinemaList = $cRepo->getAll();
+        $cinemaList = $this->allCines();
         if(is_array($id)){
             foreach($id as $aux){
                 foreach($cinemaList as $value){
                     if($value->getId() == $aux){
                         if($value->getAvailable() == 0){
                             $value->setAvailable(1);
-                            $newList = $this->modifyCinema($cinemaList,$value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
-                            $cRepo->modifyList($newList);
+                            $this->cinemaDao->update($value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
+                            $cinemaList = $this->allCines();
                         }else{
                             $value->setAvailable(0);
-                            $newList = $this->modifyCinema($cinemaList,$value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
-                            $cRepo->modifyList($newList);
+                            $this->cinemaDao->update($value->getId(),$value->getName(),$value->getAddress(),$value->getCapacity(),$value->getTicket_value(),$value->getAvailable());
+                            $cinemaList = $this->allCines();
                         }
                     }
                 }
@@ -81,27 +104,12 @@ class CinemaController{
 
 
     public function newCinema($name,$address,$capacity,$ticket_value,$available){
-        $cRepo = new CinemaRepository();
-        $listCinema = $cRepo->getAll();
-        if(!$this->exist($listCinema,$name)){
-            $id = 0;
-            foreach($listCinema as $values){
-                $id=$values->getId();
-            }
-            $cinema = new Cinema($id+1,$name,$address,$capacity,$ticket_value,$available);
-            $cRepo->add($cinema);
-        }
-    }
-
-    public function modifyCinema($cinemaList,$id,$name,$address,$capacity,$ticket_value,$available){
-        $cinemaList[$id-1]->setAddress($address);
-        $cinemaList[$id-1]->setCapacity($capacity);
-        $cinemaList[$id-1]->setTicket_value($ticket_value);
-        $cinemaList[$id-1]->setAvailable($available);
+        $cinemaList = $this->allCines();
+        $cinemaDao = new CinemaDao();
         if(!$this->exist($cinemaList,$name)){
-            $cinemaList[$id-1]->setName($name);
+            $cinema = new Cinema($name,$address,$capacity,$ticket_value,$available);
+            $cinemaDao->create($cinema);
         }
-        return $cinemaList;
     }
 
     public function exist($listCinema,$name){

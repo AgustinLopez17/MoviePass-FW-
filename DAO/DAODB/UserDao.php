@@ -13,18 +13,18 @@ class UserDao extends Singleton //implements \interfaces\Crud
     }
     public function create($user)
     {
-		$sql = "INSERT INTO users (name, surname, dni, email, pass, group) VALUES (:name, :surname, :dni, :email, :pass, :group)";
+		$sql = "INSERT INTO users (name, surname, DNI, email, pass, user_group) VALUES (:name, :surname, :DNI, :email, :pass, :user_group)";
         $parameters['name'] = $user->getFirstName();
         $parameters['surname'] = $user->getSurName();
-        $parameters['dni'] = $user->getDni();
+        $parameters['DNI'] = $user->getDni();
         $parameters['email'] = $user->getEmail();
         $parameters['pass'] = $user->getPass();
-        $parameters['group'] = $user->getGroup();
+        $parameters['user_group'] = $user->getGroup();
 		try {
             $this->connection = Connection::getInstance();
             return $this->connection->ExecuteNonQuery($sql, $parameters);
         }
-        catch(PDOException $e) {
+        catch(PDOException $e){
 			echo $e;
 		}
     }
@@ -39,11 +39,14 @@ class UserDao extends Singleton //implements \interfaces\Crud
         catch(PDOException $e)
         {
 			echo $e;
-		} //USAR FINALLY
-        if(!empty($resultSet))
-            return $this->mapear($resultSet);
-        else
-            return false;
+        }
+        finally
+        {
+            if(!empty($resultSet))
+                return $this->mapear($resultSet);
+            else
+                return false;
+        } 
     }
     public function read ($email)
     {
@@ -60,15 +63,18 @@ class UserDao extends Singleton //implements \interfaces\Crud
             echo 'console.log("Error en base de datos. Archivo: UserDao.php")';
             echo '</script>';
         }
-        if(!empty($resultSet))
-            return $this->mapear($resultSet);
-        else
-            return false;
+        finally
+        {
+            if(!empty($resultSet))
+                return $this->mapear($resultSet);
+            else
+                return false;
+        }
     }
     public function readById ($dni)
     {
-        $sql = "SELECT * FROM users where dni = :dni";
-        $parameters['dni'] = $dni;
+        $sql = "SELECT * FROM users where DNI = :DNI";
+        $parameters['DNI'] = $dni;
         try
         {
             $this->connection = Connection::getInstance();
@@ -80,15 +86,18 @@ class UserDao extends Singleton //implements \interfaces\Crud
             echo 'console.log("Error en base de datos. Archivo: userdao.php")';
             echo '</script>';
         }
-        if(!empty($resultSet))
-            return $this->mapear($resultSet);
-        else
-            return false;
+        finally
+        {
+            if(!empty($resultSet))
+                return $this->mapear($resultSet);
+            else
+                return false;
+        }
     }
     public function update ($dni,$pass)
     {
-      $sql = "UPDATE users SET pass = :pass  WHERE dni = :dni";
-      $parameters['dni'] = $dni;
+      $sql = "UPDATE users SET pass = :pass  WHERE DNI = :DNI";
+      $parameters['DNI'] = $dni;
       $parameters['pass'] = $pass;
       try
       {
@@ -117,7 +126,7 @@ class UserDao extends Singleton //implements \interfaces\Crud
    	protected function mapear($value) {
 		$value = is_array($value) ? $value : [];
 		$resp = array_map(function($p){
-		    return new User( $p['name'], $p['surname'], $p['dni'], $p['email'],$p['pass'],$p['group']);
+		    return new User( $p['name'], $p['surname'], $p['DNI'], $p['email'],$p['pass'],$p['user_group']);
         }, $value);
             /* devuelve un arreglo si tiene datos y sino devuelve nulo*/
             return count($resp) > 1 ? $resp : $resp['0'];

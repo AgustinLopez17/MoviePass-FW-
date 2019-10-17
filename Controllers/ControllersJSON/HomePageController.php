@@ -1,9 +1,14 @@
 <?php
     namespace Controllers;
 
-    use DAO\DAODB\UserDao as UserDao;
+    use DAO\UsersRepository as UserRepository;
     use Models\User as User;
-    use DAO\DAODB\MovieDao as MovieDao;
+
+    use DAO\CinemaRepository as CinemaRepository;
+    use Models\Cinema as Cinema;
+
+    use DAO\MovieRepository as MovieRepository;
+    use Controllers\CinemaController as CinemaController;
 
     class HomePageController
     {
@@ -14,10 +19,12 @@
                     $email = $_POST["email"];
                     $password = $_POST["password"];
 
-                    $userDao = new UserDao();
-                    $user = $userDao->read($email);
 
-                    if($user && ($password == $user->getPass())){
+
+
+                    $userRepository = new UserRepository();
+                    $user = $userRepository->GetByEmail($email);
+                    if($user != null && ($password == $user->getPass())){
                         $loggedUser = new User($user->getFirstName(),$user->getSurName(),$user->getDni(),$user->getEmail(),$user->getPass(),$user->getGroup());
                         $_SESSION["loggedUser"] = $loggedUser;
                         $this->ShowListView();
@@ -39,9 +46,9 @@
         
 
         public function showListView(){
-            $movieList = new MovieDao();
+            $movieList = new MovieRepository();
             $movieList->retrieveDataApi();
-            $allMovies = $movieList->readAll();
+            $allMovies = $movieList->GetAll();
             include("Views/home.php");
         }
 

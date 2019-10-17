@@ -1,90 +1,114 @@
 [
     {
-        "id": 1,
-        "name": "Cine Ocean2",
-        "address": "83 801",
-        "capacity": "500",
-        "ticket_value": "220",
-        "available": 0
+        "id": null,
+        "name": null,
+        "address": 1,
+        "capacity": "Cine Ocean2",
+        "ticket_value": "83 801",
+        "available": "500"
     },
     {
-        "id": 2,
-        "name": "aldrey",
-        "address": "asd 123",
-        "capacity": "444",
+        "id": null,
+        "name": null,
+        "address": 2,
+        "capacity": "aldrey",
+        "ticket_value": "asd 123",
+        "available": "444"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 3,
+        "capacity": "Gallegos",
+        "ticket_value": "gtr 453",
+        "available": "213"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 4,
+        "capacity": "CinePepito",
+        "ticket_value": "bbvd 132",
+        "available": "531"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 5,
+        "capacity": "Cine Carilito",
+        "ticket_value": "ced 1234",
+        "available": "5512"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 6,
+        "capacity": "Cine Toto",
         "ticket_value": "222",
-        "available": 1
+        "available": "33"
     },
     {
-        "id": 3,
-        "name": "Gallegos",
-        "address": "gtr 453",
-        "capacity": "213",
-        "ticket_value": "552",
-        "available": 0
-    },
-    {
-        "id": 4,
-        "name": "CinePepito",
-        "address": "bbvd 132",
-        "capacity": "531",
-        "ticket_value": "11442",
-        "available": 0
-    },
-    {
-        "id": 5,
-        "name": "Cine Carilito",
-        "address": "ced 1234",
-        "capacity": "5512",
-        "ticket_value": "31",
-        "available": 1
-    },
-    {
-        "id": 6,
-        "name": "Cine Toto",
-        "address": "222",
-        "capacity": "33",
-        "ticket_value": "444",
-        "available": "1"
-    },
-    {
-        "id": 7,
-        "name": "tataaaa",
-        "address": "22",
-        "capacity": "111",
-        "ticket_value": "555",
-        "available": 1
-    },
-    {
-        "id": 8,
-        "name": "cines chinos",
-        "address": "44",
-        "capacity": "11",
-        "ticket_value": "241",
-        "available": 1
-    },
-    {
-        "id": 9,
-        "name": "sacha's",
-        "address": "dada",
-        "capacity": "34",
-        "ticket_value": "11",
-        "available": 1
-    },
-    {
-        "id": 10,
-        "name": "Tincho's",
-        "address": "83 801",
-        "capacity": "123",
+        "id": null,
+        "name": null,
+        "address": 7,
+        "capacity": "tataaaa",
         "ticket_value": "22",
-        "available": "1"
+        "available": "111"
     },
     {
-        "id": 11,
-        "name": "asdasd",
-        "address": "312312",
+        "id": null,
+        "name": null,
+        "address": 8,
+        "capacity": "cines chinos",
+        "ticket_value": "44",
+        "available": "11"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 9,
+        "capacity": "sacha's",
+        "ticket_value": "dada",
+        "available": "34"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 10,
+        "capacity": "Tincho's",
+        "ticket_value": "83 801",
+        "available": "123"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 11,
+        "capacity": "asdasd",
+        "ticket_value": "312312",
+        "available": "123"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 12,
+        "capacity": "sdasd",
+        "ticket_value": "asd 123",
+        "available": "23"
+    },
+    {
+        "id": null,
+        "name": null,
+        "address": 1,
+        "capacity": "Tincho's",
+        "ticket_value": "123",
+        "available": "123"
+    },
+    {
+        "id": null,
+        "name": 1,
+        "address": "Tincho's",
         "capacity": "123",
-        "ticket_value": "32",
-        "available": "1"
+        "ticket_value": "123",
+        "available": "123"
     }
 ]

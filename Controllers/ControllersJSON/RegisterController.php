@@ -1,7 +1,11 @@
 <?php
     namespace Controllers;
+
+    use DAO\UsersRepository as UserRepository;
     use Models\User as User;
+
     use DAO\DAODB\UserDao as UserDao;
+
 
 class RegisterController{
 
@@ -10,6 +14,7 @@ class RegisterController{
     function __construct(){
         $this->dao = UserDao::getInstance();
     }
+
 
     public function register(){
         if($_POST){
@@ -21,27 +26,17 @@ class RegisterController{
                 }else{
                     $group = 0;
                 }
-                $user = new User($_POST["firstName"],$_POST["surName"],$_POST["dni"],$_POST["email"],$_POST["pass"],$group);
-                
-                $users = $this->dao->readAll();
-
-                if( !empty($users) && !is_array($users)){
-                    $usersList = array($users);
-                }else{
-                    $userList = $users;
-                }
+                $user = new User($_POST["firstName"],$_POST["surName"],$_POST["dni"],$_POST["email"],$_POST["pass"],$group);  
+                $usersRepository = new UserRepository();
+                $userList = $usersRepository->getAll();
                 $userExist = false;
-
-
-                foreach($usersList as $value){
+                foreach ($userList as $key => $value) {
                     if($value->getDni() == $user->getDni()){
                         $userExist = true;
                     }
                 }
-
-
                 if(!$userExist) {
-                    $this->dao->create($user);
+                    $usersRepository->Add($user);
                     echo "<script> if(confirm('Usuario agregado con éxito!'));";
                     echo "window.location = '../index.php'; </script>";
                 } else {

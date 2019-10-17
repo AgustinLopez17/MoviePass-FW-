@@ -1,58 +1,18 @@
 [
     {
-        "name": "Agustin",
-        "surname": "Lopez",
-        "email": "agus_lopeza@live.com",
-        "dni": "41923121",
-        "pass": "asd123",
-        "group": 0
-    },
-    {
         "name": "Admin",
-        "surname": "rhePiola",
+        "surname": "Master",
         "email": "lab4@utn.com",
         "dni": "1",
         "pass": "asd123",
         "group": 1
     },
     {
-        "name": "German",
-        "surname": "Lopez",
+        "name": "asd",
+        "surname": "asd",
         "email": "a@a",
-        "dni": "12345678",
-        "pass": "asd123",
-        "group": 0
-    },
-    {
-        "name": "Luis Sacha",
-        "surname": "Martinez",
-        "email": "luissach.mc@gmail.com",
-        "dni": "38684582",
-        "pass": "asd123",
-        "group": 1
-    },
-    {
-        "name": "Tincho",
-        "surname": "Fernandez",
-        "email": "tinchoo.fernandezz@gmail.com",
-        "dni": "40017811",
-        "pass": "mora",
-        "group": 1
-    },
-    {
-        "name": "gg",
-        "surname": "aa",
-        "email": "l@l",
-        "dni": "999",
-        "pass": "414",
-        "group": 0
-    },
-    {
-        "name": "kk",
-        "surname": "jj",
-        "email": "f@f",
-        "dni": "777",
-        "pass": "123",
+        "dni": "123",
+        "pass": "asd",
         "group": 0
     }
 ]

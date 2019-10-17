@@ -10,9 +10,8 @@
         private $ticket_value;
         private $available;
 
-        public function __construct($id,$name, $address, $capacity, $ticket_value,$available)
+        public function __construct($name, $address, $capacity, $ticket_value,$available)
         {
-            $this->id = $id;
             $this->name = $name;
             $this->address = $address;
             $this->capacity = $capacity;

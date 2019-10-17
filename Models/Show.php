@@ -3,10 +3,9 @@
     namespace Models;
 
     class Show{
-        private $day;
-        private $hour;
-    
-    public function __construct($day, $hour){
+        private $date;
+        
+    public function __construct($date){
         $this->day = $day;
         $this->hour = $hour; 
     }
