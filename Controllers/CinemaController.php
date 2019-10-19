@@ -57,6 +57,8 @@ class CinemaController{
             if($_POST['capacity']>0 && $_POST['ticket_value']>=0){
                 $this->newCinema($_POST['name'],$_POST['address'],$_POST['capacity'],$_POST['ticket_value'],$_POST['available']);
                 $msg = "Cine cargado con éxito";
+                $cinemaList = $this->allCines();
+                $allMovies = $this->allMovies();
                 require_once("Views/adminCines.php");
             }else{
                 $msg = "La capacidad y el valor del ticket debe ser mayor a 0";

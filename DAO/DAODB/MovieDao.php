@@ -100,7 +100,7 @@
             $cont = 0;
             $response = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?page=1&language=en-US&api_key=bf47253392bc9b0762556be7b49ab033");
             $array = ($response) ? json_decode($response, true) : array();
-            $this->deleteNotNowPlaying($array);
+            //$this->deleteNotNowPlaying($array);
             foreach($array as $value){
                 if(is_array($value)){
                     foreach($value as $aux){
@@ -117,31 +117,31 @@
             }
         }
 
-        function deleteNotNowPlaying($array){
-            $all = $this->readAll();
-            $flag = false;
-            foreach($all as $valueR){
-                foreach($array as $value){
-                    if(is_array($value)){
-                        foreach($value as $aux){
-                            if(is_array($aux)){
-                                if($valueR->getId() == $aux['id']){
-                                    $flag = true;
-                                    break;
-                                }else{
-                                    $flag = false;
-                                }
-                            }
-                        }
-                    }
-                    if($flag)
-                        break;
-                }
-                if(!$flag){
-                    $this->delete($valueR->getId());
-                }
-            }
-        }
+        // function deleteNotNowPlaying($array){
+        //     $all = $this->readAll();
+        //     $flag = false;
+        //     foreach($all as $valueR){
+        //         foreach($array as $value){
+        //             if(is_array($value)){
+        //                 foreach($value as $aux){
+        //                     if(is_array($aux)){
+        //                         if($valueR->getId() == $aux['id']){
+        //                             $flag = true;
+        //                             break;
+        //                         }else{
+        //                             $flag = false;
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //             if($flag)
+        //                 break;
+        //         }
+        //         if(!$flag){
+        //             $this->delete($valueR->getId());
+        //         }
+        //     }
+        // }
     }
 
 

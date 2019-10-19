@@ -3,35 +3,48 @@
     namespace Models;
 
     class Show{
+        private $id_show;
         private $date;
+        private $id_cinema;
+        private $id_movie;
         
-    public function __construct($date){
-        $this->day = $day;
-        $this->hour = $hour; 
-    }
+        public function __construct($date,$id_cinema,$id_movie){
+            $this->date = $date; 
+            $this->id_cinema = $id_cinema;
+            $this->id_movie = $id_movie;
+        }
     
-        public function getDay()
+        public function getDate()
         {
-                return $this->day;
+                return $this->date;
         }
 
-        public function setDay($day)
+        public function setDate($date)
         {
-                $this->day = $day;
-
-                return $this;
+                $this->date = $date;
         }
 
-        public function getHour()
-        {
-                return $this->hour;
+        public function setId_show($id_show){
+            $this->id_show = $id_show;
+        }
+        public function getId_show(){
+            return $this->id_show;
+        }
+        
+        public function getId_cinema(){
+            return $this->id_cinema;
+        }
+        public function setId_cinema($id_cinema){
+            $this->id_cinema = $id_cinema;
         }
 
-        public function setHour($hour)
+        public function getId_movie()
         {
-                $this->hour = $hour;
-
-                return $this;
+            return $this->id_movie;
+        }
+        public function setId_movie($id_movie)
+        {
+            $this->id_movie = $id_movie;
         }
     }
 ?>

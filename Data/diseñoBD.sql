@@ -52,7 +52,7 @@ create table shows(
                     show_date date,
                     id_cinema int,
                     id_movie int,
-                    constraint pks_shows primary key (id_show,id_movie),
+                    constraint pks_shows primary key (id_show),
                     constraint fk_shows_id_cinema foreign key (id_cinema) references Cinemas(id_cinema),
                     constraint fk_shows_id_movie foreign key (id_movie) references Movies(id_movie)
 );

@@ -2,12 +2,10 @@
     include("header.php");
 ?>
 
-
 <style>
     @import "/MoviePass/Views/layout/styles/styleAdmC.css";
 </style>
 <script src="<?php echo JS_PATH3 ?>"></script>
-
 
 <header >
 
@@ -18,6 +16,7 @@
             <li id="cinemas"><button type="button" id="Alta">New cinema</button> </li>
             <li id="cinemas"><button type="button" id="Mod">Modify cinema</button></li>
             <li id="cinemas"><button type="button" id="Baja">Unset/set cinema</button></li>
+            <li id="cinemas"><button type="button" id="AddShow">Add Show</button></li>
         </ul>
     </nav>
     
@@ -65,19 +64,44 @@
             </ul>    
         </div>
         <div class="baja"> 
-        <h1 id="titleBaja">Unset/set cinema</h1>
-        <form action="<?php echo FRONT_ROOT ?>Cinema/bajaCine">
-            <ul id="bajaCinema">
-            <?php
-            $id = array();
-            foreach($cinemaList as $value){?>
-                <li id="<?php if($value->getAvailable() == 0){ echo "cinemas2"; }else{ echo "cinemas" ;}  ?>" >
-                    <?php echo $value->getName(); ?>
-                    <input type="checkbox" name="check_list[]" value="<?php echo $value->getId(); ?>">
-                </li> <?php } ?>
-            </ul>
-            <button type="submit"> SUBMIT </button>
-        </form>
+            <h1 id="titleBaja">Unset/set cinema</h1>
+            <form action="<?php echo FRONT_ROOT ?>Cinema/bajaCine">
+                <ul id="bajaCinema">
+                <?php
+                $id = array();
+                foreach($cinemaList as $value){?>
+                    <li id="<?php if($value->getAvailable() == 0){ echo "cinemas2"; }else{ echo "cinemas" ;}  ?>" >
+                        <?php echo $value->getName(); ?>
+                        <input type="checkbox" name="check_list[]" value="<?php echo $value->getId(); ?>">
+                    </li> <?php } ?>
+                </ul>
+                <button type="submit"> SUBMIT </button>
+            </form>
+        </div>
+        <p class="msg"> <?php if(isset($outcome)){ echo $outcome;} ?> </p>
+        <div class="addShow">.
+            <h1 id="titleAddShow">Add Show</h1>
+            <form action="<?php echo FRONT_ROOT ?>Show/addShow" method="POST">
+                <ul id="addShow">
+                    <li>
+                        <select name="id_cinema" id="selectCinema">
+                            <?php foreach($cinemaList as $value){  ?>
+                                <option value="<?php echo $value->getId();?>"> <?php echo $value->getName();?> </option>
+                            <?php } ?>
+                        </select>
+
+                        <select name="id_movie" id="selectMovie">
+                            <?php foreach($allMovies as $value){  ?>
+                                <option value="<?php echo $value->getId();?>"> <?php echo $value->getTitle();?> </option>
+                            <?php } ?>
+                        </select>
+
+                        <input type="datetime-local" name="date">
+                        
+                    </li>
+                </ul>
+                <button type="submit"> SUBMIT </button>
+            </form>
         </div>
         
 </body>

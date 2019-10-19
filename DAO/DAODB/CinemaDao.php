@@ -28,7 +28,7 @@
             }
         }
 
-        public function update ($id,$name,$address,$capacity,$ticket_value,$available)
+        public function update($id,$name,$address,$capacity,$ticket_value,$available)
         {
             $sql = "UPDATE cinemas SET name = :name, adress = :address, capacity = :capacity, ticket_value = :ticket_value, available = :available  WHERE id_cinema = :id";
             $parameters['id'] = $id;
