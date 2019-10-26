@@ -4,6 +4,7 @@
     use DAO\DAODB\UserDao as UserDao;
     use Models\User as User;
     use DAO\DAODB\MovieDao as MovieDao;
+    use DAO\DAODB\ShowDao as ShowDao;
 
     class HomePageController
     {
@@ -41,7 +42,20 @@
         public function showListView(){
             $movieList = new MovieDao();
             $movieList->retrieveDataApi();
-            $allMovies = $movieList->readAll();
+            $movies = $movieList->readAll();
+            $showDao = new ShowDao();
+            $allShows = $showDao->readAll();
+            $allMovies = array();
+            foreach($allShows as $show){
+                foreach($movies as $movie){
+                    if(  ($show->getId_movie() == $movie->getId())  ){
+                        if(!in_array($movie,$allMovies)){
+                            array_push($allMovies,$movie);
+                        }
+                    }
+                }
+            }
+
 
             include("Views/home.php");
         }
