@@ -14,6 +14,9 @@
         
         public function create($movie)
         {
+            if( $movie->getLenght() == null ){
+                $movie->setLenght(120);
+            }
             $sql = "INSERT INTO movies (id_movie, title, lenght, language, image, overview) VALUES (:id, :title, :lenght, :language, :image, :overview)";
             $parameters['id'] = $movie->getId();
             $parameters['title'] = $movie->getTitle();
@@ -21,6 +24,7 @@
             $parameters['language'] = $movie->getLanguage();
             $parameters['image'] = $movie->getImage();
             $parameters['overview'] = $movie->getOverview();
+
             try {
                 $this->connection = Connection::getInstance();
                 return $this->connection->ExecuteNonQuery($sql, $parameters);

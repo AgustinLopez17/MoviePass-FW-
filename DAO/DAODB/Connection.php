@@ -35,6 +35,7 @@ class Connection {
                $this->pdoStatement = $this->pdo->prepare($query);
                foreach($parameters as $parameterName => $value)
                {
+                    
                     $this->pdoStatement->bindParam(":".$parameterName, $value);
                }
                $this->pdoStatement->execute();
@@ -53,6 +54,7 @@ class Connection {
                $this->pdoStatement = $this->pdo->prepare($query);
                foreach($parameters as $parameterName => $value) {
                     $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
+                    
                }
                $this->pdoStatement->execute();
                return $this->pdoStatement->rowCount();
@@ -62,4 +64,23 @@ class Connection {
                throw $ex;
           }
      }
+
+     public function executeNonQuery2($query, $parameters = array())
+     {
+          try
+          {
+               $this->pdoStatement = $this->pdo->prepare($query);
+               foreach($parameters as $parameterName => $value) {
+                    $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
+                    
+               }
+               $this->pdoStatement->execute();
+               return $this->pdoStatement->fetchAll();
+          }
+          catch(\PDOException $ex)
+          {
+               throw $ex;
+          }
+     }
+
 }

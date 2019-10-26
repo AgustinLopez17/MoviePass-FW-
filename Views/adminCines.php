@@ -6,6 +6,9 @@
     @import "/MoviePass/Views/layout/styles/styleAdmC.css";
 </style>
 <script src="<?php echo JS_PATH3 ?>"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css"> -->
 
 <header >
 
@@ -81,9 +84,9 @@
         <p class="msg"> <?php if(isset($outcome)){ echo $outcome;} ?> </p>
         <div class="addShow">.
             <h1 id="titleAddShow">Add Show</h1>
-            <form action="<?php echo FRONT_ROOT ?>Show/addShow" method="POST">
-                <ul id="addShow">
-                    <li>
+            <form action="<?php echo FRONT_ROOT ?>Show/addShow" method="GET">
+                <!-- <ul id="addShow">
+                    <li> -->
                         <select name="id_cinema" id="selectCinema">
                             <?php foreach($cinemaList as $value){  ?>
                                 <option value="<?php echo $value->getId();?>"> <?php echo $value->getName();?> </option>
@@ -96,12 +99,13 @@
                             <?php } ?>
                         </select>
 
-                        <input type="datetime-local" name="date">
+                        <input type="date" name="date">
                         
-                    </li>
-                </ul>
+                    <!-- </li>
+                </ul> -->
                 <button type="submit"> SUBMIT </button>
             </form>
         </div>
         
+
 </body>

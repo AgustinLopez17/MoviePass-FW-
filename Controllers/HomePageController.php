@@ -42,6 +42,7 @@
             $movieList = new MovieDao();
             $movieList->retrieveDataApi();
             $allMovies = $movieList->readAll();
+
             include("Views/home.php");
         }
 

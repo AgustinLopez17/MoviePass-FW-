@@ -14,7 +14,7 @@
 
         public function create($show){
             $sql = "INSERT INTO shows (show_date,id_cinema,id_movie) VALUES (:show_date,:id_cinema,:id_movie)";
-            $parameters['show_date'] = $show->getDate();
+            $parameters['show_date'] = $show->getDate()->format("Y-m-d H:i");
             $parameters['id_cinema'] = $show->getId_cinema();
             $parameters['id_movie'] = $show->getId_movie();
             try {
@@ -59,7 +59,7 @@
             catch(PDOException $e)
             {
                 echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: CinemaDao.php")';
+                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
                 echo '</script>';
             }
             finally
@@ -70,6 +70,46 @@
                     return "false";
             }
         }
+
+        public function readByMovieAndDate($id_movie,$date){
+            
+            $sql = "SELECT * FROM shows where id_movie = :id_movie and date(show_date) = :newDate  ";
+            $parameters['id_movie'] = $id_movie;
+            $parameters['newDate'] = $date->format('Y-m-d');
+            try{
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->executeNonQuery2($sql, $parameters);
+            }catch(PDOException $e){
+                echo '<script>';
+                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
+                echo '</script>';
+            }finally{
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return "false";
+            }
+        }
+
+        public function readByCinemaAndDate($id_cinema,$date){
+            $sql = "SELECT * FROM shows where id_cinema = :id_cinema and date(show_date) = :newDate";
+            $parameters['id_cinema'] = $id_cinema;
+            $parameters['newDate'] = $date->format('Y-m-d');
+            try{
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->executeNonQuery2($sql, $parameters);
+            }catch(PDOException $e){
+                echo '<script>';
+                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
+                echo '</script>';
+            }finally{
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return "false";
+            }
+        }
+
 
         protected function mapear($value) { //TRAIGO VALORES DE LA BASE DE DATOS PARA USAR EN LA WEB (CREAR OBJETOS)
             $value = is_array($value) ? $value : [];

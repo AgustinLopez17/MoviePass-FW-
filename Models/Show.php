@@ -2,6 +2,8 @@
 
     namespace Models;
 
+    use \DateTime;
+
     class Show{
         private $id_show;
         private $date;
@@ -9,7 +11,7 @@
         private $id_movie;
         
         public function __construct($date,$id_cinema,$id_movie){
-            $this->date = $date; 
+            $this->date = new DateTime($date); 
             $this->id_cinema = $id_cinema;
             $this->id_movie = $id_movie;
         }
