@@ -1,6 +1,10 @@
 <?php
     namespace DAO\DAODB;
     use Models\Movie as Movie;
+    use Models\Genres as Genres;
+
+    use DAO\DAODB\GenreDao as GenreDao;
+
     use DAO\DAODB\Connection as Connection;
     use PDOException;
 
@@ -24,6 +28,7 @@
             $parameters['language'] = $movie->getLanguage();
             $parameters['image'] = $movie->getImage();
             $parameters['overview'] = $movie->getOverview();
+            
 
             try {
                 $this->connection = Connection::getInstance();
@@ -33,6 +38,21 @@
                 echo $e;
             }
         }
+
+        public function addGenre_X_movie($genres,$id_movie){
+            $sql = "INSERT INTO genre_x_movie (id_genre,id_movie) VALUES (:id_genre, :id_movie)";
+            foreach($genres as $value){
+                $parameters['id_genre'] = $value->getId_genre();
+                $parameters['id_movie'] = $id_movie;
+                try{
+                    $this->connection = Connection::getInstance();
+                    $this->connection->ExecuteNonQuery($sql,$parameters);
+                }catch(PDOException $e){
+                    echo $e;
+                }
+            }
+        }
+
         public function readAll()
         {
             $sql = "SELECT * FROM movies";
@@ -55,7 +75,7 @@
         }
         public function read ($id)
         {
-            $sql = "SELECT * FROM movies where id_movie = :id";
+            $sql = "SELECT * FROM movies where movies.id_movie = :id";
             $parameters['id'] = $id;
             try
             {
@@ -91,10 +111,15 @@
                 echo $e;
             }
         }
+
         protected function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
-                return new Movie( $p['id_movie'], $p['title'], $p['lenght'], $p['language'],$p['image'],$p['overview']);
+                $genreDao = new GenreDao();
+
+                $movie = new Movie( $p['id_movie'], $p['title'], $p['lenght'], $p['language'],$p['image'],$p['overview']);
+                
+                return $genreDao->addGenreToMovie($movie);
             }, $value);
                 /* devuelve un arreglo si tiene datos y sino devuelve nulo*/
                 return count($resp) > 1 ? $resp : $resp['0'];
@@ -109,17 +134,29 @@
                 if(is_array($value)){
                     foreach($value as $aux){
                         if(is_array($aux)){
+
                             if(!$this->read($aux['id'])){
+
+
                                 $data = file_get_contents("https://api.themoviedb.org/3/movie/".$aux['id']."?language=en-US&api_key=bf47253392bc9b0762556be7b49ab033");
-                                $movie = ($data) ? json_decode($data, true) : array();
+                                $movie = ($data) ? json_decode($data, true) : array();     
+                                
+
                                 $newMovie = new Movie($movie["id"],$movie["title"],$movie["runtime"],$movie["original_language"],$movie["poster_path"],$movie['overview']);
                                 $this->create($newMovie);
+                                $genreDao = new GenreDao();
+                                $newMovie->setGenres($genreDao->arrayGenre($movie['genres']));
+
+
+                                $this->addGenre_X_movie($newMovie->getGenres(),$movie['id']);
                             }
                         }
                     }
                 }
             }
         }
+
+
 
         // function deleteNotNowPlaying($array){
         //     $all = $this->readAll();

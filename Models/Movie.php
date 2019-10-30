@@ -1,4 +1,6 @@
-<?php namespace Models;
+<?php 
+
+namespace Models;
     
     class Movie{
         private $id;
@@ -7,6 +9,7 @@
         private $language;
         private $image;
         private $overview;
+        private $genres;
 
         public function __construct($id,$title,$lenght,$language,$image,$overview){
             $this->id = $id;
@@ -15,6 +18,14 @@
             $this->language = $language;
             $this->image = $image;
             $this->overview = $overview;
+            $this->genres = array();
+        }
+
+        public function getGenres(){
+                return $this->genres;
+        }
+        public function setGenres($genres){
+                $this->genres = $genres;
         }
 
         public function getTitle()

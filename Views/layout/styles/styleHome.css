@@ -86,6 +86,81 @@ ul li{
     padding-bottom: 3.5%;
 }
 
+#submitButton{
+    visibility: hidden;
+}
+
+#selectGenre{
+    font-size: 100%;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    height: 50px;
+    line-height: 50px;
+    margin-top: -30%;
+    padding-top: 0; padding-bottom: 10px;
+    -webkit-appearance: none;       
+    text-indent: 0.01px;
+    text-overflow: '';
+    border: 0 none !important;
+    outline: 1px none !important;
+    color: white;
+    width: 52px;
+    cursor: pointer;
+
+}
+
+#selectGenre option{
+    background-color: rgba(0, 0, 0, 0.191);
+    border: 0;
+    border-radius: 0;
+    height: 50px;
+    line-height: 50px;
+    padding-top: 0; padding-bottom: 0;
+    margin-top: -100px;
+    -webkit-appearance: none;       
+    text-indent: 0.01px;
+    text-overflow: '';
+    border: 0 none !important;
+    outline: 1px none !important;
+    color: black;
+
+}
+
+#searchByDate{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#FORM_ID{
+    outline: none;
+    background: none;
+    border: none;
+
+}
+
+#FORM_ID_DATE{
+    display: none;
+    position: fixed;
+    margin-left: 30%;
+    margin-top:-2.3% ;
+}
+
+#buttonDate{
+    display: block;
+    cursor: pointer;
+    height: 25px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.486);
+    color: rgba(255, 255, 255, 0.521);
+    border: solid 0.5px rgba(255, 255, 255, 0.589);
+    outline: none;
+}
+
 #container{
     width: 100%;
     overflow-x: scroll;

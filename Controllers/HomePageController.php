@@ -5,9 +5,24 @@
     use Models\User as User;
     use DAO\DAODB\MovieDao as MovieDao;
     use DAO\DAODB\ShowDao as ShowDao;
+    use DAO\DAODB\GenreDao as GenreDao;
 
     class HomePageController
     {
+        private $movieDao;
+        private $allMovies;
+        private $showDao;
+        private $genresList;
+
+        public function __construct(){
+            $this->movieDao = new MovieDao();
+            $this->movieDao->retrieveDataApi();
+            $this->allMovies = array();
+            $this->showDao = new ShowDao();
+            $this->genresList = $this->showGenres();
+        }
+
+
         public function login()
         {
             if($_POST){
@@ -34,30 +49,61 @@
             }else if(isset($_SESSION['loggedUser'])){
                 $this->ShowListView();
             }
-        }
+        }     
 
+        // public function showListView(){
+        //     foreach($this->showDao->readAll() as $show){
+        //         foreach($this->movieDao->readAll() as $movie){
+        //             if(($show->getId_movie() == $movie->getId())  ){
+        //                 if(!in_array($movie,$this->allMovies)){
+        //                     array_push($this->allMovies,$movie);
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     include("Views/home.php");
+        // }
 
-        
+        public function showListView(){ 
+            foreach($this->showDao->readAll() as $show){
+                foreach($this->movieDao->readAll() as $movie){
+                    if(($show->getId_movie() == $movie->getId())){
+                        if(isset($_POST['id_genre'])){ //tuve que usar post para poder reutilizar esta función
+                            foreach($movie->getGenres() as $genre){
+                                if($_POST['id_genre'] == $genre->getId_genre()){
+                                    if(!in_array($movie,$this->allMovies)){
+                                        array_push($this->allMovies,$movie);
+                                    }
+                                }
+                            }
+                        }else if(isset($_POST['date'])){
 
-        public function showListView(){
-            $movieList = new MovieDao();
-            $movieList->retrieveDataApi();
-            $movies = $movieList->readAll();
-            $showDao = new ShowDao();
-            $allShows = $showDao->readAll();
-            $allMovies = array();
-            foreach($allShows as $show){
-                foreach($movies as $movie){
-                    if(  ($show->getId_movie() == $movie->getId())  ){
-                        if(!in_array($movie,$allMovies)){
-                            array_push($allMovies,$movie);
+                            if($_POST['date'] == $show->getDate()->format("Y-m-d")){
+                                if(!in_array($movie,$this->allMovies)){
+                                    array_push($this->allMovies,$movie);
+                                }
+                            }
+                        }else{
+                            if(!in_array($movie,$this->allMovies)){
+                                array_push($this->allMovies,$movie);
+                            }
                         }
                     }
                 }
             }
-
-
             include("Views/home.php");
+        }
+
+
+        public function showGenres(){
+            $genres = new GenreDao();
+            $genres->retrieveDataApi();
+            $genresList = $genres->readAll();
+            return $genresList;
+        }
+
+        public function filter_x_date($date){
+
         }
 
         public function exit(){
