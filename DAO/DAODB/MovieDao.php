@@ -35,7 +35,7 @@
                 return $this->connection->ExecuteNonQuery($sql, $parameters);
             }
             catch(PDOException $e){
-                echo $e;
+                throw $e;
             }
         }
 
@@ -48,7 +48,7 @@
                     $this->connection = Connection::getInstance();
                     $this->connection->ExecuteNonQuery($sql,$parameters);
                 }catch(PDOException $e){
-                    echo $e;
+                    throw $e;
                 }
             }
         }
@@ -63,7 +63,7 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
             finally
             {
@@ -84,9 +84,7 @@
             }
             catch(PDOException $e)
             {
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: movieDao.php")';
-                echo '</script>';
+                throw $e;
             }
             finally
             {
@@ -96,6 +94,69 @@
                     return false;
             }
         }
+        
+        public function readMoviesIfShow(){
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie WHERE s.show_date >= curdate()";
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql);
+            }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+            finally
+            {
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
+            }
+        }
+
+        public function readMoviesByGenre($id_genre){
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN genre_x_movie gm ON M.id_movie = GM.id_movie WHERE GM.id_genre = :id_genre AND s.show_date >= curdate()";
+            $parameters['id_genre'] = $id_genre;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql,$parameters);
+            }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+            finally
+            {
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
+            }
+        }
+
+        public function readMoviesByDate($date){
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie WHERE date_format(s.show_date,'%Y-%m-%d') = :dateForSearch";
+            $parameters['dateForSearch'] = $date;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql,$parameters);
+            }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+            finally
+            {
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
+            }
+        }
+
 
         public function delete ($id)
         {
@@ -108,7 +169,7 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
         }
 

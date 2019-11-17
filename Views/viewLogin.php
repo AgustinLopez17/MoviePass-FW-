@@ -1,15 +1,22 @@
 
-<style>
-    @import "/MoviePass/Views/layout/styles/style.css";
-</style>
-<script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
-
-
-<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-
-
-
 <script src="<?php echo JS_PATH2 ?>"></script>
+<link rel="stylesheet" href="/MoviePass/Views/layout/styles/style.css">
+
+</head>
+
+<body id="body">
+<?php if(isset($datosIncorrectos) && $datosIncorrectos) { ?>
+    <script>
+        if(confirm('Datos incorrectos, vuelva a intentarlo !'));
+        // window.location = '../index.php';
+    </script>
+<?php } ?>
+
+<?php if(isset($huboProblema) && $huboProblema) { ?>    
+    <script> 
+        if(confirm('Hubo un problema al procesar los datos, vuelva a intentarlo !'));
+    </script>
+<?php  } ?>
 <header></header>
     <img src="<?php echo IMG_PATH."logo.png" ?>" alt="MoviePass" class="logo">
     <p class="title">MoviePass</p>

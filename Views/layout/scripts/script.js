@@ -11,7 +11,7 @@ $(document).ready(function(){
         scroll=$(window).scrollTop();
         if(scroll > 450){
             if(!flag){
-                $("#logo").css({"margin-top":"-5px","width":"92px","height":"92px","filter":"brightness(1000%) drop-shadow(15px 15px 15px rgb(0, 0, 0))"});
+                $("#logo").css({"margin-top":"-5px","width":"92px","height":"92px","filter":"grayscale(100%) brightness(300%) drop-shadow(15px 15px 15px rgb(0, 0, 0))"});
                 $("header").css({"background-color":"black"});
                 flag = true;
             }

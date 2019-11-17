@@ -22,9 +22,27 @@
                 return $this->connection->ExecuteNonQuery($sql, $parameters);
             }
             catch(PDOException $e){
-                echo $e;
+                throw $e;
             }
         }
+
+        public function update($id_show,$id_movie,$id_cinema,$show_date){
+            $sql = "UPDATE shows SET id_movie = :id_movie, id_cinema = id_cinema, show_date = :show_date WHERE id_show = :id_show";
+            $parameters['id_movie'] = $id_movie;
+            $parameters['id_cinema'] = $id_cinema;
+            $parameters['show_date'] = $show_date;
+            $parameters['id_show'] = $id_show;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                return $this->connection->ExecuteNonQuery($sql, $parameters);
+            }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+        }
+
 
         public function readAll()
         {
@@ -36,7 +54,7 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
             finally
             {
@@ -58,9 +76,7 @@
             }
             catch(PDOException $e)
             {
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
-                echo '</script>';
+                throw $e;
             }
             finally
             {
@@ -71,6 +87,8 @@
             }
         }
 
+
+
         public function readByMovieAndDate($id_movie,$date){
             
             $sql = "SELECT * FROM shows where id_movie = :id_movie and date(show_date) = :newDate  ";
@@ -80,9 +98,7 @@
                 $this->connection = Connection::getInstance();
                 $resultSet = $this->connection->executeNonQuery2($sql, $parameters);
             }catch(PDOException $e){
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
-                echo '</script>';
+                throw $e;
             }finally{
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
@@ -99,9 +115,7 @@
                 $this->connection = Connection::getInstance();
                 $resultSet = $this->connection->executeNonQuery2($sql, $parameters);
             }catch(PDOException $e){
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: ShowDAO.php")';
-                echo '</script>';
+                throw $e;
             }finally{
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);

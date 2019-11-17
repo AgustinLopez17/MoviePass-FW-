@@ -1,14 +1,12 @@
-<style>
-    @import "/MoviePass/Views/layout/styles/styleNewShow.css";
-</style>
+
+<link rel="stylesheet" href="/MoviePass/Views/layout/styles/styleNewShow.css">
+</head>
+
+<body>
+
 <header >
 
-    <a href="<?php echo FRONT_ROOT ?>HomePage/login"> <?php echo file_get_contents(__DIR__."\image.svg");  ?> </a>
-
-    <nav>
-
-    </nav>
-    
+    <a href="<?php echo FRONT_ROOT ?>HomePage/showListView"> <?php echo file_get_contents(__DIR__."\image.svg");  ?> </a>
     
 </header>
 <div class="barra"></div>

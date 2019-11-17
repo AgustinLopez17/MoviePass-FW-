@@ -1,18 +1,15 @@
 <?php
     include("header.php");
-    ?>
-
-<style>
-    @import "/MoviePass/Views/layout/styles/styleHome.css";
-</style>
+?>
 <script src="<?php echo JS_PATH ?>"></script>
-
-
-<header >
+<link rel="stylesheet" href="/MoviePass/Views/layout/styles/styleHome.css">
+</head>
+<body>
+<header>
     <nav>
 
         <ul>
-            <a href="<?php echo FRONT_ROOT ?>HomePage/showListView"> <li>Home</li> </a>
+            <a href="<?php echo FRONT_ROOT ?>HomePage/showListView2"> <li>Home</li> </a>
             <li>
                 <button id="searchByDate">Filter</button>
             </li>
@@ -29,7 +26,7 @@
 
         <ul>
             <li>
-                <form action="<?php echo FRONT_ROOT ?>HomePage/showListView" method="POST" id="FORM_ID">
+                <form action="<?php echo FRONT_ROOT ?>HomePage/showListView2" method="POST" id="FORM_ID">
                     <select name="id_genre" id="selectGenre" >
                     <option selected disabled hidden> Genres </option>
                     <?php foreach($this->genresList as $value){ ?>
@@ -43,7 +40,7 @@
             <li> <a href="<?php echo FRONT_ROOT ?>HomePage/exit"> Exit  </a></li>
         </ul>
     </nav>
-    <form action="<?php echo FRONT_ROOT ?>HomePage/showListView" method="POST" id="FORM_ID_DATE">
+    <form action="<?php echo FRONT_ROOT ?>HomePage/showListView2" method="POST" id="FORM_ID_DATE">
         <input type="date" name="date">
         <button type="submit" id="buttonDate">Submit</button>
     </form>
@@ -64,7 +61,8 @@
             <table class="table1">
                 <tr>
                 <?php
-                    foreach($this->allMovies as $values){
+                    if(!empty($this->allMovies)){
+                        foreach($this->allMovies as $values){
                 ?>
                     <td> 
                         <img class="movies" src="<?php echo "https://image.tmdb.org/t/p/w300/".$values->getImage() ?>" alt="">
@@ -82,6 +80,8 @@
 
                     </td>
                 <?php
+                    }}else{
+                        ?> <p id="emptyFunctions"> No hay funciones </p> <?php
                     }
                 ?>
                 </tr>

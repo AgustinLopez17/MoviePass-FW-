@@ -1,18 +1,13 @@
 <?php
     include("header.php");
 ?>
-
-<style>
-    @import "/MoviePass/Views/layout/styles/styleAdmC.css";
-</style>
 <script src="<?php echo JS_PATH3 ?>"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css"> -->
-
+<link rel="stylesheet" href="/MoviePass/Views/layout/styles/styleAdmC.css">
+</head>
+<body>
 <header >
 
-    <a href="<?php echo FRONT_ROOT ?>HomePage/login"> <?php echo file_get_contents(__DIR__."\image.svg");  ?> </a>
+    <a href="<?php echo FRONT_ROOT ?>HomePage/showListView"> <?php echo file_get_contents(__DIR__."\image.svg");  ?> </a>
 
     <nav>
         <ul id="options">
@@ -20,6 +15,7 @@
             <li id="cinemas"><button type="button" id="Mod">Modify cinema</button></li>
             <li id="cinemas"><button type="button" id="Baja">Unset/set cinema</button></li>
             <li id="cinemas"><button type="button" id="AddShow">Add Show</button></li>
+            <li id="cinemas"><button type="button" id="Shows">Shows</button></li>
         </ul>
     </nav>
     
@@ -49,7 +45,7 @@
                 <h1 id="titleModify">Modify cinema</h1>
             <table>
                 <tr>
-                    <?php foreach($cinemaList as $value){?>
+                    <?php foreach($this->cinemaDao->readAll() as $value){?>
                     <td>
                         <form id="modC" action="<?php echo FRONT_ROOT ?>Cinema/modCine" method="POST"> 
                             <input type="hidden" name="id" value="<?php echo $value->getId(); ?>">
@@ -72,7 +68,7 @@
                 <ul id="bajaCinema">
                 <?php
                 $id = array();
-                foreach($cinemaList as $value){?>
+                foreach($this->cinemaDao->readAll() as $value){?>
                     <li id="<?php if($value->getAvailable() == 0){ echo "cinemas2"; }else{ echo "cinemas" ;}  ?>" >
                         <?php echo $value->getName(); ?>
                         <input type="checkbox" name="check_list[]" value="<?php echo $value->getId(); ?>">
@@ -82,29 +78,43 @@
             </form>
         </div>
         <p class="msg"> <?php if(isset($outcome)){ echo $outcome;} ?> </p>
-        <div class="addShow">.
+        <div class="addShow">
             <h1 id="titleAddShow">Add Show</h1>
             <form action="<?php echo FRONT_ROOT ?>Show/addShow" method="GET">
-                <!-- <ul id="addShow">
-                    <li> -->
                         <select name="id_cinema" id="selectCinema">
-                            <?php foreach($cinemaList as $value){  ?>
+                            <?php foreach($this->cinemaDao->readAll() as $value){  ?>
                                 <option value="<?php echo $value->getId();?>"> <?php echo $value->getName();?> </option>
                             <?php } ?>
                         </select>
 
                         <select name="id_movie" id="selectMovie">
-                            <?php foreach($allMovies as $value){  ?>
+                            <?php foreach($this->movieDao->readAll() as $value){  ?>
                                 <option value="<?php echo $value->getId();?>"> <?php echo $value->getTitle();?> </option>
                             <?php } ?>
                         </select>
-
-                        <input type="date" name="date">
-                        
-                    <!-- </li>
-                </ul> -->
+                        <input id="date" type="date" name="date">
                 <button type="submit"> SUBMIT </button>
             </form>
+        </div>
+
+        <div class="shows">
+            <h1 id="titleShows">Shows</h1>
+            <?php foreach($this->showDao->readAll() as $value){ ?>
+            <ul id="bajaCinema">
+                <li id="individualShow" >
+                    <img class="movies" src="<?php echo "https://image.tmdb.org/t/p/w200/". ($this->movieDao->read($value->getId_movie()))->getImage() ; ?>" alt="">
+                    <div class="desc">
+                        <p>Movie: <?php echo $this->movieDao->read($value->getId_movie())->getTitle(); ?></p>
+                        <p>Cinema: <?php echo $this->cinemaDao->read($value->getId_cinema())->getName(); ?></p>
+                        <p>Date: <?php echo $value->getDate()->format("Y-m-d H:m"); ?></p>
+                    </div>
+                        <!-- <div class="buttonsShows">
+                            <button> DELETE </button>
+                            <button> MODIFY </button>
+                        </div> -->
+                </li>
+            </ul>
+            <?php } ?>
         </div>
         
 

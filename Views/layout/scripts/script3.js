@@ -5,6 +5,7 @@ $(document).ready(function(){
         $( ".mod" ).toggle(false);
         $( ".addShow" ).toggle(false);
         $( ".addShowHour" ).toggle(false);
+        $( ".shows" ).toggle(false);
     });
     $( "#Mod" ).click(function() {
         $( ".mod" ).toggle(true);
@@ -12,6 +13,7 @@ $(document).ready(function(){
         $( ".baja" ).toggle(false);
         $( ".addShow" ).toggle(false);
         $( ".addShowHour" ).toggle(false);
+        $( ".shows" ).toggle(false);
     });
     $( "#Baja" ).click(function() {
         $( ".baja" ).toggle(true);
@@ -19,6 +21,7 @@ $(document).ready(function(){
         $( ".alta" ).toggle(false);
         $( ".addShow" ).toggle(false);
         $( ".addShowHour" ).toggle(false);
+        $( ".shows" ).toggle(false);
     });    
     $( "#AddShow" ).click(function() {
         $( ".addShow" ).toggle(true);
@@ -26,15 +29,16 @@ $(document).ready(function(){
         $( ".mod" ).toggle(false);
         $( ".alta" ).toggle(false);
         $( ".addShowHour" ).toggle(false);
+        $( ".shows" ).toggle(false);
     });
-     
-    function addHour(){
-        $( ".addShowHour" ).toggle(true);
+    $( "#Shows" ).click(function() {
+        $( ".shows" ).toggle(true);
         $( ".baja" ).toggle(false);
         $( ".mod" ).toggle(false);
         $( ".alta" ).toggle(false);
+        $( ".addShowHour" ).toggle(false);
         $( ".addShow" ).toggle(false);
-    };
+    });
 
 
 });

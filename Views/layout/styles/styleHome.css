@@ -110,6 +110,22 @@ ul li{
 
 }
 
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    background: rgba(0, 0, 0, 0.308);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
 #selectGenre option{
     background-color: rgba(0, 0, 0, 0.191);
     border: 0;
@@ -143,9 +159,22 @@ ul li{
 
 }
 
+#emptyFunctions{
+    position: fixed;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.287);
+    top: 3%;
+    border-radius: 3px;
+    margin-left: 38%;
+    font-size: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: white;
+}
+
 #FORM_ID_DATE{
     display: none;
-    position: fixed;
+    position: absolute;
     margin-left: 30%;
     margin-top:-2.3% ;
 }
@@ -164,7 +193,7 @@ ul li{
 #container{
     width: 100%;
     overflow-x: scroll;
-    overflow: hidden;
+    overflow: scroll;
     scroll-behavior: smooth;
     transition: 10s;
 }

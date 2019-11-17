@@ -102,7 +102,7 @@ h1{
     }
 
     .logo:hover {
-        filter: brightness(1000%) drop-shadow(32px 32px 20px rgb(0, 0, 0));
+        filter: grayscale(1000%) drop-shadow(32px 32px 20px rgb(0, 0, 0));
         transition: 2s;
     }
 

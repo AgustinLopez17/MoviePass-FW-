@@ -104,7 +104,7 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
         }
         protected function mapear($value) {

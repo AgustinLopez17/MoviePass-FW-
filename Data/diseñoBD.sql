@@ -49,7 +49,7 @@ create table genre_x_movie(
 
 create table shows(
                     id_show int auto_increment,
-                    show_date date,
+                    show_date datetime,
                     id_cinema int,
                     id_movie int,
                     constraint pks_shows primary key (id_show),
@@ -79,5 +79,7 @@ create table tickets(
                     constraint fk_id_show foreign key (id_show) references Shows(id_show)
 );
 
+
+UPDATE shows SET show_date = '2019-11-01 22:05' WHERE id_show = 1;
 
 
