@@ -14,16 +14,19 @@
         private $allMovies;
         private $showDao;
         private $genresList;
+        private $genreDao;
+        private $genre_x_movie;
         private $userDao;
         private $nowDate;
 
         public function __construct(){
             $this->userDao = new UserDao();
+            $this->genreDao = new GenreDao();
+            $this->genresList = $this->showGenres();
             $this->movieDao = new MovieDao();
             $this->movieDao->retrieveDataApi();
             $this->allMovies = array();
             $this->showDao = new ShowDao();
-            $this->genresList = $this->showGenres();
             date_default_timezone_set('America/Argentina/Buenos_Aires'); 
             $this->nowDate = new DateTime(date('Y-m-d H:i:s'));
         }
@@ -36,7 +39,7 @@
                 if($user && ($password == $user->getPass())){
                     $loggedUser = new User($user->getFirstName(),$user->getSurName(),$user->getDni(),$user->getEmail(),$user->getPass(),$user->getGroup());
                     $_SESSION["loggedUser"] = $loggedUser;
-                    $this->ShowListView2();
+                    $this->ShowListView();
                 }else{
                     $datosIncorrectos = true;
                     require_once(VIEWS_PATH."viewLogin.php");
@@ -47,6 +50,7 @@
             }
             
         }     
+
 
         // public function showListView($something = null){ //something es el filtro que se aplicaría para ver las peliculas      
         //     require_once(VIEWS_PATH."validate-session.php"); 
@@ -81,7 +85,7 @@
         // }
 
 
-        public function showListView2($filter = null){
+        public function showListView($filter = null){
             if(isset($filter)){
                 if(!strstr($filter,'-')){
                     $this->setAllMovies($this->movieDao->readMoviesByGenre($filter));
@@ -94,11 +98,17 @@
             include("Views/home.php");
         }
 
+        public function showGenreMovie($id_movie){
+            $genres = $this->genreDao->readByMovieId($id_movie);
+            if(!is_array($genres)){
+                $genres = array($genres);
+            }
+            return $genres;
+        }
 
         public function showGenres(){
-            $genres = new GenreDao();
-            $genres->retrieveDataApi();
-            $genresList = $genres->readAll();
+            $this->genreDao->retrieveDataApi();
+            $genresList = $this->genreDao->readAll();
             return $genresList;
         }
 
@@ -108,10 +118,12 @@
         }
 
         public function setAllMovies($allMovies){
-            if(!is_array($allMovies)){
-                $this->allMovies = array($allMovies);
-            }else{
-                $this->allMovies = $allMovies;
+            if($allMovies){
+                if(!is_array($allMovies)){
+                    $this->allMovies = array($allMovies);
+                }else{
+                    $this->allMovies = $allMovies;
+                }
             }
         }
 

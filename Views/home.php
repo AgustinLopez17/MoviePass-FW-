@@ -18,7 +18,7 @@
         
         <?php
             if($_SESSION["loggedUser"]->getGroup() == 1){
-               ?> <a id="admin" href="<?php echo FRONT_ROOT ?>Cinema/adminCines"> <?php echo file_get_contents(__DIR__."\image.svg"); ?> </a> <?php
+               ?> <a id="admin" href="<?php echo FRONT_ROOT ?>Admin/checkAdmin"> <?php echo file_get_contents(__DIR__."\image.svg"); ?> </a> <?php
             }else{
                 echo file_get_contents(__DIR__."\image.svg");
             }
@@ -73,7 +73,7 @@
                                 <p><?php echo $values->getOverview(); ?></p><br><br><br><br>
                                 <p><?php echo "Lenght: ".$values->getLenght()."m"; ?></p>
                                 <p><?php echo "Language: ".$values->getLanguage(); ?></p>
-                                <p><?php echo "Genres: "; foreach($values->getGenres() as $genre ){?> <br> <?php echo "-".$genre->getName_genre();} ?></p>
+                                <p><?php echo "Genres: "; foreach($this->showGenreMovie($value->getId_movie()) as $genre ){?> <br> <?php echo "-".$genre->getName_genre();} ?></p>
                             </div>
                             <button type="buttom" id="buyTicket">Buy ticket</button>
                         </div>

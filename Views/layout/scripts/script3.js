@@ -3,42 +3,27 @@ $(document).ready(function(){
         $( ".alta" ).toggle(true);
         $( ".baja" ).toggle(false);
         $( ".mod" ).toggle(false);
-        $( ".addShow" ).toggle(false);
-        $( ".addShowHour" ).toggle(false);
-        $( ".shows" ).toggle(false);
+        $( ".cinemas" ).toggle(false);
     });
     $( "#Mod" ).click(function() {
         $( ".mod" ).toggle(true);
         $( ".alta" ).toggle(false);
         $( ".baja" ).toggle(false);
-        $( ".addShow" ).toggle(false);
-        $( ".addShowHour" ).toggle(false);
-        $( ".shows" ).toggle(false);
+        $( ".cinemas" ).toggle(false);
     });
     $( "#Baja" ).click(function() {
         $( ".baja" ).toggle(true);
         $( ".mod" ).toggle(false);
         $( ".alta" ).toggle(false);
-        $( ".addShow" ).toggle(false);
-        $( ".addShowHour" ).toggle(false);
-        $( ".shows" ).toggle(false);
+        $( ".cinemas" ).toggle(false);
     });    
-    $( "#AddShow" ).click(function() {
-        $( ".addShow" ).toggle(true);
+    $( "#Cinemas" ).click(function() {
+        $( ".cinemas" ).toggle(true);
         $( ".baja" ).toggle(false);
         $( ".mod" ).toggle(false);
         $( ".alta" ).toggle(false);
-        $( ".addShowHour" ).toggle(false);
-        $( ".shows" ).toggle(false);
-    });
-    $( "#Shows" ).click(function() {
-        $( ".shows" ).toggle(true);
-        $( ".baja" ).toggle(false);
-        $( ".mod" ).toggle(false);
-        $( ".alta" ).toggle(false);
-        $( ".addShowHour" ).toggle(false);
-        $( ".addShow" ).toggle(false);
-    });
+    }); 
+
 
 
 });

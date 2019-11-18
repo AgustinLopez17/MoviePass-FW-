@@ -12,15 +12,26 @@ CREATE TABLE users(
                     CONSTRAINT unq_email UNIQUE (email)
 );
 
+
+create table movieTheater(
+                    id_movieTheater int auto_increment,
+                    name varchar(20),
+                    available int,
+                    adress varchar(20),
+                    numberOfCinemas int,
+                    constraint pk_id_movieTheater primary key (id_movieTheater),
+                    constraint unq_name UNIQUE (name)
+);
+
 create table cinemas(
                     id_cinema int auto_increment,
-                    name varchar(20),
-                    adress varchar(20),
+                    id_movieTheater int,
+                    number_cinema int,
                     capacity int not null,
                     ticket_value int not null,
                     available int not null,
                     constraint pk_id_cinema primary key (id_cinema),
-                    constraint unq_name UNIQUE (name)
+                    constraint fk_id_movieTheater foreign key (id_movieTheater) references movieTheater(id_movieTheater)
 );
 
 create table movies(
@@ -74,12 +85,28 @@ create table tickets(
                     qr_code blob,
                     id_show int,
                     id_purchase int,
-                    constraint fk_id_purchase foreign key (id_purchase) references purchase (id_purchase),
                     constraint pk_id_ticket primary key (id_ticket),
-                    constraint fk_id_show foreign key (id_show) references Shows(id_show)
+                    constraint fk_id_purchase foreign key (id_purchase) references purchase (id_purchase),
+                    constraint fk_id_show foreign key (id_show) references shows (id_show)
 );
 
 
 UPDATE shows SET show_date = '2019-11-01 22:05' WHERE id_show = 1;
 
 
+DROP PROCEDURE IFEXIST(createMT);
+DELIMITER $$
+CREATE PROCEDURE createMT(IN Iname varchar(20), IN Iadress varchar(20),IN Iavailable int, IN InumberOfCinemas int, IN IpriceDefault int)
+    BEGIN
+        DECLARE vIdMT int DEFAULT -1;
+        DECLARE vNumberOfCinemas int DEFAULT 1;
+        INSERT INTO movieTheater(name,adress,available,numberOfCinemas) VALUES (Iname,Iadress,Iavailable,InumberOfCinemas);
+        set vIdMt = last_insert_id();
+        WHILE vNumberOfCinemas <= InumberOfCinemas DO 
+            INSERT INTO cinemas (id_movieTheater,number_cinema,capacity,ticket_value,available) VALUES (vIdMt,vNumberOfCinemas,0,IpriceDefault,0);
+            SET vNumberOfCinemas = vNumberOfCinemas+1;
+        END WHILE;
+    END $$
+DELIMITER ;
+
+call moviepass.createMT(:name,:adress,:available,:numberOfCinemas,:priceDefault);

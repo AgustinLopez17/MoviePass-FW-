@@ -90,6 +90,29 @@
             }
         }
 
+        public function readByMovieId($id_movie){
+            $sql = "SELECT * FROM genre g INNER JOIN genre_x_movie gm ON gm.id_genre = g.id_genre where id_movie = :id_movie";
+            $parameters['id_movie'] = $id_movie;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            }
+            catch(PDOException $e)
+            {
+                echo '<script>';
+                echo 'console.log("Error en base de datos. Archivo: GENREDAO.php")';
+                echo '</script>';
+            }
+            finally
+            {
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
+            }
+        }
+
         public function arrayGenre($genres){ //Esta funcion va a generar un array de objetos genero, desde un arreglo que nos devuelve la api
             $arrayGenres = array();
             foreach($genres as $value){
@@ -99,32 +122,32 @@
             return $arrayGenres;
         }
 
-        public function addGenreToMovie($movie){
-            $sql = "SELECT genre.id_genre,genre.genre FROM genre inner join genre_x_movie on genre.id_genre = genre_x_movie.id_genre WHERE genre_x_movie.id_movie = :id_movie";
-            $paramenters['id_movie'] = $movie->getId();
-            try
-            {
-                $this->connection = Connection::getInstance();
-                $resultSet = $this->connection->execute($sql,$paramenters);
-            }
-            catch(PDOException $e)
-            {
-                echo $e;
-            }
-            finally
-            {
-                if(!empty($resultSet)){
-                    $aux = $this->mapear($resultSet);
-                    if(!is_array($aux)){
-                        $aux= array($aux);
-                    }
-                    $movie->setGenres($aux);
-                    return $movie;
-                }
-                else
-                    return false;
-            } 
-        }
+        // public function addGenreToMovie($movie){
+        //     $sql = "SELECT genre.id_genre,genre.genre FROM genre inner join genre_x_movie on genre.id_genre = genre_x_movie.id_genre WHERE genre_x_movie.id_movie = :id_movie";
+        //     $paramenters['id_movie'] = $movie->getId();
+        //     try
+        //     {
+        //         $this->connection = Connection::getInstance();
+        //         $resultSet = $this->connection->execute($sql,$paramenters);
+        //     }
+        //     catch(PDOException $e)
+        //     {
+        //         echo $e;
+        //     }
+        //     finally
+        //     {
+        //         if(!empty($resultSet)){
+        //             $aux = $this->mapear($resultSet);
+        //             if(!is_array($aux)){
+        //                 $aux= array($aux);
+        //             }
+        //             $movie->setGenres($aux);
+        //             return $movie;
+        //         }
+        //         else
+        //             return "false";
+        //     } 
+        //}
 
     }
 

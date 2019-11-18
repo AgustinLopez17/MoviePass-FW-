@@ -3,44 +3,20 @@
     namespace Models;
 
     class Cinema{
-        private $id;
-        private $name;
-        private $address;
+        private $idCinema;
+        private $idMovieTheater;
+        private $numberCinema;
         private $capacity;
         private $ticket_value;
         private $available;
 
-        public function __construct($name, $address, $capacity, $ticket_value,$available)
+        public function __construct($idMovieTheater,$numberCinema, $capacity, $ticket_value,$available)
         {
-            $this->name = $name;
-            $this->address = $address;
+            $this->idMovieTheater = $idMovieTheater;    
+            $this->numberCinema= $numberCinema;
             $this->capacity = $capacity;
             $this->ticket_value = $ticket_value;
             $this->available = $available;
-        }
-    
-        public function getName()
-        {
-                return $this->name;
-        }
-
-        public function setName($name)
-        {
-                $this->name = $name;
-
-                return $this;
-        }
-
-        public function getAddress()
-        {
-                return $this->address;
-        }
- 
-        public function setAddress($address)
-        {
-                $this->address = $address;
-
-                return $this;
         }
 
         public function getCapacity()
@@ -67,13 +43,6 @@
                 return $this;
         }
 
-        public function getId(){
-                return $this->id;
-        }
-        public function setId($id){
-                $this->id = $id;
-        }
-
         public function getAvailable(){
                 return $this->available;
         }
@@ -81,6 +50,66 @@
                 $this->available = $available;
         }
 
+
+        /**
+         * Get the value of idCinema
+         */ 
+        public function getIdCinema()
+        {
+                return $this->idCinema;
+        }
+
+        /**
+         * Set the value of idCinema
+         *
+         * @return  self
+         */ 
+        public function setIdCinema($idCinema)
+        {
+                $this->idCinema = $idCinema;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of idMovieTheater
+         */ 
+        public function getIdMovieTheater()
+        {
+                return $this->idMovieTheater;
+        }
+
+        /**
+         * Set the value of idMovieTheater
+         *
+         * @return  self
+         */ 
+        public function setIdMovieTheater($idMovieTheater)
+        {
+                $this->idMovieTheater = $idMovieTheater;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of numberCinema
+         */ 
+        public function getNumberCinema()
+        {
+                return $this->numberCinema;
+        }
+
+        /**
+         * Set the value of numberCinema
+         *
+         * @return  self
+         */ 
+        public function setNumberCinema($numberCinema)
+        {
+                $this->numberCinema = $numberCinema;
+
+                return $this;
+        }
     }
 
 ?>

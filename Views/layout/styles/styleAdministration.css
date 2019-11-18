@@ -1,0 +1,58 @@
+
+*{
+    font-family: 'Quicksand', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    cursor: default;
+    box-sizing: border-box;
+
+}
+
+body{
+    background-color: #d142007e;
+    overflow: hidden;
+}
+
+#container{
+    padding-top: 20px ;
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 50%;
+
+    background-color: rgb(46, 2, 27);
+    border-radius: 5px;
+}
+
+#container svg{
+    width: 80%;
+    margin-left: 10%;
+    cursor: pointer;
+}
+
+a{
+
+    color: white;
+    text-decoration: none;
+}
+
+.button{
+    
+    text-align: center;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.418);
+    border: none;
+    outline: none;
+    color: white;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.button:hover{
+    cursor: pointer;
+    border: white 2px solid;
+}
+
+ul{
+
+    list-style: none;
+}

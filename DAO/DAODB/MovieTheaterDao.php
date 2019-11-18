@@ -1,24 +1,18 @@
-<?php
-    namespace DAO\DAODB;
-    use Models\Cinema as Cinema;
+<?php namespace DAO\DAODB;
+    use Models\MovieTheater as MovieTheater;
     use DAO\DAODB\Connection as Connection;
     use PDOException;
-
-    class CinemaDao extends Singleton{
+    class MovieTheaterDao extends Singleton{
         private $connection;
-        public function __construct()
-        {
+        public function __construct(){
             $this->connection = null;
         }
-        
-        public function create($cinema)
-        {
-            $sql = "INSERT INTO cinemas (id_movieTheater, number_cinema, capacity, ticket_value, available) VALUES (:id_movieTheater, :number_cinema, :capacity, :ticket_value, :available)";
-            $parameters['id_movieTheater'] = $cinema->id_movieTheater();
-            $parameters['number_cinema'] = $cinema->number_cinema();
-            $parameters['capacity'] = $cinema->getCapacity();
-            $parameters['ticket_value'] = $cinema->getTicket_value();
-            $parameters['available'] = $cinema->getAvailable();
+        public function create ($movieTheater){
+            $sql = "INSERT INTO movieTheater (name, adress, available, numberOfCinemas) VALUES (:name, :address, :available, :numberOfCinemas)";
+            $parameters['name'] = $movieTheater->getName();
+            $parameters['address'] = $movieTheater->getAddress();
+            $parameters['available'] = $movieTheater->getAvailable();
+            $parameters['numberOfCinemas'] = $movieTheater->getNumberOfCinemas();
             try {
                 $this->connection = Connection::getInstance();
                 return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -28,13 +22,30 @@
             }
         }
 
-        public function update($id,$capacity,$ticket_value,$available)
+        public function createWithCinemas($movieTheater,$priceDefault){
+            $sql = "CALL moviepass.createMT(:name,:address,:available,:numberOfCinemas,:priceDefault)";
+            $parameters['name'] = $movieTheater->getName();
+            $parameters['address'] = $movieTheater->getAddress();
+            $parameters['available'] = $movieTheater->getAvailable();
+            $parameters['numberOfCinemas'] = $movieTheater->getNumberOfCinemas();
+            $parameters['priceDefault'] = $priceDefault;
+            try {
+                $this->connection = Connection::getInstance();
+                return $this->connection->ExecuteNonQuery($sql, $parameters);
+            }
+            catch(PDOException $e){
+                echo $e;
+            }
+        }
+
+        public function update($id,$name,$address,$available,$numberOfCinemas)
         {
-            $sql = "UPDATE cinemas SET capacity = :capacity, capacity = :capacity, ticket_value = :ticket_value, available = :available  WHERE id_cinema = :id";
+            $sql = "UPDATE movieTheater SET name = :name, adress = :address, available = :available, numberOfCinemas = :numberOfCinemas WHERE id_movieTheater = :id";
             $parameters['id'] = $id;
-            $parameters['capacity'] = $capacity;
-            $parameters['ticket_value'] = $ticket_value;
+            $parameters['name'] = $name;
+            $parameters['address'] = $address;
             $parameters['available'] = $available;
+            $parameters['numberOfCinemas'] = $numberOfCinemas;
             try
             {
                 $this->connection = Connection::getInstance();
@@ -48,7 +59,7 @@
 
         public function readAll()
         {
-            $sql = "SELECT * FROM cinemas";
+            $sql = "SELECT * FROM movieTheater";
             try
             {
                 $this->connection = Connection::getInstance();
@@ -69,7 +80,7 @@
 
         public function read ($id)
         {
-            $sql = "SELECT * FROM cinemas where id_cinema = :id";
+            $sql = "SELECT * FROM movieTheater where id_movieTheater = :id";
             $parameters['id'] = $id;
             try
             {
@@ -93,7 +104,7 @@
 
         public function delete ($id)
         {
-            $sql = "DELETE FROM cinemas WHERE id_cinema = :id";
+            $sql = "DELETE FROM movieTheater WHERE id_movieTheater = :id";
             $parameters['id'] = $id;
             try
             {
@@ -105,18 +116,16 @@
                 throw $e;
             }
         }
+
         protected function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
-                $newCinema = new Cinema($p['id_movieTheater'], $p['number_cinema'], $p['capacity'],$p['ticket_value'],$p['available']);
-                $newCinema->setId($p['id_cinema']);
-                return $newCinema;
+                $newMT = new movieTheater($p['name'], $p['adress'],$p['available'],$p['numberOfCinemas']);
+                $newMT->setId($p['id_movieTheater']);
+                return $newMT;
             }, $value);
                 /* devuelve un arreglo si tiene datos y sino devuelve nulo*/
                 return count($resp) > 1 ? $resp : $resp['0'];
         }
-        }
 
-
-
-?>
+    }

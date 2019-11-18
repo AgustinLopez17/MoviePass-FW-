@@ -179,8 +179,8 @@
                 $genreDao = new GenreDao();
 
                 $movie = new Movie( $p['id_movie'], $p['title'], $p['lenght'], $p['language'],$p['image'],$p['overview']);
-                
-                return $genreDao->addGenreToMovie($movie);
+                return $movie;
+                // return $genreDao->addGenreToMovie($movie);
             }, $value);
                 /* devuelve un arreglo si tiene datos y sino devuelve nulo*/
                 return count($resp) > 1 ? $resp : $resp['0'];
@@ -205,11 +205,12 @@
 
                                 $newMovie = new Movie($movie["id"],$movie["title"],$movie["runtime"],$movie["original_language"],$movie["poster_path"],$movie['overview']);
                                 $this->create($newMovie);
-                                $genreDao = new GenreDao();
-                                $newMovie->setGenres($genreDao->arrayGenre($movie['genres']));
 
-
-                                $this->addGenre_X_movie($newMovie->getGenres(),$movie['id']);
+                                
+                                 $genreDao = new GenreDao();
+                                // $newMovie->setGenres($genreDao->arrayGenre($movie['genres']));
+                                $this->addGenre_X_movie($genreDao->arrayGenre($movie['genres']),$movie['id']);
+                                //$this->addGenre_X_movie($newMovie->getGenres(),$movie['id']);
                             }
                         }
                     }

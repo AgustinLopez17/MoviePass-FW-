@@ -9,7 +9,7 @@ namespace Models;
         private $language;
         private $image;
         private $overview;
-        private $genres;
+        // private $genres;
 
         public function __construct($id,$title,$lenght,$language,$image,$overview){
             $this->id = $id;
@@ -18,15 +18,15 @@ namespace Models;
             $this->language = $language;
             $this->image = $image;
             $this->overview = $overview;
-            $this->genres = array();
+            //$this->genres = array();
         }
 
-        public function getGenres(){
-                return $this->genres;
-        }
-        public function setGenres($genres){
-                $this->genres = $genres;
-        }
+        // public function getGenres(){
+        //         return $this->genres;
+        // }
+        // public function setGenres($genres){
+        //         $this->genres = $genres;
+        // }
 
         public function getTitle()
         {

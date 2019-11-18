@@ -25,14 +25,16 @@ class RegisterController{
                 
                 $users = $this->dao->readAll();
 
-                if( !empty($users) && !is_array($users)){
+                if( $users && !empty($users) && !is_array($users)){
                     $usersList = array($users);
+                }else if(!$users){
+                    $this->dao->create($user);
+                    echo "<script> if(confirm('Usuario agregado con éxito!'));";
+                    echo "window.location = '../index.php'; </script>";
                 }else{
                     $userList = $users;
                 }
                 $userExist = false;
-
-
                 foreach($usersList as $value){
                     if($value->getDni() == $user->getDni()){
                         $userExist = true;
