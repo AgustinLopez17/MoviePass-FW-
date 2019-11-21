@@ -9,24 +9,17 @@ namespace Models;
         private $language;
         private $image;
         private $overview;
-        // private $genres;
+        private $background;
 
-        public function __construct($id,$title,$lenght,$language,$image,$overview){
+        public function __construct($id,$title,$lenght,$language,$image,$overview,$background){
             $this->id = $id;
             $this->title = $title;
             $this->lenght = $lenght;
             $this->language = $language;
             $this->image = $image;
             $this->overview = $overview;
-            //$this->genres = array();
+            $this->background = $background;
         }
-
-        // public function getGenres(){
-        //         return $this->genres;
-        // }
-        // public function setGenres($genres){
-        //         $this->genres = $genres;
-        // }
 
         public function getTitle()
         {
@@ -90,6 +83,26 @@ namespace Models;
         public function setOverview($overview)
         {
                 $this->overview = $overview;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of background
+         */ 
+        public function getBackground()
+        {
+                return $this->background;
+        }
+
+        /**
+         * Set the value of background
+         *
+         * @return  self
+         */ 
+        public function setBackground($background)
+        {
+                $this->background = $background;
 
                 return $this;
         }

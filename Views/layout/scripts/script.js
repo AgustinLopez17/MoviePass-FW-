@@ -61,3 +61,14 @@ $(document).ready(function(){
 
 
 });
+
+$('#startBuy').click(function(){
+    $.ajax({
+        url: 'buyController.php',
+        type:  'POST',
+        data: $('#FormBuy').serialize(),
+        success: function(res){
+            $('#response').html(res);
+        }
+    });
+});

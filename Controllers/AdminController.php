@@ -1,17 +1,27 @@
 <?php namespace Controllers;
 
 use DAO\DAODB\MovieTheaterDao as MovieTheaterDAO;
+use DAO\DAODB\MovieDao as MovieDao;
 use Models\MovieTheater as MovieTheater;
 use DAO\DAODB\ShowDao as ShowDao;
+use PDOException as PDOException;
+
+
 class AdminController{
     private $movieTheaterDao;
     private $showDao;
+    private $movieDao;
     private $allMT;
+    private $allShows;
+    private $allMovies;
 
     public function __construct(){
         $this->movieTheaterDao = new MovieTheaterDAO();
         $this->showDao = new ShowDao();
+        $this->movieDao = new MovieDao();
         $this->allMT = array();
+        $this->allShows = array();
+
     }
 
     public function chargeAllAndBack($msg=null){
@@ -35,13 +45,37 @@ class AdminController{
     }
 
     public function showAdminMovieTheater(){
-        $this->setAllMT($this->movieTheaterDao->readAll());
+
+        try{
+            $this->setAllMT($this->movieTheaterDao->readAll());
+        }catch(PDOException $e){
+            $pdoEx = $e;
+        }
         require_once("Views/adminMT.php");
     }
+
+    public function showAdminShows(){
+        try {
+            $this->setAllShows($this->showDao->readAll());
+            $this->setAllMT($this->movieTheaterDao->readAll());
+        }catch(PDOException $e){
+            $pdoEx = $e;
+        }
+        require_once("Views/adminShow.php");
+    }
+
 
     public function getAllMT()
     {
         return $this->allMT;
+    }
+
+    public function setAllShows($allShows){
+        if(isset($allShows) && !is_array($allShows)){
+            $this->allShows = array($allShows);
+        }else if(is_array($allShows)){
+            $this->allShows = $allShows;
+        }
     }
 
     public function setAllMT($allMT)

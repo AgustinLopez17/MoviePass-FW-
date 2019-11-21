@@ -2,7 +2,8 @@
     use Models\MovieTheater as MovieTheater;
     use DAO\DAODB\Connection as Connection;
     use PDOException;
-    class MovieTheaterDao extends Singleton{
+    use DAO\DAODB\IDao;
+    class MovieTheaterDao extends Singleton implements IDao{
         private $connection;
         public function __construct(){
             $this->connection = null;
@@ -18,7 +19,7 @@
                 return $this->connection->ExecuteNonQuery($sql, $parameters);
             }
             catch(PDOException $e){
-                echo $e;
+                throw $e;
             }
         }
 
@@ -34,7 +35,7 @@
                 return $this->connection->ExecuteNonQuery($sql, $parameters);
             }
             catch(PDOException $e){
-                echo $e;
+                throw $e;
             }
         }
 
@@ -53,7 +54,7 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
         }
 
@@ -67,15 +68,12 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
-            finally
-            {
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
                 else
                     return false;
-            } 
         }
 
         public function read ($id)
@@ -89,17 +87,30 @@
             }
             catch(PDOException $e)
             {
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: CinemaDao.php")';
-                echo '</script>';
+                throw $e;
             }
-            finally
-            {
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
                 else
                     return "false";
+        }
+
+        public function readByMovie($id_movie){
+            $sql = "SELECT mt.id_movieTheater,mt.name,mt.adress,mt.available,mt.numberOfCinemas FROM movietheater mt INNER JOIN shows s ON mt.id_movieTheater = s.id_movieTheater WHERE s.id_movie = :id_movie GROUP BY mt.id_movieTheater;";
+            $parameters['id_movie'] = $id_movie;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
             }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
         }
 
         public function delete ($id)
@@ -117,7 +128,7 @@
             }
         }
 
-        protected function mapear($value) {
+        public function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
                 $newMT = new movieTheater($p['name'], $p['adress'],$p['available'],$p['numberOfCinemas']);

@@ -4,8 +4,9 @@
     use Models\Movie as Movie;
     use DAO\DAODB\Connection as Connection;
     use PDOExpection;
+    use DAO\DAODB\IDao;
 
-    class GenreDao extends Singleton{
+    class GenreDao extends Singleton implements IDao{
         private $connection;
         public function __construct(){
             $this->connection = null;
@@ -19,7 +20,7 @@
                 $this->connection = Connection::getInstance();
                 return $this->connection->ExecuteNonQuery($sql,$parameters);
             }catch(PDOException $e){
-                echo $e;
+                throw $e;
             }
         }
         public function readAll()
@@ -32,15 +33,12 @@
             }
             catch(PDOException $e)
             {
-                echo $e;
+                throw $e;
             }
-            finally
-            {
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
                 else
                     return false;
-            } 
         }
         
         public function read ($id)
@@ -54,19 +52,14 @@
             }
             catch(PDOException $e)
             {
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: GENREDAO.php")';
-                echo '</script>';
+                throw $e;
             }
-            finally
-            {
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
                 else
                     return false;
-            }
         }
-        protected function mapear($value) {
+        public function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
                 return new Genres( $p['id_genre'],$p['genre']);
@@ -100,23 +93,30 @@
             }
             catch(PDOException $e)
             {
-                echo '<script>';
-                echo 'console.log("Error en base de datos. Archivo: GENREDAO.php")';
-                echo '</script>';
+                throw $e;
             }
-            finally
-            {
                 if(!empty($resultSet))
                     return $this->mapear($resultSet);
                 else
                     return false;
+        }
+
+        public function delete($id)
+        {
+            $sql = "DELETE FROM genres WHERE id_genre = :id";
+            $parameters['id'] = $id;
+            try {
+                $this->connection = Connection::getInstance();
+                return $this->connection->ExecuteNonQuery($sql, $parameters);
+            } catch (PDOException $e) {
+                throw $e;
             }
         }
 
         public function arrayGenre($genres){ //Esta funcion va a generar un array de objetos genero, desde un arreglo que nos devuelve la api
             $arrayGenres = array();
-            foreach($genres as $value){
-                $genre = new Genres($value['id'],$value['name']);
+            foreach($genres as $key =>$value){
+                $genre = new Genres($value);
                 array_push($arrayGenres,$genre);
             }
             return $arrayGenres;

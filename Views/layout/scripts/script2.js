@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+  $('body, html').animate({scrollTop:0}, 'slow');  
+  
     window.fbAsyncInit = function() {
         FB.init({
           appId      : '680454735697047',

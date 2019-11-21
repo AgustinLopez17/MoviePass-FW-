@@ -433,3 +433,8 @@ input[placeholder="Type name of cinema"]:hover,input[placeholder="Type address"]
     filter: drop-shadow(10px 0px 10px rgba(0, 0, 0, 0.623));
     overflow-y: scroll;
 }
+
+#titleCinemas{
+    text-align: center;
+    color: rgba(255, 255, 255, 0.418);
+}

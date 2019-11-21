@@ -5,7 +5,7 @@
         private $id_genre;
         private $name_genre;
 
-        public function __construct($id_genre,$name_genre){
+        public function __construct($id_genre,$name_genre = null){
             $this->id_genre = $id_genre;
             $this->name_genre = $name_genre;
         }

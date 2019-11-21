@@ -41,6 +41,7 @@ create table movies(
                     language varchar(10),
                     image text,
                     overview text,
+                    background text,
                     constraint pk_id_movie primary key (id_movie)
 );
 
@@ -62,37 +63,42 @@ create table shows(
                     id_show int auto_increment,
                     show_date datetime,
                     id_cinema int,
+                    id_movieTheater int,
                     id_movie int,
+
+
+                    total_tickets int,
+                    ticket_price int,
+                    tickets_sold int,
+
+
+
                     constraint pks_shows primary key (id_show),
                     constraint fk_shows_id_cinema foreign key (id_cinema) references Cinemas(id_cinema),
-                    constraint fk_shows_id_movie foreign key (id_movie) references Movies(id_movie)
+                    constraint fk_shows_id_movie foreign key (id_movie) references Movies(id_movie),
+                    constraint fk_shows_id_movieTheater foreign key (id_movieTheater) references movieTheater(id_movieTheater)
 );
-
-create table purchase(
-                    id_purchase int auto_increment not null,
-                    purchase_day date,
-                    q_tickets int,
-                    total float,
-                    discount float,
-                    dni int,
-                    CONSTRAINT pk_id_purchase PRIMARY KEY (id_purchase),
-                    CONSTRAINT fk_dni FOREIGN KEY (dni) references users(dni)
+                                   
+create table purchases(
+                    id_purchase int auto_increment,
+                    purchased_tickets int,
+                    date_purchase varchar(15),
+                    discount int,
+                    qr mediumblob,
+                    DNI int,
+                    constraint pk_purchases primary key(id_purchase),
+                    constraint fk_purchases_users foreign key(DNI) references users(DNI)
 );
 
 create table tickets(
                     id_ticket int auto_increment,
-                    ticket_number varchar(3),
-                    qr_code blob,
-                    id_show int,
+                    tk_number int,
                     id_purchase int,
-                    constraint pk_id_ticket primary key (id_ticket),
-                    constraint fk_id_purchase foreign key (id_purchase) references purchase (id_purchase),
-                    constraint fk_id_show foreign key (id_show) references shows (id_show)
+                    id_show int,
+                    constraint pk_tickets primary key(id_ticket),
+                    constraint fk_tickets_showtimes foreign key(id_show) references shows(id_show),
+                    constraint fk_tickets_purchases foreign key(id_purchase) references purchases(id_purchase)
 );
-
-
-UPDATE shows SET show_date = '2019-11-01 22:05' WHERE id_show = 1;
-
 
 DROP PROCEDURE IFEXIST(createMT);
 DELIMITER $$
@@ -108,5 +114,20 @@ CREATE PROCEDURE createMT(IN Iname varchar(20), IN Iadress varchar(20),IN Iavail
         END WHILE;
     END $$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE createTicketsAndPurchase(IN Iid_show int,IN Itk_number int, IN InumberOfTickets int,IN Idate_purchase date, IN Idiscount int, IN Iqr mediumblob, IN Idni int)
+    BEGIN
+        DECLARE vLastId int default -1;
+        INSERT INTO purchases(purchased_tickets,date_purchase,discount,qr,dni) VALUES (InumberOfTickets,Idate_purchase,Idiscount,Iqr,Idni);
+        set vLastId = last_insert_id();
+        DECLARE vAux int DEFAULT 0;
+        WHILE vAux < numberOfTickets DO
+            INSERT INTO tickets(tk_number,id_purchase,id_show) VALUES (Itk_number,vLastId,Iid_show);
+        END WHILE;
+    END $$
+DELIMITER ;
+
 
 call moviepass.createMT(:name,:adress,:available,:numberOfCinemas,:priceDefault);

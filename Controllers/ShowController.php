@@ -4,23 +4,32 @@
     use DAO\DAODB\ShowDao as ShowDao;
     use Models\Show as Show;
     use DAO\DAODB\CinemaDao as CinemaDao;
+    use DAO\DAODB\MovieTheaterDao as MovieTheaterDao;
     use DAO\DAODB\MovieDao as MovieDao;
     use \DateTime;
-
+    use PDOException;
     class ShowController{
         private $showDao;
         private $cinemaDao;
         private $movieDao;
+        private $movieTheaterDao;
+        private $allMT;
+        private $allShows;
 
         function __construct(){
             $this->showDao = new ShowDao();
             $this->cinemaDao = new CinemaDao();
             $this->movieDao = new MovieDao();
+            $this->movieTheaterDao = new MovieTheaterDao();
+            $this->allMT = array();
+            $this->allShows = array();
         }
 
-        public function goBack($outcome){
+        public function goBack($msg = null){
             require_once(VIEWS_PATH."validate-session.php");
-            require_once("Views/adminCines.php");
+            $this->chargeMT();
+            $this->chargeShows();
+            require_once("Views/adminShow.php");
         }
 
         public function converseArray($dbShows){
@@ -32,45 +41,81 @@
             return $shows;
         }
 
-        public function addShow($id_cinema,$id_movie,$date){
+        public function chargeMT(){
+            try{
+                $this->setAllMT($this->movieTheaterDao->readAll());
+            }catch(PDOException $e){
+                $pdoEx = $e;
+            }
+        }
+
+        public function chargeShows(){
+            try{
+                $this->setAllShows($this->showDao->readAll());
+            }catch(PDOException $e){
+                $pdoEx = $e;
+            }
+        }
+
+        public function verifyMovieTheater($id_MT,$id_movie,$date){
             $objDate = new DateTime($date);
             $nowDate = new DateTime(date('Y-m-d'));
-            $dbShows = $this->showDao->readByMovieAndDate($id_movie,$objDate);
-            if($dbShows != "false"    &&  $objDate >= $nowDate){
-                $shows = $this->converseArray($dbShows);
-                if($id_cinema == $shows[0]->getId_cinema()){
-                    require_once("Views/newShow.php");
+            try{
+                $dbShows = $this->showDao->readByMovieAndDate($id_movie,$objDate);//buscamos si el show existe en la fecha que se desea poner
+                $MT = $this->movieTheaterDao->read($id_MT);
+                $allCinemas = $this->cinemaDao->readFromMovieTheater($id_MT);
+            }catch(PDOException $e){
+                $this->goBack($e);
+            }
+            if($dbShows != "false"    &&  $objDate >= $nowDate){//en caso de existir el show y que la fecha ingresada sea mayor o igual al dia de hoy
+                $shows = $this->converseArray($dbShows);//convertimos en array en caso de que en ese dia exista mas de un show igual
+                if($id_MT == $shows[0]->getId_movieTheater()){ // verificamos que el show que se quiere agregar sea del mismo cine, en caso de no serlo, no seria posible agregarlo debido a que eso significaria que el show ya lo posee otro cine
+                    include("Views/selectCinema.php");
                 }else{
                     $this->goBack("Pelicula ya reservada por otro cine");
                 }
-            }else if($objDate >= $nowDate){
-                require_once("Views/newShow.php");
+            }else if($objDate >= $nowDate){ //en caso de que la fecha ingresada sea mayor y no exista el show en ninguna otra fecha
+                include("Views/selectCinema.php");
             }else{
                 $this->goBack("Fecha posterior a actual");
             }
         }
 
-        public function addHour($id_cinema,$id_movie,$date,$time){
+        public function verifyHour($id_cinema,$id_MT,$id_movie,$date,$time){
             $objDate = new DateTime($date);
-            $inDisplay = $this->showDao->readByCinemaAndDate($id_cinema,$objDate);
+            try{
+                $inDisplay = $this->showDao->readByMTAndDate($id_MT,$objDate);
+                $cinema = $this->cinemaDao->read($id_cinema);
+            }catch(PDOException $e){
+                $this->goBack($e);
+            }
             $movieTime = $this->timeOfMovie($id_movie);
             $aux = $date . " " . $time;
             $newDate = new DateTime($aux);
-            $newShow = new Show($aux,$id_cinema,$id_movie);
-            if($inDisplay != "false" && $this->showDao->readAll()){
+            $newShow = new Show($aux,$id_cinema,$id_movie,$id_MT,$cinema->getCapacity(),0,$cinema->getTicket_value());
+            if($inDisplay != "false" && $this->showDao->readAll()){ 
                 $shows = $this->converseArray($inDisplay);
                 $validation = $this->checkAvailableTime($shows,$newDate,$movieTime);
                 if($validation){
-                    $this->showDao->create($newShow);
+                    try{
+                        $this->showDao->create($newShow);
+                    }catch(PDOException $e){
+                        $this->goBack($e);
+                    }
                     $this->goBack("Se agregó correctamente");
                 }else{
                     $this->goBack("No se agregó porque se pisa con otro horario");
                 }
             }else{
-                $this->showDao->create($newShow);
+                try{
+                    $this->showDao->create($newShow);
+                }catch(PDOException $e){
+                    $this->goBack($e);
+                }
                 $this->goBack("Se agregó correctamente porque la pelicula no existia en otro cine");
             }
         }
+
 
         public function checkAvailableTime($shows, $newDate, $movieTime){
             $aux = new DateTime($newDate->format("Y-m-d H:i"));
@@ -86,18 +131,40 @@
         }
 
         public function timeOfMovie($id_movie){ //Esta funcion devuelve la duracion de la pelicula lista para añadirla a un horario
-            foreach($this->movieDao->readAll() as $value){
+            try {
+                $movies = $this->movieDao->readAll();
+            }catch(PDOException $e){
+                $this->goBack($e);
+            }
+            foreach($movies as $value){
                 if($id_movie == $value->getId()){
-                    $asd = "+".($value->getLenght()+15)." minutes";
-                    return $asd;
+                    // $asd = "+".($value->getLenght()+15)." minutes";
+                    // return $asd;
+                    return "+".($value->getLenght()+15)." minutes";
                 }
             }
             return false;
         }
 
-        public function modShow($id_show,$id_cinema,$id_movie,$date){
-            
+        public function setAllMT($allMT)
+        {
+            if(isset($allMT) && !is_array($allMT)){
+                $this->allMT = array($allMT);
+            }else if(is_array($allMT)){
+                $this->allMT = $allMT;
+            }else{
+                $this->allMT = $allMT;
+            }
         }
+
+        public function setAllShows($allShows){
+            if(isset($allShows) && !is_array($allShows)){
+                $this->allShows = array($allShows);
+            }else if(is_array($allShows)){
+                $this->allShows = $allShows;
+            }
+        }
+
 
     }
 

@@ -1,4 +1,4 @@
-<?php namespace DAO;
+<?php namespace DAO\DAOJSON;
 
     use DAO\IRepository as IRepository;
     use Models\Cinema as Cinema;
@@ -7,28 +7,23 @@
     {
         private $cinemaList = array();
 
-        public function DeleteAll(){
-            $this->cinemaList = null;
-            $this->SaveData();
-        }
-
-        public function modifyList($cinemaList){
-            $this->cinemaList = $cinemaList;
-            $this->SaveData();
-        }
-
-        public function Add($newCinema){
+        
+        public function create($newCinema){
             $this->RetrieveData();
             array_push($this->cinemaList,$newCinema);
             $this->SaveData();
         }
 
-        public function GetAll(){
+        public function update($id,$capacity,$ticket_value,$available){
+            $cinema = $this->read($id);
+        }
+
+        public function readAll(){
             $this->RetrieveData();
             return $this->cinemaList;
         }
 
-        public function Delete($adress){
+        public function delete($id){
             $this->RetrieveData();
             $newList = array();
             foreach($this->cinemaList as $value){
@@ -62,7 +57,7 @@
             file_put_contents($jsonPath, $jsonContent);
         }
 
-        private function RetrieveData() {
+        private function mapear() {
             
             $this->cinemaList = array();
             $jsonPath = $this->GetJsonFilePath();
@@ -84,7 +79,7 @@
 
         }
 
-        public function getById($id) {
+        public function read($id) {
             $this->RetrieveData();
             foreach ($this->cinemaList as $key => $cinema) {
                 if($cinema->getId() == $id) {

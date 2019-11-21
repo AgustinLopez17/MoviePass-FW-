@@ -5,7 +5,7 @@ use Models\MovieTheater as MovieTheater;
 use DAO\DAODB\MovieDao as MovieDao;
 use DAO\DAODB\ShowDao as ShowDao;
 use Controllers\HomePageController as HomePageController;
-
+use PDOException;
 class MovieTheaterController{
 
     private $MovieTheaterDao;
@@ -32,19 +32,17 @@ class MovieTheaterController{
         }
     }
 
-    public function allMovies(){
-        $this->movieDao->retrieveDataApi();
-        $allMovies = $this->movieDao->readAll();
-        if(!is_array($allMovies)){
-            $movies = array($allMovies);
-        }else{
-            $movies = $allMovies;
-        }
-        return $movies;
-    }
-
     public function allMTs(){
-        $MTList = $this->MovieTheaterDao -> readAll();
+        try{
+            $MTList = $this->MovieTheaterDao -> readAll();
+        }catch(PDOException $e){
+            $msg = $e;
+            return $msg;
+        }
+
+        if(!$MTList){
+            return null;
+        }
         if(empty($MTList))
         {
             $MTs = array();
@@ -55,7 +53,7 @@ class MovieTheaterController{
                 $MTs = $MTList;
             }
 
-        }
+        } 
         return $MTs;
     }
 
@@ -71,8 +69,12 @@ class MovieTheaterController{
             $MTList = $this->allMTs();
             if($this->MovieTheaterDao->read($id)->getName() != $name){
                 if(!$this->exist($MTList,$name)){
-                    $this->MovieTheaterDao->update($id,$name,$address,$available,$numberOfCinemas);
-                    $this->chargeAllAndBack("Modificado con éxito");
+                    try{
+                        $this->MovieTheaterDao->update($id,$name,$address,$available,$numberOfCinemas);
+                    }catch(PDOException $e){
+                        $this->chargeAllAndBack($e);
+                    }
+                    $this->chargeAllAndBack('El cine se modifico correctamente');
                 }
             }else{
                 $this->MovieTheaterDao->update($id,$name,$address,$available,$numberOfCinemas);
@@ -105,9 +107,14 @@ class MovieTheaterController{
 
     public function newMT($name,$address,$available,$numberOfCinemas,$priceDefault){
         $MTList = $this->allMTs();
-        if(!$this->exist($MTList,$name)){
+        if(!isset($MTList)  ||  !$this->exist($MTList,$name)){
             $MT = new MovieTheater($name,$address,$available,$numberOfCinemas);
-            $this->MovieTheaterDao->createWithCinemas($MT,$priceDefault);
+            try{
+                $this->MovieTheaterDao->createWithCinemas($MT,$priceDefault);
+            }catch(PDOException $e){
+                $msg = $e;
+                return $msg;
+            }
             return "Cine cargado con éxito";
         }else{
             return "Ya existe un cine con ese nombre";
@@ -115,6 +122,9 @@ class MovieTheaterController{
     }
 
     public function exist($MTList,$name){
+        if(!$MTList){
+            return false;
+        }
         foreach($MTList as $values){
             if($values->getName() == $name){
                 return true;

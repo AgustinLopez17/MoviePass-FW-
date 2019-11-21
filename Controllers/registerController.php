@@ -2,6 +2,7 @@
     namespace Controllers;
     use Models\User as User;
     use DAO\DAODB\UserDao as UserDao;
+    use PDOException as PDOException;
 
 class RegisterController{
 
@@ -11,47 +12,35 @@ class RegisterController{
         $this->dao = UserDao::getInstance();
     }
 
-    public function register(){
-        if($_POST){
-            if(isset($_POST["firstName"]) && isset($_POST["surName"]) && isset($_POST["dni"]) 
-                && isset($_POST["email"]) && isset($_POST["pass"])){
+    public function goBack(){
+        require_once(VIEWS_PATH."viewLogin.php");
+    }
 
-                if($_POST["email"] == "lab4@utn.com"){
+    public function register($firstname,$surname,$dni,$email,$pass){
+                if($email == "lab4@utn.com"){ //ELIMINAR Y HACER USER CONTROLLER
                     $group = 1;
                 }else{
                     $group = 0;
                 }
-                $user = new User($_POST["firstName"],$_POST["surName"],$_POST["dni"],$_POST["email"],$_POST["pass"],$group);
-                
-                $users = $this->dao->readAll();
-
-                if( $users && !empty($users) && !is_array($users)){
-                    $usersList = array($users);
-                }else if(!$users){
-                    $this->dao->create($user);
-                    echo "<script> if(confirm('Usuario agregado con éxito!'));";
-                    echo "window.location = '../index.php'; </script>";
-                }else{
-                    $userList = $users;
+                $user = new User($firstname,$surname,$dni,$email,$pass,$group);
+                $flag = null;
+                try{
+                    $flag = $this->dao->readById($dni);
+                }catch(PDOException $e){
+                    $msg = $e;
                 }
-                $userExist = false;
-                foreach($usersList as $value){
-                    if($value->getDni() == $user->getDni()){
-                        $userExist = true;
+                if(isset($flag) && !$flag){
+                    try{
+                        $this->dao->create($user);
+                        $msg = 'Usuario creado con éxito';
+                    }catch(PDOException $e){
+                        $msg = $e;
                     }
+                }else if(isset($flag)){
+                    $msg = 'DNI ya existente';
                 }
+                include('Views/viewLogin.php');
 
-
-                if(!$userExist) {
-                    $this->dao->create($user);
-                    echo "<script> if(confirm('Usuario agregado con éxito!'));";
-                    echo "window.location = '../index.php'; </script>";
-                } else {
-                    echo "<script> if(confirm('El usuario ya existe'));";
-                    echo "window.location = '../index.php'; </script>";
-                }    
-            }  
-        }
+            }
     }
-}
 ?>

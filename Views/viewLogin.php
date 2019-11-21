@@ -1,3 +1,6 @@
+<?php
+    include("header.php");
+?>
 
 <script src="<?php echo JS_PATH2 ?>"></script>
 <link rel="stylesheet" href="/MoviePass/Views/layout/styles/style.css">
@@ -5,18 +8,32 @@
 </head>
 
 <body id="body">
-<?php if(isset($datosIncorrectos) && $datosIncorrectos) { ?>
+<?php if (isset($datosIncorrectos) && $datosIncorrectos) { ?>
     <script>
         if(confirm('Datos incorrectos, vuelva a intentarlo !'));
         // window.location = '../index.php';
     </script>
 <?php } ?>
 
-<?php if(isset($huboProblema) && $huboProblema) { ?>    
+<?php if (isset($huboProblema) && $huboProblema) { ?>    
     <script> 
         if(confirm('Hubo un problema al procesar los datos, vuelva a intentarlo !'));
     </script>
 <?php  } ?>
+
+<?php if (isset($msg) && is_a($msg,'PDOException')) { ?>    
+    <script> 
+        if(confirm('Hubo un problema con la base de datos, por favor reintente más tarde. '));
+    </script>
+<?php  } else if( isset($msg) ) { ?>
+    <script> 
+        if(confirm('<?php echo $msg ?>'));
+    </script>
+<?php $this->goBack(); } ?>
+
+
+
+
 <header></header>
     <img src="<?php echo IMG_PATH."logo.png" ?>" alt="MoviePass" class="logo">
     <p class="title">MoviePass</p>

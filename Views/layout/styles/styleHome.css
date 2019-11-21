@@ -301,6 +301,12 @@ button[type="button"]{
     height: 20px;
     border: none;
     margin-top: 0;
+    text-align: center;
+ }
+
+ a{
+     text-decoration: none;
+     color: white;
  }
 
  #buyTicket:hover{

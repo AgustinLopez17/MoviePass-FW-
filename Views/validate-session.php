@@ -1,4 +1,4 @@
 <?php
-  if(!isset($_SESSION["loggedUser"]))
-    header("location:../index.php");  
+    if(!isset($_SESSION["loggedUser"]))
+        require_once(VIEWS_PATH."viewLogin.php");
 ?>
