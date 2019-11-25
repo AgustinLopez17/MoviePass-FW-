@@ -9,13 +9,13 @@
     class UserController{
         private $userDao;
         private $purchaseDao;
-        // private $movieDao;
-        // private $showDao;
+        private $movieDao;
+        private $showDao;
         public function __construct(){
             $this->userDao = new UserDao();
             $this->purchaseDao = new PurchaseDao();
-            // $this->movieDao = new MovieDao();
-            // $this->showDao = new ShowDao();
+            $this->movieDao = new MovieDao();
+            $this->showDao = new ShowDao();
         }
 
         public function validateSession(){
@@ -72,15 +72,15 @@
             return $allPurchases;
         }
 
-        // public function readMovie($id_show){
-        //     try{
-        //         $show = $this->showDao->read($id_show);
-        //         $movie = $this->movieDao->read($show->getId_movie());
-        //     }catch(PDOException $e){
-        //         $msg = $e;
-        //     }
-        //     return $movie;
-        // }
+        public function readMovie($id_show){
+            try{
+                $show = $this->showDao->read($id_show);
+                $movie = $this->movieDao->read($show->getId_movie());
+            }catch(PDOException $e){
+                $msg = $e;
+            }
+            return $movie;
+        }
 
 
 
