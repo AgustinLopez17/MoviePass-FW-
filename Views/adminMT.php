@@ -2,11 +2,11 @@
     include("header.php");
 
     if(isset($this->allMT) && is_a($this->allMT,'PDOException')){
-        ?> <script> if(confirm('Error en la base de datos')); </script> <?php
+        ?> <script> if(confirm('There was a problem with the database, please try again later.')); </script> <?php
     }else if(isset($msg)){
         ?> <script> if(confirm('<?php echo $msg ?>')); </script> <?php
     }else if(isset($msg) && is_a($msg,'PDOException')){
-        ?> <script> if(confirm('Error en la base de datos')); </script> <?php
+        ?> <script> if(confirm('There was a problem with the database, please try again later.')); </script> <?php
     }
 
 ?>

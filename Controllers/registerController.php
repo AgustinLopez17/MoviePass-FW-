@@ -17,30 +17,29 @@ class RegisterController{
     }
 
     public function register($firstname,$surname,$dni,$email,$pass){
-                if($email == "adm170599@gmail.com"){ //ELIMINAR Y HACER USER CONTROLLER
-                    $group = 1;
-                }else{
-                    $group = 0;
-                }
-                $user = new User($firstname,$surname,$dni,$email,$pass,$group);
-                $flag = null;
-                try{
-                    $flag = $this->dao->readById($dni);
-                }catch(PDOException $e){
-                    $msg = $e;
-                }
-                if(isset($flag) && !$flag){
-                    try{
-                        $this->dao->create($user);
-                        $msg = 'Usuario creado con éxito';
-                    }catch(PDOException $e){
-                        $msg = $e;
-                    }
-                }else if(isset($flag)){
-                    $msg = 'DNI ya existente';
-                }
-                include('Views/viewLogin.php');
-
+        if($email == "adm170599@gmail.com"){ 
+            $group = 1;
+        }else{
+            $group = 0;
+        }
+        $user = new User($firstname,$surname,$dni,$email,$pass,$group);
+        $flag = null;
+        try{
+            $flag = $this->dao->readById($dni);
+        }catch(PDOException $e){
+            $msg = $e;
+        }
+        if(isset($flag) && !$flag){
+            try{
+                $this->dao->create($user);
+                $msg = 'Registered user successfully';
+            }catch(PDOException $e){
+                $msg = $e;
             }
+        }else if(isset($flag)){
+            $msg = 'Existing ID';
+        }
+        include('Views/viewLogin.php');
     }
+}
 ?>

@@ -3,7 +3,7 @@
     if (isset($msg) && is_a($msg,'PDOException')) {
         ?>
 <script>
-        if(confirm("Error en la base de datos"));
+        if(confirm("Error in the database, please try again later."));
 </script>
 <?php
         $this->goHome(); 

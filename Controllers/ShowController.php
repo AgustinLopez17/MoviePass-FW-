@@ -97,14 +97,14 @@
                         include("Views/selectCinema.php");
                     }
                 }else{
-                    $this->goBack("Pelicula ya reservada por otro cine");
+                    $this->goBack("Movie already booked by another cinema");
                 }
             }else if($objDate >= $nowDate){ //en caso de que la fecha ingresada sea mayor y no exista el show en ninguna otra fecha
                 if ($this->validateSession()) {
                     include("Views/selectCinema.php");
                 }
             }else{
-                $this->goBack("Fecha posterior a actual");
+                $this->goBack("Date after current");
             }
         }
 
@@ -129,9 +129,9 @@
                     } catch (PDOException $e) {
                         $this->goBack($e);
                     }
-                    $this->goBack("Se agregó correctamente");
+                    $this->goBack("Successfully added");
                 } else {
-                    $this->goBack("No se agregó porque se pisa con otro horario");
+                    $this->goBack("It was not added because it intersects with another schedule");
                 }
             } else {
                 try {
@@ -139,7 +139,7 @@
                 } catch (PDOException $e) {
                     $this->goBack($e);
                 }
-                $this->goBack("Se agregó correctamente porque la pelicula no existia en otro cine");
+                $this->goBack("It was added successfully. The movie did not exist in another cinema");
             }
         }
 

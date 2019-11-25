@@ -4,7 +4,7 @@
 
     if (is_a($this->allMovies, 'PDOException')) { ?>    
         <script> 
-            if(confirm('Hubo un problema con la base de datos, por favor intente nuevamente más tarde.'));
+            if(confirm('There was a problem with the database, please try again later.'));
         </script>
     <?php 
         $this->exit();
@@ -59,12 +59,7 @@
     document.getElementById('FORM_ID').id_genre.onchange = function() {
         document.getElementById('submitButton').click();
     };
-
-
 </script>
-
-
-
 <section id="banner">
     <div id="container">
         <form action="<?php echo FRONT_ROOT ?>#">
@@ -93,7 +88,7 @@
                 <?php
                         }
                     } else {
-                        ?> <p id="emptyFunctions"> No hay funciones </p> <?php
+                        ?> <p id="emptyFunctions"> No functions </p> <?php
                     } ?>
                 </tr>
                 

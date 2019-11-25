@@ -11,14 +11,14 @@ class MovieTheaterController{
     private $userDao;
     private $MovieTheaterDao;
     private $movieDao;
-    private $showDao;
+    // private $showDao;
     private $allMT;
 
     function __construct(){
         $this->userDao = new UserDao();
         $this->MovieTheaterDao = new MovieTheaterDao();
         $this->movieDao = new MovieDao();
-        $this->showDao = new ShowDao();
+        // $this->showDao = new ShowDao();
         $this->allMT = array();
     }
 
@@ -95,11 +95,11 @@ class MovieTheaterController{
                     }catch(PDOException $e){
                         $this->chargeAllAndBack($e);
                     }
-                    $this->chargeAllAndBack('El cine se modifico correctamente');
+                    $this->chargeAllAndBack('The movietheater was modified correctly');
                 }
             }else{
                 $this->MovieTheaterDao->update($id,$name,$address,$available,$numberOfCinemas);
-                $this->chargeAllAndBack("El nombre ya existe");
+                $this->chargeAllAndBack("The name already exists");
             }
     }
 
@@ -136,9 +136,9 @@ class MovieTheaterController{
                 $msg = $e;
                 return $msg;
             }
-            return "Cine cargado con éxito";
+            return "MovieTheater loaded successfully";
         }else{
-            return "Ya existe un cine con ese nombre";
+            return "There is already a movie theater with that name";
         }
     }
 

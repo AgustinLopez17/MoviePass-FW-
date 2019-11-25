@@ -152,35 +152,4 @@
             }
         }
         
-        // public function showListView($something = null){ //something es el filtro que se aplicaría para ver las peliculas
-        //     require_once(VIEWS_PATH."validate-session.php");
-        //     foreach($this->showDao->readAll() as $show){
-        //         foreach($this->movieDao->readAll() as $movie){
-        //             if($show->getId_movie() == $movie->getId() ){
-        //                 if(isset($something)){
-        //                     if(!strstr($something,'-') &&  $show->getDate() >= $this->nowDate){
-        //                         foreach($movie->getGenres() as $genre){
-        //                             if($something == $genre->getId_genre()){
-        //                                 if(!in_array($movie,$this->allMovies)){
-        //                                     array_push($this->allMovies,$movie);
-        //                                 }
-        //                             }
-        //                         }
-        //                     }else{
-        //                         if($something == $show->getDate()->format("Y-m-d")){
-        //                             if(!in_array($movie,$this->allMovies)){
-        //                                 array_push($this->allMovies,$movie);
-        //                             }
-        //                         }
-        //                     }
-        //                 }else{
-        //                     if(!in_array($movie,$this->allMovies) && $show->getDate() >= $this->nowDate){
-        //                         array_push($this->allMovies,$movie);
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-            
-        // }
     }

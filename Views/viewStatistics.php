@@ -6,7 +6,7 @@
 <script>
     if(confirm('<?php
                       if(is_a($msg,'PDOException')){
-                            echo 'Error en la base de datos, por favor intente nuevamente mas tarde.';
+                            echo 'Error in the database, please try again later.';
                       } else {
                             echo $msg;
                       } 

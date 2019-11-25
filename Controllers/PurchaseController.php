@@ -164,9 +164,9 @@
                         $msg = $e;
                     }
                     if ($this->sendMail($user, $codeOfTicket) && !isset($msg)) {
-                        $msg = 'Compra creada con éxito, se le ha enviado un mail con el codigo que deberá presentar en el cine';
+                        $msg = 'Purchase created successfully, an email was sent with the code that must be presented at the cinema';
                     } else {
-                        $msg = 'Compra realizada con éxito, pero hubo un error al enviar el mail, QR para presentar en cine guardado en su perfil';
+                        $msg = 'Purchase made successfully, but there was an error sending the mail. The QR to present in cinema saved in your profile';
                     }
                     if($discount == 0){
                         $discount = null;
@@ -174,7 +174,7 @@
                     $price = $show->getTicket_price() * $numberOfTickets;
                     include('Views/addCC.php');
                 }else{
-                    $msg = 'Datos de tarjeta erroneos';
+                    $msg = 'Bad credit card information';
                     try {
                         $show = $this->showDao->read($id_show);
                         $movie = $this->movieDao->read($show->getId_movie());
@@ -200,14 +200,14 @@
             $cuerpo ='<html>
                         <head>
                             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-                            <title>Enviar email</title>
+                            <title>Send email</title>
                         </head>
                         <body>
-                        <p> El siguiente codigo QR debera presentar en el correspondiente cine: </p>
+                        <p> The following QR code must present in the corresponding cinema: </p>
                             <img src="http://api.qrserver.com/v1/create-qr-code/?data='.$codeOfTicket.'&amp;size=500x500">
                         </body>
                     </html>';
-            return mail($user->getEmail(), 'MOVIEPASS - CODIGOQR', $cuerpo, $headers);
+            return mail($user->getEmail(), 'MOVIEPASS - QR', $cuerpo, $headers);
         }
         function goHome(){
             $home = new HomePageController();

@@ -6,7 +6,7 @@
 <script>
     if(confirm('<?php
                       if(is_a($msg,'PDOException')){
-                            echo 'Error en la base de datos, por favor intente nuevamente mas tarde.';
+                            echo 'There was a problem with the database, please try again later.';
                       } else {
                             echo $msg;
                       } 
@@ -88,7 +88,7 @@
                 <?php if(isset($this->allCinemas)){ 
                         foreach($this->allCinemas as $value){?>
                 <li id="<?php if($value->getAvailable() == 0){ echo "liRed"; }else{ echo "liNormal" ;}  ?>">
-                    <p> Sala numero: <?php echo $value->getNumberCinema(); ?> </p>
+                    <p> Number of cinema: <?php echo $value->getNumberCinema(); ?> </p>
                     <input type="hidden" name="idMT" value="<?php echo $value->getIdMovieTheater(); ?>">
                     <input type="checkbox" name="check_list[]" value="<?php echo $value->getIdCinema(); ?>">
                 </li> <?php }} ?>

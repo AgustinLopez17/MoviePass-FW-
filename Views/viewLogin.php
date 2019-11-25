@@ -10,20 +10,20 @@
 <body id="body">
 <?php if (isset($datosIncorrectos) && $datosIncorrectos) { ?>
     <script>
-        if(confirm('Datos incorrectos, vuelva a intentarlo !'));
+        if(confirm('Incorrect data, try again!'));
         // window.location = '../index.php';
     </script>
 <?php } ?>
 
 <?php if (isset($huboProblema) && $huboProblema) { ?>    
     <script> 
-        if(confirm('Hubo un problema al procesar los datos, vuelva a intentarlo !'));
+        if(confirm('There was a problem processing the data, try again!'));
     </script>
 <?php  } ?>
 
 <?php if (isset($msg) && is_a($msg,'PDOException')) { ?>    
     <script> 
-        if(confirm('Hubo un problema con la base de datos, por favor reintente más tarde. '));
+        if(confirm('There was a problem with the database, please try again later. '));
     </script>
 <?php  } else if( isset($msg) ) { ?>
     <script> 

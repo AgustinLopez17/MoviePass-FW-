@@ -46,7 +46,7 @@ class CinemasController{
         $cinema = new Cinema($idMT,$numberCinema,$capacity,$ticketValue,$available);
         try{
             $this->cinemaDao->create($cinema);
-            $msg = "Cinema creado con éxito";
+            $msg = "Cinema created successfully";
         }catch(PDOException $e){
             $msg = $e;
         }
@@ -56,7 +56,7 @@ class CinemasController{
     public function modCinema($idMT,$idCinema,$nameOfMT=null,$capacity,$ticketValue,$available){
         try{
             $this->cinemaDao->update($idCinema,$capacity,$ticketValue,$available);
-            $msg = "Cinema actualizado con éxito";
+            $msg = "Cinema updated successfully";
         }catch(PDOException $e){
             $msg = $e;
         }    
@@ -72,11 +72,11 @@ class CinemasController{
                             if ($value->getAvailable() == 0) {
                                 $value->setAvailable(1);
                                 $this->cinemaDao->update($value->getIdCinema(), $value->getCapacity(), $value->getTicket_value(), $value->getAvailable());
-                                $msg = 'Dado de alta con éxito';
+                                $msg = 'Cinema/s successfully registered';
                             } else {
                                 $value->setAvailable(0);
                                 $this->cinemaDao->update($value->getIdCinema(), $value->getCapacity(), $value->getTicket_value(), $value->getAvailable());
-                                $msg = 'Dado de baja con éxito';
+                                $msg = 'Cinema/s successfully unsubscribed';
                             }
                         }
                     }

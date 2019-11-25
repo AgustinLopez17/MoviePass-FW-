@@ -245,6 +245,11 @@ h1{
 
     input{
         border: none;
+        color: white;
+    }
+
+    input:focus{
+        background-color: rgba(207, 14, 14, 0);
     }
 
     #scroller{
