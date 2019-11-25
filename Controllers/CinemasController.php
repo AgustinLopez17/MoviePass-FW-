@@ -1,22 +1,45 @@
 <?php namespace Controllers;
-
+use DAO\DAODB\UserDao as UserDao;
 use DAO\DAODB\CinemaDao as CinemaDao;
 use Models\Cinema as Cinema;
 use PDOException;
 class CinemasController{
     private $cinemaDao;
+    private $userDao;
     private $allCinemas;
     public function __construct(){
         $this->cinemaDao = new CinemaDao();
+        $this->userDao = new UserDao();
+    }
+
+    public function validateSession(){
+        if(!isset($_SESSION['loggedUser'])){
+            require_once(VIEWS_PATH."viewLogin.php");
+            return false;
+        }else{
+            $user = $this->userDao->read($_SESSION['loggedUser']->getEmail());
+            if($user){
+                if($user->getPass() != $_SESSION['loggedUser']->getPass() || $user->getGroup() == 0 ){
+                    require_once(VIEWS_PATH."viewLogin.php");
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
     }
 
     public function seeCinemas($id_movieTheater,$nameOfMT,$msg=null){
-        try{
-            $this->allCinemas = $this->cinemaDao->readFromMovieTheater($id_movieTheater);
-        }catch(PDOException $e){
-            $msg = $e;
+        if ($this->validateSession()) {
+            try {
+                $this->allCinemas = $this->cinemaDao->readFromMovieTheater($id_movieTheater);
+            } catch (PDOException $e) {
+                $msg = $e;
+            }
+            require_once("Views/adminCinema.php");
         }
-        require_once("Views/adminCinema.php");
     }
 
     public function addCinema($idMT,$nameOfMT=null,$numberCinema,$capacity,$ticketValue,$available){

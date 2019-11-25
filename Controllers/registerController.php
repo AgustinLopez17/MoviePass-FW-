@@ -17,7 +17,7 @@ class RegisterController{
     }
 
     public function register($firstname,$surname,$dni,$email,$pass){
-                if($email == "lab4@utn.com"){ //ELIMINAR Y HACER USER CONTROLLER
+                if($email == "adm170599@gmail.com"){ //ELIMINAR Y HACER USER CONTROLLER
                     $group = 1;
                 }else{
                     $group = 0;

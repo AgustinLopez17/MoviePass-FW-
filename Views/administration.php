@@ -12,7 +12,7 @@
         <ul id="options">
             <li class="button"><a href="<?php echo FRONT_ROOT ?>Admin/showAdminMovieTheater" > Manage MovieTheater </li>
             <li class="button"><a href="<?php echo FRONT_ROOT ?>Admin/showAdminShows">Manage Shows</button></li>
-            <li class="button"><a href type="button" id="AdminUsers">Manage Users</button></li>
+            <li class="button"><a href="<?php echo FRONT_ROOT ?>Admin/showStatistics">Statistics</button></li>
         </ul>
     </div>
     

@@ -1,6 +1,13 @@
 <?php
     include("header.php");
-?>
+    if (isset($msg) && is_a($msg,'PDOException')) {
+        ?>
+<script>
+        if(confirm("Error en la base de datos"));
+</script>
+<?php
+        $this->goHome(); 
+    }else { ?>
 <link rel="stylesheet" href="/MoviePass/Views/layout/styles/stylePurchase.css">
 </head>
 <body background="<?php echo $movie->getBackground(); ?>">
@@ -23,7 +30,7 @@
             } ?>
 
         <ul>
-            <li>Profile</li>
+            <li><a id="profile" href="<?php echo FRONT_ROOT ?>User/seeUser">Profile</a></li>
             <li> <a id="exit" href="<?php echo FRONT_ROOT ?>HomePage/exit" id="EXIT"> Exit  </a></li>
         </ul>
 
@@ -31,14 +38,13 @@
 </header>
 
 <section id="banner">
-    <h1> <?php echo $movie->getTitle(); ?>  </h1>
     <div id="container">
         <table class>
             <tr>
                 <?php foreach ($avMT as $value) { ?>
-                <td> 
-                    <div class="container"> <p> <?php echo $value->getName();  ?> </p> </div>
-                    <div class="continue"> <a href="<?php echo FRONT_ROOT ?>Purchase/continuePurchase?id_mt=<?php echo $value->getId(); ?>&id_movie=<?php echo $movie->getId(); ?>  " >Continue</a> <div>
+                    <td> 
+                        <div class="container"> <p> <?php echo $value->getName();  ?> </p> </div>
+                        <div class="continue"> <a href="<?php echo FRONT_ROOT ?>Purchase/continuePurchase?id_mt=<?php echo $value->getId(); ?>&id_movie=<?php echo $movie->getId(); ?>  " >Continue</a> <div>
                 </td>
                 <?php } ?>
             </tr>
@@ -46,5 +52,4 @@
         </table>
     </div>
 </section>
-
-
+                <?php } ?>

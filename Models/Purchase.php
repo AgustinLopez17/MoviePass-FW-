@@ -2,18 +2,22 @@
     namespace Models;
     class Purchase{
         private $id_purchase;
+        private $id_show;
         private $purchased_tickets;
         private $date_purchase;
         private $discount;
         private $qr;
         private $dni;
+        private $amount;
 
-        public function __construct($purchased_tickets,$date_purchase,$discount,$qr,$DNI){
+        public function __construct($id_show,$purchased_tickets,$date_purchase,$discount,$qr,$DNI,$amount){
+            $this->id_show= $id_show;    
             $this->purchased_tickets = $purchased_tickets;
             $this->date_purchase = $date_purchase;
             $this->discount = $discount;
             $this->qr = $qr;
             $this->dni = $DNI;
+            $this->amount = $amount;
         }
 
         /**
@@ -132,6 +136,46 @@
         public function setDni($dni)
         {
                 $this->dni = $dni;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of id_show
+         */ 
+        public function getId_show()
+        {
+                return $this->id_show;
+        }
+
+        /**
+         * Set the value of id_show
+         *
+         * @return  self
+         */ 
+        public function setId_show($id_show)
+        {
+                $this->id_show = $id_show;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of amount
+         */ 
+        public function getAmount()
+        {
+                return $this->amount;
+        }
+
+        /**
+         * Set the value of amount
+         *
+         * @return  self
+         */ 
+        public function setAmount($amount)
+        {
+                $this->amount = $amount;
 
                 return $this;
         }

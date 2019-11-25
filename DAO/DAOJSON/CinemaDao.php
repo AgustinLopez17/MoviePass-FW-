@@ -2,8 +2,8 @@
 
     use DAO\IRepository as IRepository;
     use Models\Cinema as Cinema;
-
-    class CinemaRepository implements IRepository
+    use DAO\DAODB\IDao;
+    class CinemaDao implements IDao
     {
         private $cinemaList = array();
 

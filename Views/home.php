@@ -46,7 +46,7 @@
                     <button type="submit" id="submitButton"></button>
                 </form>
             </li>
-            <li>Profile</li>
+            <li><a href="<?php echo FRONT_ROOT ?>User/seeUser">Profile</a></li>
             <li> <a href="<?php echo FRONT_ROOT ?>HomePage/exit" id="EXIT"> Exit  </a></li>
         </ul>
     </nav>

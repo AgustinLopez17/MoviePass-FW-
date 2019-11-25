@@ -41,6 +41,25 @@
             $this->nowDate = new DateTime(date('Y-m-d H:i:s'));
         }
 
+        public function validateSession(){
+            if(!isset($_SESSION['loggedUser'])){
+                require_once(VIEWS_PATH."viewLogin.php");
+                return false;
+            }else{
+                $user = $this->userDao->read($_SESSION['loggedUser']->getEmail());
+                if($user){
+                    if($user->getPass() != $_SESSION['loggedUser']->getPass() ){
+                        require_once(VIEWS_PATH."viewLogin.php");
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
+        }
+
         public function Index($message = "")
         {
             if (!isset($_SESSION["loggedUser"])) {
@@ -74,21 +93,22 @@
         
         public function showListView($filter = null)
         {
-            require_once(VIEWS_PATH."validate-session.php");
-            try {
-                if (isset($filter)) {
-                    if (!strstr($filter, '-')) {
-                        $this->setAllMovies($this->movieDao->readMoviesByGenre($filter));
+            if ($this->validateSession()) {
+                try {
+                    if (isset($filter)) {
+                        if (!strstr($filter, '-')) {
+                            $this->setAllMovies($this->movieDao->readMoviesByGenre($filter));
+                        } else {
+                            $this->setAllMovies($this->movieDao->readMoviesByDate($filter));
+                        }
                     } else {
-                        $this->setAllMovies($this->movieDao->readMoviesByDate($filter));
+                        $this->setAllMovies($this->movieDao->readMoviesIfShow());
                     }
-                } else {
-                    $this->setAllMovies($this->movieDao->readMoviesIfShow());
+                } catch (PDOException $e) {
+                    $this->allMovies = $e;
                 }
-            } catch (PDOException $e) {
-                $this->allMovies = $e;
+                include("Views/home.php");
             }
-            include("Views/home.php");
         }
         
         public function showGenreMovie($id_movie)

@@ -1,6 +1,6 @@
 <?php
     namespace Controllers;
-
+    use DAO\DAODB\UserDao as UserDao;
     use DAO\DAODB\ShowDao as ShowDao;
     use Models\Show as Show;
     use DAO\DAODB\CinemaDao as CinemaDao;
@@ -9,6 +9,7 @@
     use \DateTime;
     use PDOException;
     class ShowController{
+        private $userDao;
         private $showDao;
         private $cinemaDao;
         private $movieDao;
@@ -16,7 +17,9 @@
         private $allMT;
         private $allShows;
 
+
         function __construct(){
+            $this->userDao = new UserDao();
             $this->showDao = new ShowDao();
             $this->cinemaDao = new CinemaDao();
             $this->movieDao = new MovieDao();
@@ -25,11 +28,31 @@
             $this->allShows = array();
         }
 
+        public function validateSession(){
+            if(!isset($_SESSION['loggedUser'])){
+                require_once(VIEWS_PATH."viewLogin.php");
+                return false;
+            }else{
+                $user = $this->userDao->read($_SESSION['loggedUser']->getEmail());
+                if($user){
+                    if($user->getPass() != $_SESSION['loggedUser']->getPass() || $user->getGroup() == 0 ){
+                        require_once(VIEWS_PATH."viewLogin.php");
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
+        }
+
         public function goBack($msg = null){
-            require_once(VIEWS_PATH."validate-session.php");
-            $this->chargeMT();
-            $this->chargeShows();
-            require_once("Views/adminShow.php");
+            if($this->validateSession()){
+                $this->chargeMT();
+                $this->chargeShows();
+                require_once("Views/adminShow.php");
+            }
         }
 
         public function converseArray($dbShows){
@@ -70,12 +93,16 @@
             if($dbShows != "false"    &&  $objDate >= $nowDate){//en caso de existir el show y que la fecha ingresada sea mayor o igual al dia de hoy
                 $shows = $this->converseArray($dbShows);//convertimos en array en caso de que en ese dia exista mas de un show igual
                 if($id_MT == $shows[0]->getId_movieTheater()){ // verificamos que el show que se quiere agregar sea del mismo cine, en caso de no serlo, no seria posible agregarlo debido a que eso significaria que el show ya lo posee otro cine
-                    include("Views/selectCinema.php");
+                    if ($this->validateSession()) {
+                        include("Views/selectCinema.php");
+                    }
                 }else{
                     $this->goBack("Pelicula ya reservada por otro cine");
                 }
             }else if($objDate >= $nowDate){ //en caso de que la fecha ingresada sea mayor y no exista el show en ninguna otra fecha
-                include("Views/selectCinema.php");
+                if ($this->validateSession()) {
+                    include("Views/selectCinema.php");
+                }
             }else{
                 $this->goBack("Fecha posterior a actual");
             }
@@ -92,24 +119,24 @@
             $movieTime = $this->timeOfMovie($id_movie);
             $aux = $date . " " . $time;
             $newDate = new DateTime($aux);
-            $newShow = new Show($aux,$id_cinema,$id_movie,$id_MT,$cinema->getCapacity(),0,$cinema->getTicket_value());
-            if($inDisplay != "false" && $this->showDao->readAll()){ 
+            $newShow = new Show($aux, $id_cinema, $id_movie, $id_MT, $cinema->getCapacity(), 0, $cinema->getTicket_value());
+            if ($inDisplay != "false" && $this->showDao->readAll()) {
                 $shows = $this->converseArray($inDisplay);
-                $validation = $this->checkAvailableTime($shows,$newDate,$movieTime);
-                if($validation){
-                    try{
+                $validation = $this->checkAvailableTime($shows, $newDate, $movieTime);
+                if ($validation) {
+                    try {
                         $this->showDao->create($newShow);
-                    }catch(PDOException $e){
+                    } catch (PDOException $e) {
                         $this->goBack($e);
                     }
                     $this->goBack("Se agregó correctamente");
-                }else{
+                } else {
                     $this->goBack("No se agregó porque se pisa con otro horario");
                 }
-            }else{
-                try{
+            } else {
+                try {
                     $this->showDao->create($newShow);
-                }catch(PDOException $e){
+                } catch (PDOException $e) {
                     $this->goBack($e);
                 }
                 $this->goBack("Se agregó correctamente porque la pelicula no existia en otro cine");

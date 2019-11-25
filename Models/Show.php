@@ -2,7 +2,7 @@
 
     namespace Models;
 
-    use \DateTime;
+    use DateTime;
 
     class Show{
         private $id_show;

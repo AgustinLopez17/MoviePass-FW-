@@ -1,5 +1,19 @@
 <?php
     include("header.php");
+    if (isset($msg) && is_a($msg,'PDOException')) {
+        ?>
+<script>
+        if(confirm("Error en la base de datos"));
+</script>
+<?php
+        $this->goHome(); 
+    }else if(isset($msg)){ 
+?>
+    <script>
+        if(confirm("<?php echo $msg ?>"));
+    </script>
+<?php
+    }
 ?>
 <link rel="stylesheet" href="/MoviePass/Views/layout/styles/stylePurchase.css">
 </head>
@@ -23,7 +37,7 @@
             } ?>
 
         <ul>
-            <li>Profile</li>
+            <li><a id="profile" href="<?php echo FRONT_ROOT ?>User/seeUser">Profile</a></li>
             <li> <a id="exit" href="<?php echo FRONT_ROOT ?>HomePage/exit" id="EXIT"> Exit  </a></li>
         </ul>
 
@@ -33,13 +47,12 @@
 <div id="containerForm">
             <h1> Movie: <?php echo $movie->getTitle(); ?> </h1>
             <h2> Cine:  <?php echo $mt->getName(); ?> </h2>
-            <h3> Date:  <?php echo $show->getDate()->format("Y-m-d H:m"); ?> </h3>
-            <h3> Room:  <?php echo $show->getId_cinema(); ?> </h3> <br>
+            <h3> Date:  <?php echo $show->getDate()->format("Y-m-d H:i"); ?> </h3>
+            <h3> Room:  <?php echo $cinema->getNumberCinema(); ?> </h3> <br>
             <h2> Price:  $<?php echo $show->getTicket_price(); ?>/cu </h2> <br>
-            <form action="<?php echo FRONT_ROOT ?>Purchase/makeTicket" method="GET">
-                <input type="hidden" name="id_show" value="<?php $show->getId_show() ?>">
+            <form action="<?php echo FRONT_ROOT ?>Purchase/addCreditCard" method="GET">
+                <input type="hidden" name="id_show" value="<?php echo $show->getId_show();?>">
                 <input type="number" name="nroEntradas" placeholder="Number of tickets " id="nroEntradas">
-                <button type="submit" id="buttonBuy"> BUY </button>
+                <button type="submit" class="buttonBuy"> BUY </button>
             <form>
-
 <div>

@@ -47,19 +47,15 @@
             }
         }
 
-        public function updateTksSold($tickets_sold){
+        public function updateTksSold($tickets_sold,$id_show){
             $sql = "UPDATE shows SET tickets_sold = :tickets_sold WHERE id_show = :id_show";
             $parameters['tickets_sold'] = $tickets_sold;
+            $parameters['id_show'] = $id_show;
             try {
                 $this->connection = Connection::getInstance();
-                $resultSet = $this->connection->execute($sql, $parameters);
+                return $this->connection->ExecuteNonQuery($sql, $parameters);
             } catch (PDOException $e) {
                 throw $e;
-            }
-            if (!empty($resultSet)) {
-                return $this->mapear($resultSet);
-            } else {
-                return false;
             }
         }
 
@@ -94,11 +90,41 @@
             if (!empty($resultSet)) {
                 return $this->mapear($resultSet);
             } else {
-                return "false";
+                return false;
             }
         }
 
+        public function salesOfMT($id_mt){
+            $sql= "select id_show,show_date,id_cinema,id_movieTheater,id_movie,total_tickets,ticket_price,sum(tickets_sold) as tickets_sold from shows where id_movieTheater = :id_mt group by id_movieTheater;";
+            $parameters['id_mt'] = $id_mt;
+            try {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            } catch (PDOException $e) {
+                throw $e;
+            }
+            if (!empty($resultSet)) {
+                return $this->mapear($resultSet);
+            } else {
+                return false;
+            }
+        }
 
+        public function salesOfMovie($id_movie){
+            $sql= "select id_show,show_date,id_cinema,id_movieTheater,id_movie,total_tickets,ticket_price,sum(tickets_sold) as tickets_sold from shows where shows.id_movie = :id_movie group by shows.id_movie;";
+            $parameters['id_movie'] = $id_movie;
+            try {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            } catch (PDOException $e) {
+                throw $e;
+            }
+            if (!empty($resultSet)) {
+                return $this->mapear($resultSet);
+            } else {
+                return false;
+            }
+        }
 
         public function readByMovieAndDate($id_movie, $date)
         {

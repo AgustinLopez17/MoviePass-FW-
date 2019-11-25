@@ -2,12 +2,12 @@
     namespace Models;
     class Ticket{
         private $id_ticket;
-        private $tk_number;
+        private $tk_code;
         private $id_purchase;
         private $id_show;
 
-        public function __construct($tk_number,$id_purchase,$id_show){
-            $this->tk_number = $tk_number;
+        public function __construct($tk_code,$id_purchase,$id_show){
+            $this->tk_code = $tk_code;
             $this->id_purchase = $id_purchase;
             $this->id_show = $id_show;
         }
@@ -28,26 +28,6 @@
         public function setId_ticket($id_ticket)
         {
                 $this->id_ticket = $id_ticket;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of tk_number
-         */ 
-        public function getTk_number()
-        {
-                return $this->tk_number;
-        }
-
-        /**
-         * Set the value of tk_number
-         *
-         * @return  self
-         */ 
-        public function setTk_number($tk_number)
-        {
-                $this->tk_number = $tk_number;
 
                 return $this;
         }
@@ -88,6 +68,26 @@
         public function setId_show($id_show)
         {
                 $this->id_show = $id_show;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of tk_code
+         */ 
+        public function getTk_code()
+        {
+                return $this->tk_code;
+        }
+
+        /**
+         * Set the value of tk_code
+         *
+         * @return  self
+         */ 
+        public function setTk_code($tk_code)
+        {
+                $this->tk_code = $tk_code;
 
                 return $this;
         }

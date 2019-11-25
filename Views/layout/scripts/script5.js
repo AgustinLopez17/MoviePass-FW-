@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $( "#Alta" ).click(function() {
-        $( ".addShow" ).toggle(true);
-        $( ".shows" ).toggle(false);
+    $( "#Button1" ).click(function() {
+        $( ".div1" ).toggle(true);
+        $( ".div2" ).toggle(false);
     });
-    $( "#SeeShows" ).click(function() {
-        $( ".shows" ).toggle(true);
-        $( ".addShow" ).toggle(false);
+    $( "#Button2" ).click(function() {
+        $( ".div2" ).toggle(true);
+        $( ".div1" ).toggle(false);
     });
 });

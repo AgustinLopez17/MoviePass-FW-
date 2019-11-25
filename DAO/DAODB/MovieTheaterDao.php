@@ -23,13 +23,14 @@
             }
         }
 
-        public function createWithCinemas($movieTheater,$priceDefault){
-            $sql = "CALL moviepass.createMT(:name,:address,:available,:numberOfCinemas,:priceDefault)";
+        public function createWithCinemas($movieTheater,$priceDefault,$capacityDefault){
+            $sql = "CALL moviepass.createMT(:name,:address,:available,:numberOfCinemas,:priceDefault,:capacityDefault)";
             $parameters['name'] = $movieTheater->getName();
             $parameters['address'] = $movieTheater->getAddress();
             $parameters['available'] = $movieTheater->getAvailable();
             $parameters['numberOfCinemas'] = $movieTheater->getNumberOfCinemas();
             $parameters['priceDefault'] = $priceDefault;
+            $parameters['capacityDefault'] = $capacityDefault;
             try {
                 $this->connection = Connection::getInstance();
                 return $this->connection->ExecuteNonQuery($sql, $parameters);

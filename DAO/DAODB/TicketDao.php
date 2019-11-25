@@ -13,8 +13,8 @@
         
         public function create($ticket)
         {
-            $sql = "INSERT INTO tickets (tk_number,id_purchase,id_show) VALUES (:tk_number,:id_purchase,:id_show)";
-            $parameters['tk_number'] = $ticket->getTk_number();
+            $sql = "INSERT INTO tickets (tk_code,id_purchase,id_show) VALUES (:tk_code,:id_purchase,:id_show)";
+            $parameters['tk_code'] = $ticket->getTk_code();
             $parameters['id_purchase'] = $ticket->getId_purchase();
             $parameters['id_show'] = $ticket->getId_show();
             try {
@@ -26,10 +26,10 @@
             }
         }
 
-        public function createWithPurchase($id_show,$tk_number,$numberOfTickets,$datePurchase,$discount,$qr,$dni){
-            $sql = "CALL PROCEDURE moviepass.createTicketsAndPurchase (:id_show,:tk_number,:numberOfTickets,:datePurchase,:discount,:qr,:dni)";
+        public function createWithPurchase($id_show,$tk_code,$numberOfTickets,$datePurchase,$discount,$qr,$dni){
+            $sql = "CALL PROCEDURE moviepass.createTicketsAndPurchase (:id_show,:tk_code,:numberOfTickets,:datePurchase,:discount,:qr,:dni)";
             $parameters['id_show'] = $id_show;
-            $parameters['tk_number'] = $tk_number;
+            $parameters['tk_number'] = $tk_code;
             $parameters['numberOfTickets'] = $numberOfTickets;
             $parameters['datePurchase'] = $datePurchase;
             $parameters['discount'] = $discount;
@@ -46,8 +46,8 @@
 
         public function update($ticket)
         {
-            $sql = "UPDATE tickets SET tk_number = :tk_number, id_purchase = :id_purchase, id_show = :id_show  WHERE id_ticket = :id";
-            $parameters['tk_number'] = $ticket->getTk_number();
+            $sql = "UPDATE tickets SET tk_code = :tk_code, id_purchase = :id_purchase, id_show = :id_show  WHERE id_ticket = :id";
+            $parameters['tk_code'] = $ticket->getTk_code();
             $parameters['id_purchase'] = $ticket->getId_purchase();
             $parameters['id_show'] = $ticket->getId_show();
             $parameters['id'] = $ticket->getId_ticket();
@@ -98,7 +98,25 @@
                 else
                     return "false";
         }
-
+        
+        public function readByCode ($code)
+        {
+            $sql = "SELECT * FROM tickets where tk_code = :code";
+            $parameters['code'] = $code;
+            try
+            {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            }
+            catch(PDOException $e)
+            {
+                throw $e;
+            }
+                if(!empty($resultSet))
+                    return $this->mapear($resultSet);
+                else
+                    return false;
+        }
 
         public function delete ($id)
         {
@@ -117,7 +135,7 @@
         public function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
-                $newTicket = new Cinema($p['tk_number'], $p['id_purchase'], $p['id_show']);
+                $newTicket = new Cinema($p['tk_code'], $p['id_purchase'], $p['id_show']);
                 $newTicket->setIdCinema($p['id_ticket']);
                 return $newTicket;
             }, $value);

@@ -11,7 +11,7 @@
 
 ?>
 <script src="<?php echo JS_PATH3 ?>"></script>
-<link rel="stylesheet" href="/MoviePass/Views/layout/styles/styleAdmC.css">
+<link rel="stylesheet" href="/MoviePass/Views/layout/styles/styleMT.css">
 </head>
 
 <body>
@@ -21,46 +21,46 @@
 
         <nav>
             <ul id="options">
-                <li id="cinemas"><button type="button" id="Alta">New MovieTheater</button> </li>
-                <li id="cinemas"><button type="button" id="Mod">Modify MovieTheater</button></li>
-                <li id="cinemas"><button type="button" id="Baja">Unset/set MovieTheater</button></li>
-                <li id="cinemas"><button type="button" id="Cinemas">Config cinemas</button></li>
+                <li id="cinemas"><button type="button" id="button1">New MovieTheater</button> </li>
+                <li id="cinemas"><button type="button" id="button2">Modify MovieTheater</button></li>
+                <li id="cinemas"><button type="button" id="button3">Unset/set MovieTheater</button></li>
+                <li id="cinemas"><button type="button" id="button4">Config cinemas</button></li>
             </ul>
         </nav>
 
-
     </header>
-    <div class="barra"></div>
-    <div class="barraAbajo"></div>
 
-
-
-    <div class="alta">
+    <div class="div1">
         <form id="formAlta" action="<?php echo FRONT_ROOT ?>MovieTheater/addMT" method="POST">
             <h1 id="titleAdd">Add MovieTheater</h1>
             <input class="mdAlt" type="text" name="name" placeholder="Type name of cinema" required>
             <input class="mdAlt" type="text" name="address" placeholder="Type address" required>
             <input class="mdAlt" type="number" name="numberOfCinemas" placeholder="Number of cinemas" required>
+            <input class="mdAlt" type="number" name="capacity" placeholder="Capacity default for each cinema" required>
             <input class="mdAlt" type="number" name="priceDefault" placeholder="Price default" required>
-            <p> Available </p>
-            <input type="radio" name="available" value="1" required> Yes
-            <input type="radio" name="available" value="0 " required> No
+            <select name="available">  
+                <option selected disabled hidden> Available </option>
+                <option value="1"> Yes </option>
+                <option value="0"> No </option>
+            </select>
             <button type="submit" class="submit">New Movie Theater</button>
         </form>
     </div>
 
 
-    <div class="mod">
+    <div class="div2">
         <h1 id="titleModify">Modify MovieTheater</h1>
         <table>
             <tr>
                 <?php if(isset($this->allMT)){ foreach($this->allMT as $value){?>
                 <td>
                     <form id="modC" action="<?php echo FRONT_ROOT ?>MovieTheater/modMT" method="POST">
-                        <input type="hidden" name="id" value="<?php echo $value->getId(); ?>">
-                        <input type="text" name="name" value="<?php echo $value->getName(); ?>">
-                        <input type="text" name="address" value="<?php echo $value->getAddress(); ?>">
-                        <input type="hidden" name="available" value="<?php echo $value->getAvailable(); ?>">
+                        <input class="modMT" type="hidden" name="id" value="<?php echo $value->getId(); ?>">
+                        <p> Name of Movie Theater: </p>
+                        <input class="modMT" type="text" name="name" value="<?php echo $value->getName(); ?>">
+                        <p> Address of Movie Theater: </p>
+                        <input class="modMT" type="text" name="address" value="<?php echo $value->getAddress(); ?>">
+                        <input class="modMT" type="hidden" name="available" value="<?php echo $value->getAvailable(); ?>">
                         <button type="submit" class="submit">Refresh</button>
                     </form>
                 </td>
@@ -69,21 +69,21 @@
         </table>
         </ul>
     </div>
-    <div class="baja">
+    <div class="div3">
         <h1 id="titleBaja">Unset/set MovieTheater</h1>
         <form action="<?php echo FRONT_ROOT ?>MovieTheater/downMT">
             <ul id="bajaCinema">
                 <?php if(isset($this->allMT)){ 
                     foreach($this->allMT as $value){?>
-                <li id="<?php if($value->getAvailable() == 0){ echo "cinemas2"; }else{ echo "cinemas" ;}  ?>">
-                    <?php echo $value->getName(); ?>
+                <li id="<?php if($value->getAvailable() == 0){ echo "liRed"; }else{ echo "liNormal" ;}  ?>">
+                    <p> <?php echo $value->getName(); ?> </p>
                     <input type="checkbox" name="check_list[]" value="<?php echo $value->getId(); ?>">
                 </li> <?php }} ?>
             </ul>
             <button type="submit"> SUBMIT </button>
         </form>
     </div>
-    <div class="cinemas">
+    <div class="div4">
         <h1 id="titleCinemas">Cinemas of MovieTheater's</h1>
         <ul id="movieTheaters">
             <?php if(isset($this->allMT)){ 

@@ -4,10 +4,12 @@ use DAO\DAODB\MovieTheaterDao as MovieTheaterDAO;
 use DAO\DAODB\MovieDao as MovieDao;
 use Models\MovieTheater as MovieTheater;
 use DAO\DAODB\ShowDao as ShowDao;
+use DAO\DAODB\UserDao as UserDao;
 use PDOException as PDOException;
 
 
 class AdminController{
+    private $userDao;
     private $movieTheaterDao;
     private $showDao;
     private $movieDao;
@@ -19,50 +21,87 @@ class AdminController{
         $this->movieTheaterDao = new MovieTheaterDAO();
         $this->showDao = new ShowDao();
         $this->movieDao = new MovieDao();
+        $this->userDao = new UserDao();
         $this->allMT = array();
         $this->allShows = array();
+        $this->allMovies = array();
+    }
 
+    public function validateSession(){
+        if(!isset($_SESSION['loggedUser'])){
+            require_once(VIEWS_PATH."viewLogin.php");
+            return false;
+        }else{
+            $user = $this->userDao->read($_SESSION['loggedUser']->getEmail());
+            if($user){
+                if($user->getPass() != $_SESSION['loggedUser']->getPass() || $user->getGroup() == 0 ){
+                    require_once(VIEWS_PATH."viewLogin.php");
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
     }
 
     public function chargeAllAndBack($msg=null){
-
         if($msg == "notAdmin"){
             $hp = new HomePageController();
             $hp->showListView();
         }else{
-            require_once(VIEWS_PATH."validate-session.php");
+            
             require_once("Views/administration.php");
         }
     }
 
     public function checkAdmin(){
-
-        if($_SESSION["loggedUser"]->getGroup() == 1){
-            $this->chargeAllAndBack(null);    //hay que hacer un userController para hacer esta verificacion
-        }else{
-            $this->chargeAllAndBack("notAdmin");
+        if($this->validateSession()){
+            if ($_SESSION["loggedUser"]->getGroup() == 1) {
+                $this->chargeAllAndBack(null);    //hay que hacer un userController para hacer esta verificacion
+            } else {
+                $this->chargeAllAndBack("notAdmin");
+            }
         }
     }
 
     public function showAdminMovieTheater(){
-
-        try{
-            $this->setAllMT($this->movieTheaterDao->readAll());
-        }catch(PDOException $e){
-            $pdoEx = $e;
+        if($this->validateSession()){
+            try{
+                $this->setAllMT($this->movieTheaterDao->readAll());
+            }catch(PDOException $e){
+                $pdoEx = $e;
+            }
+            require_once("Views/adminMT.php");
         }
-        require_once("Views/adminMT.php");
     }
 
     public function showAdminShows(){
-        try {
-            $this->setAllShows($this->showDao->readAll());
-            $this->setAllMT($this->movieTheaterDao->readAll());
-        }catch(PDOException $e){
-            $pdoEx = $e;
+        if($this->validateSession()){
+            try {
+                $this->setAllShows($this->showDao->readAll());
+                $this->setAllMT($this->movieTheaterDao->readAll());
+            }catch(PDOException $e){
+                $pdoEx = $e;
+            }
+            require_once("Views/adminShow.php");
         }
-        require_once("Views/adminShow.php");
     }
+
+    public function showStatistics(){
+        if($this->validateSession()){
+            try {
+                $this->setAllShows($this->showDao->readAll());
+                $this->setAllMT($this->movieTheaterDao->readAll());
+                $this->setAllMovies($this->movieDao->readAllMoviesIfShow());
+            }catch(PDOException $e){
+                $pdoEx = $e;
+            }
+            require_once("Views/viewStatistics.php");
+        }
+    }
+
 
 
     public function getAllMT()
@@ -85,6 +124,16 @@ class AdminController{
         }else if(is_array($allMT)){
             $this->allMT = $allMT;
         }
+    }
+
+    public function setAllMovies($allMovies)
+    {
+        if(isset($allMovies) && !is_array($allMovies)){
+            $this->allMovies = array($allMovies);
+        }else if(is_array($allMovies)){
+            $this->allMovies = $allMovies;
+        }
+        return $this;
     }
 }
 

@@ -75,11 +75,12 @@ class UserDao extends Singleton implements IDao
             return false;
         }
     }
-    public function update($dni, $pass)
+    public function update($firstName, $surname, $dni)
     {
-        $sql = "UPDATE users SET pass = :pass  WHERE DNI = :DNI";
+        $sql = "UPDATE users SET name = :firstName, surname = :surname WHERE DNI = :DNI";
         $parameters['DNI'] = $dni;
-        $parameters['pass'] = $pass;
+        $parameters['firstName'] = $firstName;
+        $parameters['surname'] = $surname;
         try {
             $this->connection = Connection::getInstance();
             return $this->connection->ExecuteNonQuery($sql, $parameters);
