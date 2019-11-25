@@ -56,9 +56,6 @@
                 <input type="email" name="email" placeholder="Type your email" required>
                 <input type="password" name="pass" placeholder="Type your password" required>
                 <button type="submit" class="submit">Sign Up</button> <p class="or">or</p>
-
-                <a href="#" login="login">Iniciar sesion</a>
-
                 <button type="button" id="back">Back</button>
             </form>
         </div>

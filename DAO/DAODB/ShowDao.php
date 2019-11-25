@@ -110,8 +110,40 @@
             }
         }
 
+        public function remnantsOfMT($id_mt){
+            $sql= "select id_show,show_date,id_cinema,id_movieTheater,id_movie,sum(total_tickets) as total_tickets,ticket_price,sum(tickets_sold) as tickets_sold from shows where id_movieTheater = :id_mt;";
+            $parameters['id_mt'] = $id_mt;
+            try {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            } catch (PDOException $e) {
+                throw $e;
+            }
+            if (!empty($resultSet)) {
+                return $this->mapear($resultSet);
+            } else {
+                return false;
+            }
+        }
+
         public function salesOfMovie($id_movie){
             $sql= "select id_show,show_date,id_cinema,id_movieTheater,id_movie,total_tickets,ticket_price,sum(tickets_sold) as tickets_sold from shows where shows.id_movie = :id_movie group by shows.id_movie;";
+            $parameters['id_movie'] = $id_movie;
+            try {
+                $this->connection = Connection::getInstance();
+                $resultSet = $this->connection->execute($sql, $parameters);
+            } catch (PDOException $e) {
+                throw $e;
+            }
+            if (!empty($resultSet)) {
+                return $this->mapear($resultSet);
+            } else {
+                return false;
+            }
+        }
+
+        public function remnantsOfMovie($id_movie){
+            $sql= "select id_show,show_date,id_cinema,id_movieTheater,id_movie,sum(total_tickets) as total_tickets,ticket_price,sum(tickets_sold) as tickets_sold from shows where id_movie = :id_movie;";
             $parameters['id_movie'] = $id_movie;
             try {
                 $this->connection = Connection::getInstance();

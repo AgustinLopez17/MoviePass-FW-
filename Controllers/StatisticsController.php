@@ -51,10 +51,11 @@
                 try {
                     $salesOfMt = $this->showDao->salesOfMT($id_mt); // para ver la cantidad de tickets vendidos $salesOfMt->getTickets_sold();
                     $earningsOfMt = $this->purchaseDao->readEarningsOfMT($id_mt);
+                    $remnantsOfMt = $this->showDao->remnantsOfMT($id_mt);
                 }catch(PDOException $e){
                     $pdoEx = $e;
                 }
-                $msg = "Tickets sold: ".$salesOfMt->getTickets_sold()." - Total movietheater profit: ".$earningsOfMt->getAmount();
+                $msg = "Tickets sold: ".$salesOfMt->getTickets_sold()." - Total movietheater profit: ".$earningsOfMt->getAmount()." - Total tickets remnants: ".($remnantsOfMt->getTotal_tickets() - $remnantsOfMt->getTickets_sold());
                 require_once("Views/viewStatistics.php");
             }
         }
@@ -64,10 +65,23 @@
                 try {
                     $salesOfMovie = $this->showDao->salesOfMovie($id_movie); // para ver la cantidad de tickets vendidos $salesOfMt->getTickets_sold();
                     $earningsOfMovie = $this->purchaseDao->readEarningsOfMovie($id_movie);
+                    $remnantsOfMovie = $this->showDao->remnantsOfMovie($id_movie);
                 }catch(PDOException $e){
                     $pdoEx = $e;
                 }
-                $msg = "Tickets of movie sold: ".$salesOfMovie->getTickets_sold()." - Total movie profit: ".$earningsOfMovie->getAmount();
+                $msg = "Tickets of movie sold: ".$salesOfMovie->getTickets_sold()." - Total movie profit: ".$earningsOfMovie->getAmount()." - Total tickets remnants: ".($remnantsOfMovie->getTotal_tickets() - $remnantsOfMovie->getTickets_sold());
+                require_once("Views/viewStatistics.php");
+            }
+        }
+
+        public function salesOfShow($id_show){
+            if($this->validateSession()){
+                try {
+                    $salesOfShow = $this->showDao->read($id_show);
+                }catch(PDOException $e){
+                    $pdoEx = $e;
+                }
+                $msg = "Tickets of show sold: ".$salesOfShow->getTickets_sold()." - Total movie profit: ". ($salesOfShow->getTickets_sold() * $salesOfShow->getTicket_price()) ." - Total tickets remnants: ".($salesOfShow->getTotal_tickets() - $salesOfShow->getTickets_sold());
                 require_once("Views/viewStatistics.php");
             }
         }
