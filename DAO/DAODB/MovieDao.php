@@ -92,7 +92,7 @@
         
         public function readMoviesIfShow()
         {
-            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater WHERE mt.available = 1 AND s.show_date >= curdate() AND s.tickets_sold < s.total_tickets  GROUP BY m.id_movie";
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater INNER JOIN cinemas c ON s.id_cinema = c.id_cinema WHERE c.available = 1 AND mt.available = 1 AND s.show_date >= curdate() AND s.tickets_sold < s.total_tickets  GROUP BY m.id_movie";
             try {
                 $this->connection = Connection::getInstance();
                 $resultSet = $this->connection->execute($sql);
@@ -125,7 +125,7 @@
 
         public function readMoviesByGenre($id_genre)
         {
-            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater INNER JOIN genre_x_movie gm ON M.id_movie = GM.id_movie WHERE mt.available = 1 AND  GM.id_genre = :id_genre AND s.show_date >= curdate() AND s.tickets_sold < s.total_tickets GROUP BY M.id_movie";
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater INNER JOIN cinemas c ON s.id_cinema = c.id_cinema INNER JOIN genre_x_movie gm ON M.id_movie = GM.id_movie WHERE c.available = 1 AND mt.available = 1 AND  GM.id_genre = :id_genre AND s.show_date >= curdate() AND s.tickets_sold < s.total_tickets GROUP BY M.id_movie";
             $parameters['id_genre'] = $id_genre;
             try {
                 $this->connection = Connection::getInstance();
@@ -142,7 +142,7 @@
 
         public function readMoviesByDate($date)
         {
-            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater WHERE mt.available = 1 AND date_format(s.show_date,'%Y-%m-%d') = :dateForSearch  AND s.tickets_sold < s.total_tickets GROUP BY m.id_movie";
+            $sql = "SELECT m.id_movie,m.title,m.lenght,m.language,m.image,m.overview,m.background FROM movies m INNER JOIN shows s ON m.id_movie = s.id_movie INNER JOIN movietheater mt ON mt.id_movieTheater = s.id_movieTheater INNER JOIN cinemas c ON s.id_cinema = c.id_cinema WHERE c.available = 1 AND mt.available = 1 AND date_format(s.show_date,'%Y-%m-%d') = :dateForSearch  AND s.tickets_sold < s.total_tickets GROUP BY m.id_movie";
             $parameters['dateForSearch'] = $date;
             try {
                 $this->connection = Connection::getInstance();

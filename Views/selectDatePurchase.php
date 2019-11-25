@@ -42,9 +42,9 @@
             <h2> Cine:  <?php echo $mt->getName(); ?> </h2>
             <form action="<?php echo FRONT_ROOT ?>Purchase/listDats" method="GET" id="FORM_ID">
                 <select name="fecha" id="selectFecha">    
-                <option selected disabled hidden> Dates and room </option>
+                <option selected disabled hidden> Dates </option>
                     <?php foreach($avShows as $value){ ?>
-                            <option value="<?php echo $value->getId_show(); ?>"> Fecha: <?php echo $value->getDate()->format("Y-m-d H:i"); ?>  </option>
+                            <option value="<?php echo $value->getId_show(); ?>"> Date: <?php echo $value->getDate()->format("Y-m-d H:i"); ?>  </option>
                             <?php } ?>
                 </select>
                 <button type="submit" id="submitButton"></button>

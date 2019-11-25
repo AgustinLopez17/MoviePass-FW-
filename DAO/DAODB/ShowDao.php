@@ -177,7 +177,7 @@
         }
 
         public function readByMovieAndMT($id_movie,$id_mt){
-            $sql = "SELECT * FROM shows where id_movie = :id_movie AND id_movieTheater = :id_MT";
+            $sql = "SELECT s.id_show,s.show_date,s.id_cinema,s.id_movieTheater,s.id_movie,s.total_tickets,s.ticket_price,s.tickets_sold FROM shows s INNER JOIN cinemas c ON s.id_cinema = c.id_cinema where c.available = 1 AND s.id_movie = :id_movie AND s.id_movieTheater = :id_MT";
             $parameters['id_movie'] = $id_movie;
             $parameters['id_MT'] = $id_mt;
             try {
